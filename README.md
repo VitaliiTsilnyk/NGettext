@@ -77,6 +77,7 @@ catalog.GetPluralString("You have {0} apple.", "You have {0} apples.", 5, 5);
 
 ```csharp
 catalog.GetParticularString("Menu|File|", "Open"); // will translate message "Open" using context "Menu|File|"
+catalog.GetParticularString("Menu|Project|", "Open"); // will translate message "Open" using context "Menu|Project|"
 ```
 
 
