@@ -9,10 +9,31 @@ Requires Microsoft .NET Framework 2.0 or higher or Mono.
 
 This implementation loads translations directly from gettext *.mo files (no need to compile a satellite assembly) and can handle multiple translation domains and multiple locales in one application instance.
 
-This implementation currently not supports *.mo file headers (stored in file plural formulas, encoding, etc.).
+NGettext currently not supports *.mo file headers (stored in mo file plural formulas, encoding, etc.).
 It uses precompiled plural formulas and supports custom plural formulas passed through API.
-It only supports Little-Endian UTF-8 MO files.
+It only supports little-endian MO files (witch produce most of popular platforms).
 
+
+
+Why not others?
+---------------
+
+**Why not Mono.Unix.Catalog?**
+Mono's Catalog is just a bindings to three native functions (bindtextdomain, gettext, and ngettext). It does not support multiple domains/locales and contexts. It is not cross-patform, it have problems with Windows OS.
+
+
+**Why not GNU.Gettext?**
+It uses satellite assemblies as a translation files and does not support multiple locales in one application instance.
+It's hard to build and maintain translation files and change locale inside your application.
+
+**So why NGettext?**
+* NGettext is fully cross-platform as it don't uses any native or 3rd-party libraries.
+* NGettext supports multiple domains. You can separate translation files for each of your application's module or plugin.
+* NGettext supports multiple locales in one application instance and gives really simple API to choose locale of your application.
+  You don't even need to care about locales of your threads.
+* NGettext loads translations from *.mo files. You can even load translations from specified file or stream.
+* NGettext supports message contexts.
+* NGettext provides nice and simple API for translation.
 
 
 Installation and usage
@@ -119,3 +140,21 @@ ICatalog catalog = new Catalog(moFileStream);
 catalog.PluralForm.SetCustomFormula(cultureInfo, n => ( n == 1 ? 0 : 1 ));
 
 ```
+
+
+
+Debugging
+---------
+
+Debug binary version outputs debug messages to System.Diagnostics.Trace.
+You can register trace listeners to see NGettext debug messages.
+Please note that Release version of NGettext binary does not produse any trase messages.
+
+```csharp
+
+Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
+
+```
+
+
+
