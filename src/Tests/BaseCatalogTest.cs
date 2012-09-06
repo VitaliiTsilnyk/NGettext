@@ -12,7 +12,7 @@ using Tests.Stabs;
 namespace Tests
 {
 	[TestFixture]
-	public class BaseTranslatorTest
+	public class BaseCatalogTest
 	{
 		[SetUp]
 		public void Init()
@@ -25,7 +25,7 @@ namespace Tests
 		[Test]
 		public void TestGetString()
 		{
-			var t = new EmptyBaseTranslator();
+			var t = new EmptyBaseCatalog();
 			t.Translations.Add("key1", new[] { "value1" });
 			t.Translations.Add("key2", new[] { "value2" });
 			t.Translations.Add("key3", new[] { "value3plural1", "value3plural2" });
@@ -44,7 +44,7 @@ namespace Tests
 		[Test]
 		public void TestGetStringFormat()
 		{
-			var t = new EmptyBaseTranslator();
+			var t = new EmptyBaseCatalog();
 
 			Assert.AreEqual("Foo bar", t.GetString("Foo {0}", "bar"));
 			Assert.AreEqual("Foo bar baz", t.GetString("Foo {0} {1}", "bar", "baz"));
@@ -62,7 +62,7 @@ namespace Tests
 		[Test]
 		public void TestGetPluralString()
 		{
-			var t = new EmptyBaseTranslator(CultureInfo.CreateSpecificCulture("en-US"));
+			var t = new EmptyBaseCatalog(CultureInfo.CreateSpecificCulture("en-US"));
 			t.Translations.Add("key1", new[] {"value1"});
 			t.Translations.Add("key2plural1", new[] {"value2plural1", "value2plural2"});
 
@@ -84,7 +84,7 @@ namespace Tests
 		[Test]
 		public void TestGetPluralStringFormat()
 		{
-			var t = new EmptyBaseTranslator(CultureInfo.CreateSpecificCulture("en-US"));
+			var t = new EmptyBaseCatalog(CultureInfo.CreateSpecificCulture("en-US"));
 
 			Assert.AreEqual("You have 1 apple", t.GetPluralString("You have {0} apple", "You have {0} apples", 1, 1));
 			Assert.AreEqual("You have 2 apples", t.GetPluralString("You have {0} apple", "You have {0} apples", 2, 2));
@@ -106,7 +106,7 @@ namespace Tests
 		[Test]
 		public void TestGetPluralStringInternational()
 		{
-			var t = new EmptyBaseTranslator(CultureInfo.CreateSpecificCulture("ru-RU"));
+			var t = new EmptyBaseCatalog(CultureInfo.CreateSpecificCulture("ru-RU"));
 			t.Translations.Add("You have {0} apple", new[] { "У Вас {0} яблоко", "У Вас {0} яблока", "У Вас {0} яблок" });
 
 			Assert.AreEqual("У Вас 1 яблоко", t.GetPluralString("You have {0} apple", "You have {0} apples", 1, 1));
@@ -128,10 +128,10 @@ namespace Tests
 		[Test]
 		public void TestGetParticularString()
 		{
-			var t = new EmptyBaseTranslator();
+			var t = new EmptyBaseCatalog();
 			t.Translations.Add("key1", new[] { "value1" });
-			t.Translations.Add("context1" + BaseTranslator.CONTEXT_GLUE + "key1", new[] { "value2" });
-			t.Translations.Add("context2" + BaseTranslator.CONTEXT_GLUE + "key1", new[] { "value3" });
+			t.Translations.Add("context1" + BaseCatalog.CONTEXT_GLUE + "key1", new[] { "value2" });
+			t.Translations.Add("context2" + BaseCatalog.CONTEXT_GLUE + "key1", new[] { "value3" });
 
 			Assert.AreEqual("value1", t.GetString("key1"));
 			Assert.AreEqual("value2", t.GetParticularString("context1", "key1"));
@@ -147,7 +147,7 @@ namespace Tests
 		[Test]
 		public void TestGetParticularStringFormat()
 		{
-			var t = new EmptyBaseTranslator();
+			var t = new EmptyBaseCatalog();
 
 			Assert.AreEqual("Foo bar", t.GetParticularString("context", "Foo {0}", "bar"));
 			Assert.AreEqual("Foo bar baz", t.GetParticularString("context", "Foo {0} {1}", "bar", "baz"));
@@ -163,9 +163,9 @@ namespace Tests
 		[Test]
 		public void TestGetParticularPluralString()
 		{
-			var t = new EmptyBaseTranslator(CultureInfo.CreateSpecificCulture("en-US"));
-			t.Translations.Add("context1" + BaseTranslator.CONTEXT_GLUE + "key1-1", new[] { "value1-1", "value1-2" });
-			t.Translations.Add("context2" + BaseTranslator.CONTEXT_GLUE + "key1-1", new[] { "value2-1", "value2-2" });
+			var t = new EmptyBaseCatalog(CultureInfo.CreateSpecificCulture("en-US"));
+			t.Translations.Add("context1" + BaseCatalog.CONTEXT_GLUE + "key1-1", new[] { "value1-1", "value1-2" });
+			t.Translations.Add("context2" + BaseCatalog.CONTEXT_GLUE + "key1-1", new[] { "value2-1", "value2-2" });
 
 			Assert.AreEqual("value1-1", t.GetParticularPluralString("context1", "key1-1", "key1-2", 1));
 			Assert.AreEqual("value1-2", t.GetParticularPluralString("context1", "key1-1", "key1-2", 2));
@@ -181,7 +181,7 @@ namespace Tests
 		[Test]
 		public void TestGetParticularPluralStringFormat()
 		{
-			var t = new EmptyBaseTranslator(CultureInfo.CreateSpecificCulture("en-US"));
+			var t = new EmptyBaseCatalog(CultureInfo.CreateSpecificCulture("en-US"));
 
 			Assert.AreEqual("Foo bar", t.GetParticularPluralString("context", "Foo {0}", "Bar {0}", 1, "bar"));
 			Assert.AreEqual("Bar bar", t.GetParticularPluralString("context", "Foo {0}", "Bar {0}", 2, "bar"));
@@ -201,7 +201,7 @@ namespace Tests
 		[Test]
 		public void TestProtectedGetString()
 		{
-			var t = new EmptyBaseTranslator();
+			var t = new EmptyBaseCatalog();
 			t.Translations.Add("key1", new[] { "value1" });
 
 			Assert.AreEqual("value1", t.ProtectedGetString("key1", null));
@@ -212,7 +212,7 @@ namespace Tests
 		[Test]
 		public void TestProtectedGetPluralString()
 		{
-			var t = new EmptyBaseTranslator(CultureInfo.CreateSpecificCulture("en-US"));
+			var t = new EmptyBaseCatalog(CultureInfo.CreateSpecificCulture("en-US"));
 			t.Translations.Add("key1", new[] { "value1" });
 
 			Assert.AreEqual("value1", t.ProtectedGetPluralString("key1", "defaultSingular", "defaultPlural", 1));
@@ -224,7 +224,7 @@ namespace Tests
 		[Test]
 		public void TestProtectedGetTranslations()
 		{
-			var t = new EmptyBaseTranslator();
+			var t = new EmptyBaseCatalog();
 			t.Translations.Add("key1", new[] { "value1" });
 			t.Translations.Add("key2", new[] { "value2" });
 			t.Translations.Add("key3", new[] { "value3plural1", "value3plural2" });

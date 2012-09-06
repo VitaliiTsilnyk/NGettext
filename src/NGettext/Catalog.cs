@@ -12,70 +12,70 @@ namespace NGettext
 	/// Represents a Gettext catalog instance.
 	/// Loads translations from gettext *.mo files.
 	/// </summary>
-	public class Translator : BaseTranslator
+	public class Catalog : BaseCatalog
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Translator"/> class with no translations and with current CultureInfo.
+		/// Initializes a new instance of the <see cref="Catalog"/> class with no translations and with current CultureInfo.
 		/// </summary>
-		public Translator()
+		public Catalog()
 			: base(CultureInfo.CurrentUICulture)
 		{
 			
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Translator"/> class with no translations and with given CultureInfo.
+		/// Initializes a new instance of the <see cref="Catalog"/> class with no translations and with given CultureInfo.
 		/// </summary>
 		/// <param name="cultureInfo">Culture info</param>
-		public Translator(CultureInfo cultureInfo)
+		public Catalog(CultureInfo cultureInfo)
 			: base(cultureInfo)
 		{
 			
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Translator"/> class with current CultureInfo
+		/// Initializes a new instance of the <see cref="Catalog"/> class with current CultureInfo
 		/// and loads MO translations from given stream.
 		/// </summary>
 		/// <param name="moStream">Stream that contain binary data in the MO file format</param>
-		public Translator(Stream moStream)
+		public Catalog(Stream moStream)
 			: this()
 		{
 			this.Load(moStream);
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Translator"/> class with given CultureInfo
+		/// Initializes a new instance of the <see cref="Catalog"/> class with given CultureInfo
 		/// and loads MO translations from given stream.
 		/// </summary>
 		/// <param name="moStream">Stream that contain binary data in the MO file format</param>
 		/// <param name="cultureInfo">Culture info</param>
-		public Translator(Stream moStream, CultureInfo cultureInfo)
+		public Catalog(Stream moStream, CultureInfo cultureInfo)
 			: this(cultureInfo)
 		{
 			this.Load(moStream);
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Translator"/> class with current CultureInfo
+		/// Initializes a new instance of the <see cref="Catalog"/> class with current CultureInfo
 		/// and loads translations from MO file that can be found by given parameters.
 		/// </summary>
 		/// <param name="domain">Catalog domain name</param>
 		/// <param name="localeDir">Directory that contains gettext localization files</param>
-		public Translator(string domain, string localeDir)
+		public Catalog(string domain, string localeDir)
 			: this()
 		{
 			this.Load(CultureInfo, domain, localeDir);
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Translator"/> class with given CultureInfo
+		/// Initializes a new instance of the <see cref="Catalog"/> class with given CultureInfo
 		/// and loads translations from MO file that can be found by given parameters.
 		/// </summary>
 		/// <param name="domain">Catalog domain name</param>
 		/// <param name="localeDir">Directory that contains gettext localization files</param>
 		/// <param name="cultureInfo">Culture info</param>
-		public Translator(string domain, string localeDir, CultureInfo cultureInfo)
+		public Catalog(string domain, string localeDir, CultureInfo cultureInfo)
 			: this(cultureInfo)
 		{
 			this.Load(cultureInfo, domain, localeDir);

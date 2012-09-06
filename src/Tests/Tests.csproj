@@ -40,12 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseTranslatorTest.cs" />
+    <Compile Include="BaseCatalogTest.cs" />
     <Compile Include="Loaders\MoFileParserTest.cs" />
     <Compile Include="Plural\PluralFormProcessorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Stabs\EmptyBaseTranslator.cs" />
-    <Compile Include="TranslatorTest.cs" />
+    <Compile Include="Stabs\EmptyBaseCatalog.cs" />
+    <Compile Include="CatalogTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NGettext\NGettext.csproj">

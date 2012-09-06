@@ -29,7 +29,7 @@ using NGettext;
 ```csharp
 
 // This will load translations from "./locale/<CurrentUICulture>/LC_MESSAGES/Example.mo"
-ITranslator catalog = new Translator("Example", "./locale");
+ICatalog catalog = new Catalog("Example", "./locale");
 
 ```
 
@@ -38,7 +38,7 @@ or
 ```csharp
 
 // This will load translations from "./locale/ru_RU/LC_MESSAGES/Example.mo"
-ITranslator catalog = new Translator("Example", "./locale", CultureInfo.CreateSpecificCulture("ru-RU"));
+ICatalog catalog = new Catalog("Example", "./locale", CultureInfo.CreateSpecificCulture("ru-RU"));
 
 ```
 
@@ -86,15 +86,15 @@ catalog.GetParticularString("Menu|File|", "Open"); // will translate message "Op
 ```csharp
 
 // "./locale/en_US/LC_MESSAGES/Example.mo"
-ITranslator example_en = new Translator("Example", "./locale", CultureInfo.CreateSpecificCulture("en-US"));
+ICatalog example_en = new Catalog("Example", "./locale", CultureInfo.CreateSpecificCulture("en-US"));
 
 
 // "./locale/fr/LC_MESSAGES/Example.mo"
-ITranslator example_fr = new Translator("Example", "./locale", CultureInfo.CreateSpecificCulture("fr"));
+ICatalog example_fr = new Catalog("Example", "./locale", CultureInfo.CreateSpecificCulture("fr"));
 
 
 // "./locale/<CurrentUICulture>/LC_MESSAGES/AnotherDomainName.mo"
-ITranslator anotherDomain = new Translator("AnotherDomainName", "./locale");
+ICatalog anotherDomain = new Catalog("AnotherDomainName", "./locale");
 
 ```
 
@@ -105,15 +105,7 @@ ITranslator anotherDomain = new Translator("AnotherDomainName", "./locale");
 ```csharp
 
 Stream moFileStream = File.OpenRead("path/to/domain.mo");
-ITranslator catalog = new Translator(moFileStream);
-
-```
-or
-
-```csharp
-
-Translator catalog = new Translator();
-catalog.Load("path/to/domain.mo");
+ICatalog catalog = new Catalog(moFileStream);
 
 ```
 

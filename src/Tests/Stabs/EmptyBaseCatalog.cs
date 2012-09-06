@@ -8,11 +8,11 @@ using NGettext;
 
 namespace Tests.Stabs
 {
-	public class EmptyBaseTranslator : BaseTranslator
+	public class EmptyBaseCatalog : BaseCatalog
 	{
-		public EmptyBaseTranslator() : base(CultureInfo.CurrentUICulture) { }
+		public EmptyBaseCatalog() : base(CultureInfo.CurrentUICulture) { }
 
-		public EmptyBaseTranslator(CultureInfo cultureInfo) : base(cultureInfo) { }
+		public EmptyBaseCatalog(CultureInfo cultureInfo) : base(cultureInfo) { }
 
 		public string ProtectedGetString(string messageId, string defaultMessage)
 		{

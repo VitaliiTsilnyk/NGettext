@@ -8,9 +8,9 @@ using NGettext.Plural;
 namespace NGettext
 {
 	/// <summary>
-	/// Base translator.
+	/// Base catalog.
 	/// </summary>
-	public abstract class BaseTranslator : ITranslator
+	public abstract class BaseCatalog : ICatalog
 	{
 		/// <summary>
 		/// Context glue (&lt;EOT&gt; symbol)
@@ -25,7 +25,7 @@ namespace NGettext
 		/// <summary>
 		/// Current plural form processor.
 		/// </summary>
-		public PluralFormProcessor PluralForm { get; protected set; }
+		public PluralFormProcessor PluralForms { get; protected set; }
 
 		/// <summary>
 		/// Loaded raw translation strings.
@@ -34,18 +34,18 @@ namespace NGettext
 		public Dictionary<string, string[]> Translations { get; protected set; }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="BaseTranslator"/> class that has no translations,
+		/// Initializes a new instance of the <see cref="BaseCatalog"/> class that has no translations,
 		/// with default plural form formulas, using given culture info.
 		/// </summary>
-		/// <param name="cultureInfo">Locale of this translator.</param>
-		protected BaseTranslator(CultureInfo cultureInfo)
+		/// <param name="cultureInfo">Locale of this catalog.</param>
+		protected BaseCatalog(CultureInfo cultureInfo)
 		{
 			this.CultureInfo = cultureInfo;
-			this.PluralForm = PluralFormProcessor.Default;
+			this.PluralForms = PluralFormProcessor.Default;
 			this.Translations = new Dictionary<string, string[]>();
 		}
 
-		#region ITranslator implementation
+		#region ICatalog implementation
 
 		/// <summary>
 		/// Returns <paramref name="text"/> translated into the selected language.
@@ -154,7 +154,7 @@ namespace NGettext
 		#region Aliases
 
 		/// <summary>
-		/// Alias for <see cref="ITranslator.GetString(string)"/> method.
+		/// Alias for <see cref="ICatalog.GetString(string)"/> method.
 		/// </summary>
 		/// <param name="text">Text to translate.</param>
 		/// <returns>Translated text.</returns>
@@ -164,7 +164,7 @@ namespace NGettext
 		}
 
 		/// <summary>
-		/// Alias for <see cref="ITranslator.GetString(string,object[])"/> method.
+		/// Alias for <see cref="ICatalog.GetString(string,object[])"/> method.
 		/// </summary>
 		/// <param name="text">Text to translate.</param>
 		/// <param name="args">Optional arguments for <see cref="System.String.Format(string, object[])"/> method.</param>
@@ -175,7 +175,7 @@ namespace NGettext
 		}
 
 		/// <summary>
-		/// Alias for <see cref="ITranslator.GetPluralString(string,string,long)"/> method.
+		/// Alias for <see cref="ICatalog.GetPluralString(string,string,long)"/> method.
 		/// </summary>
 		/// <param name="text">Singular form of message to translate.</param>
 		/// <param name="pluralText">Plural form of message to translate.</param>
@@ -187,7 +187,7 @@ namespace NGettext
 		}
 
 		/// <summary>
-		/// Alias for <see cref="ITranslator.GetPluralString(string,string,long,object[])"/> method.
+		/// Alias for <see cref="ICatalog.GetPluralString(string,string,long,object[])"/> method.
 		/// </summary>
 		/// <param name="text">Singular form of message to translate.</param>
 		/// <param name="pluralText">Plural form of message to translate.</param>
@@ -200,7 +200,7 @@ namespace NGettext
 		}
 
 		/// <summary>
-		/// Alias for <see cref="ITranslator.GetParticularString(string,string)"/> method.
+		/// Alias for <see cref="ICatalog.GetParticularString(string,string)"/> method.
 		/// </summary>
 		/// <param name="context">Context.</param>
 		/// <param name="text">Text to translate.</param>
@@ -211,7 +211,7 @@ namespace NGettext
 		}
 
 		/// <summary>
-		/// Alias for <see cref="ITranslator.GetParticularString(string,string,object[])"/> method.
+		/// Alias for <see cref="ICatalog.GetParticularString(string,string,object[])"/> method.
 		/// </summary>
 		/// <param name="context">Context.</param>
 		/// <param name="text">Text to translate.</param>
@@ -223,7 +223,7 @@ namespace NGettext
 		}
 
 		/// <summary>
-		/// Alias for <see cref="ITranslator.GetParticularPluralString(string,string,string,long)"/> method.
+		/// Alias for <see cref="ICatalog.GetParticularPluralString(string,string,string,long)"/> method.
 		/// </summary>
 		/// <param name="context">Context.</param>
 		/// <param name="text">Singular form of message to translate.</param>
@@ -236,7 +236,7 @@ namespace NGettext
 		}
 
 		/// <summary>
-		/// Alias for <see cref="ITranslator.GetParticularPluralString(string,string,string,long,object[])"/> method.
+		/// Alias for <see cref="ICatalog.GetParticularPluralString(string,string,string,long,object[])"/> method.
 		/// </summary>
 		/// <param name="context">Context.</param>
 		/// <param name="text">Singular form of message to translate.</param>
@@ -284,7 +284,7 @@ namespace NGettext
 		protected virtual string _GetPluralString(string messageId, string defaultMessage, string defaultPluralMessage, long n)
 		{
 			var translations = this._GetTranslations(messageId);
-			var pluralIndex = this.PluralForm.GetPluralFormIndex(this.CultureInfo, n);
+			var pluralIndex = this.PluralForms.GetPluralFormIndex(this.CultureInfo, n);
 
 			if (translations == null || translations.Length <= pluralIndex)
 			{

@@ -5,7 +5,7 @@ namespace NGettext
 	/// <summary>
 	/// Represents a Gettext catalog instance.
 	/// </summary>
-	public interface ITranslator
+	public interface ICatalog
 	{
 		/// <summary>
 		/// Returns <paramref name="text"/> translated into the selected language.

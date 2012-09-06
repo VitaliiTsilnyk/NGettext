@@ -13,7 +13,7 @@ using NGettext;
 namespace Tests
 {
 	[TestFixture]
-	public class TranslatorTest
+	public class CatalogTest
 	{
 		public string LocalesDir;
 
@@ -26,12 +26,12 @@ namespace Tests
 		[Test]
 		public void TestEmpty()
 		{
-			var t = new Translator();
+			var t = new Catalog();
 
 			Assert.AreEqual(0, t.Translations.Count);
 			Assert.AreEqual(CultureInfo.CurrentUICulture, t.CultureInfo);
 
-			t = new Translator(CultureInfo.CreateSpecificCulture("fr"));
+			t = new Catalog(CultureInfo.CreateSpecificCulture("fr"));
 			Assert.AreEqual(CultureInfo.CreateSpecificCulture("fr"), t.CultureInfo);
 		}
 
@@ -40,7 +40,7 @@ namespace Tests
 		{
 			using (var stream = File.OpenRead(Path.Combine(this.LocalesDir, "ru_RU", "LC_MESSAGES", "Test.mo")))
 			{
-				var t = new Translator(stream, CultureInfo.CreateSpecificCulture("ru-RU"));
+				var t = new Catalog(stream, CultureInfo.CreateSpecificCulture("ru-RU"));
 				this._TestLoadedTranslation(t);
 			}
 		}
@@ -48,11 +48,11 @@ namespace Tests
 		[Test]
 		public void TestLocaleDir()
 		{
-			var t = new Translator("Test", this.LocalesDir, CultureInfo.CreateSpecificCulture("ru-RU"));
+			var t = new Catalog("Test", this.LocalesDir, CultureInfo.CreateSpecificCulture("ru-RU"));
 			this._TestLoadedTranslation(t);
 		}
 
-		private void _TestLoadedTranslation(ITranslator t)
+		private void _TestLoadedTranslation(ICatalog t)
 		{
 			Assert.AreEqual("тест", t._("test"));
 			Assert.AreEqual("тест2", t._("test2"));
