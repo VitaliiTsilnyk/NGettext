@@ -158,3 +158,17 @@ Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
 
 
 
+Poedit compatibility
+--------------------
+
+For [Poedit](http://www.poedit.net/) support, you need to specify plural form in your *.pot file header, even for english language:
+```
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+```
+And a keywords list:
+```
+"X-Poedit-KeywordsList: GetString;GetPluralString:1,2;GetParticularString:1c,2;GetParticularPluralString:1c,2,3;_;_n:1,2;_p:1c,2;_pn:1c,2,3\n"
+```
+
+
+
