@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<project>
+	<!--
+		This is the build configuration file.
+		You can copy contents of this file to build.conf and change the default properties.
+		File build.conf will be included in the main build script.
+	-->
+	
+	<property name="debug" value="false" overwrite="false" />
+	<property name="xbuild" value="false" overwrite="false" />
+	<property name="strong" value="false" overwrite="false" />
+	
+	<property name="xbuild.path" value="xbuild" overwrite="false" /> <!-- Path to xbuild executable -->
+	<property name="mdoc.path" value="mdoc" overwrite="false" /> <!-- Path to mdoc executable -->
+	<property name="msbuild.path" value="${framework::get-framework-directory(nant.settings.currentframework)}\MSBuild.exe" overwrite="false" />
+	
+</project>
