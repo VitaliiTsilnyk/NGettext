@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NGettext", "NGettext\NGettext.csproj", "{96EED5F5-7E90-4BD8-A822-2D7BFF943E28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{B150FBC7-210F-4E79-B18D-3E45532067AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NGettext.Tests", "NGettext.Tests\NGettext.Tests.csproj", "{B150FBC7-210F-4E79-B18D-3E45532067AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

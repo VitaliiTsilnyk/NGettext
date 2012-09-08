@@ -4,7 +4,7 @@ NGettext
 Copyright (C) 2012 Neris Ereptoris <http://neris.ws/>.
 
 
-Just another one GNU/Gettext implementation for C#/.NET.
+Just another one GNU/Gettext implementation for .NET.
 Requires Microsoft .NET Framework 2.0 or higher or Mono.
 
 This implementation loads translations directly from gettext *.mo files (no need to compile a satellite assembly) and can handle multiple translation domains and multiple locales in one application instance.
