@@ -26,7 +26,7 @@ namespace NGettext.Plural
 		/// Collection with custom plural forms formulas.
 		/// Culture Info LCID => Formula function
 		/// </summary>
-		protected readonly Dictionary<int, FormulaDelegate> _CustomFormulas = new Dictionary<int, FormulaDelegate>();
+		private readonly Dictionary<int, FormulaDelegate> _CustomFormulas = new Dictionary<int, FormulaDelegate>();
 
 		/// <summary>
 		/// Set custom plural form formula function for given locale.

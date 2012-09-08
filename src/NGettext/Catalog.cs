@@ -161,7 +161,7 @@ namespace NGettext
 		{
 			var posibleFiles = new [] {
 				this._GetFileName(localeDir, domain, cultureInfo.Name),
-				this._GetFileName(localeDir, domain, cultureInfo.TwoLetterISOLanguageName),
+				this._GetFileName(localeDir, domain, cultureInfo.TwoLetterISOLanguageName)
 			};
 
 			foreach (var posibleFilePath in posibleFiles)
