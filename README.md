@@ -68,8 +68,7 @@ ICatalog catalog = new Catalog("Example", "./locale", CultureInfo.CreateSpecific
 ```csharp
 
 Console.WriteLine(catalog.GetString("test")); // will translate "test" using loaded translations
-Console.WriteLine(catalog._("test")); // shorter version
-Console.WriteLine(catalog._("Hello, {0}!", "World")); // String.Format support
+Console.WriteLine(catalog.GetString("Hello, {0}!", "World")); // String.Format support
 
 ```
 
