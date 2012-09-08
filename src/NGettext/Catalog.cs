@@ -41,7 +41,14 @@ namespace NGettext
 		public Catalog(Stream moStream)
 			: this()
 		{
-			this.Load(moStream);
+			try
+			{
+				this.Load(moStream);
+			}
+			catch (FileNotFoundException exception)
+			{
+				Trace.WriteLine(String.Format("Translation file loading fail: {0}", exception.Message), "NGettext");
+			}
 		}
 
 		/// <summary>
@@ -53,7 +60,14 @@ namespace NGettext
 		public Catalog(Stream moStream, CultureInfo cultureInfo)
 			: this(cultureInfo)
 		{
-			this.Load(moStream);
+			try
+			{
+				this.Load(moStream);
+			}
+			catch (FileNotFoundException exception)
+			{
+				Trace.WriteLine(String.Format("Translation file loading fail: {0}", exception.Message), "NGettext");
+			}
 		}
 
 		/// <summary>
@@ -65,7 +79,14 @@ namespace NGettext
 		public Catalog(string domain, string localeDir)
 			: this()
 		{
-			this.Load(CultureInfo, domain, localeDir);
+			try
+			{
+				this.Load(CultureInfo, domain, localeDir);
+			}
+			catch (FileNotFoundException exception)
+			{
+				Trace.WriteLine(String.Format("Translation file loading fail: {0}", exception.Message), "NGettext");
+			}
 		}
 
 		/// <summary>
@@ -78,7 +99,14 @@ namespace NGettext
 		public Catalog(string domain, string localeDir, CultureInfo cultureInfo)
 			: this(cultureInfo)
 		{
-			this.Load(cultureInfo, domain, localeDir);
+			try
+			{
+				this.Load(CultureInfo, domain, localeDir);
+			}
+			catch (FileNotFoundException exception)
+			{
+				Trace.WriteLine(String.Format("Translation file loading fail: {0}", exception.Message), "NGettext");
+			}
 		}
 
 		/// <summary>
@@ -89,16 +117,10 @@ namespace NGettext
 		/// <param name="localeDir">Directory that contains gettext localization files</param>
 		public void Load(CultureInfo cultureInfo, string domain, string localeDir)
 		{
-			var path = this.GetFileName(localeDir, cultureInfo.Name, domain);
-
-			if (!File.Exists(path))
+			var path = this._FindTranslationFile(cultureInfo, domain, localeDir);
+			if (path == null)
 			{
-				path = this.GetFileName(localeDir, cultureInfo.TwoLetterISOLanguageName, domain);
-			}
-
-			if (!File.Exists(path))
-			{
-				throw new FileNotFoundException("Can not find MO file name.");
+				throw new FileNotFoundException(String.Format("Can not find MO file name in locale directory \"{0}\".", localeDir));
 			}
 
 			this.Load(path);
@@ -135,11 +157,29 @@ namespace NGettext
 			this.Translations = translations;
 		}
 
-		private string GetFileName(string localeDir, string locale, string domain)
+		private string _FindTranslationFile(CultureInfo cultureInfo, string domain, string localeDir)
+		{
+			var posibleFiles = new [] {
+				this._GetFileName(localeDir, domain, cultureInfo.Name),
+				this._GetFileName(localeDir, domain, cultureInfo.TwoLetterISOLanguageName),
+			};
+
+			foreach (var posibleFilePath in posibleFiles)
+			{
+				if (File.Exists(posibleFilePath))
+				{
+					return posibleFilePath;
+				}
+			}
+
+			return null;
+		}
+
+		private string _GetFileName(string localeDir, string domain, string locale)
 		{
 			var relativePath =
-				locale.Replace('-', '_') + Path.AltDirectorySeparatorChar +
-				"LC_MESSAGES" + Path.AltDirectorySeparatorChar +
+				locale.Replace('-', '_') + Path.DirectorySeparatorChar +
+				"LC_MESSAGES" + Path.DirectorySeparatorChar +
 				domain + ".mo";
 
 			return Path.Combine(localeDir, relativePath);

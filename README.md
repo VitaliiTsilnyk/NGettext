@@ -88,6 +88,7 @@ catalog.GetPluralString("You have {0} apple.", "You have {0} apples.", count);
 
 catalog.GetPluralString("You have {0} apple.", "You have {0} apples.", 5, 5);
 // Returns translated plural massage: "You have 5 apples." (for en_US locale)
+// First “5” used in plural forms determination; second — in String.Format method
 
 
 ```
@@ -148,7 +149,7 @@ Debugging
 
 Debug binary version outputs debug messages to System.Diagnostics.Trace.
 You can register trace listeners to see NGettext debug messages.
-Please note that Release version of NGettext binary does not produse any trase messages.
+Please note that Release version of NGettext binary does not produse any trace messages.
 
 ```csharp
 
