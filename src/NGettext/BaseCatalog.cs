@@ -55,7 +55,7 @@ namespace NGettext
 		/// <returns>Translated text.</returns>
 		public virtual string GetString(string text)
 		{
-			return this._GetString(text, text);
+			return this.GetStringDefault(text, text);
 		}
 
 		/// <summary>
@@ -67,7 +67,7 @@ namespace NGettext
 		/// <returns>Translated text.</returns>
 		public virtual string GetString(string text, params object[] args)
 		{
-			return String.Format(this._GetString(text, text), args);
+			return String.Format(this.GetStringDefault(text, text), args);
 		}
 
 		/// <summary>
@@ -80,7 +80,7 @@ namespace NGettext
 		/// <returns>Translated text.</returns>
 		public virtual string GetPluralString(string text, string pluralText, long n)
 		{
-			return this._GetPluralString(text, text, pluralText, n);
+			return this.GetPluralStringDefault(text, text, pluralText, n);
 		}
 
 		/// <summary>
@@ -94,7 +94,7 @@ namespace NGettext
 		/// <returns>Translated text.</returns>
 		public virtual string GetPluralString(string text, string pluralText, long n, params object[] args)
 		{
-			return String.Format(this._GetPluralString(text, text, pluralText, n), args);
+			return String.Format(this.GetPluralStringDefault(text, text, pluralText, n), args);
 		}
 
 		/// <summary>
@@ -106,7 +106,7 @@ namespace NGettext
 		/// <returns>Translated text.</returns>
 		public virtual string GetParticularString(string context, string text)
 		{
-			return this._GetString(context + CONTEXT_GLUE + text, text);
+			return this.GetStringDefault(context + CONTEXT_GLUE + text, text);
 		}
 
 		/// <summary>
@@ -119,7 +119,7 @@ namespace NGettext
 		/// <returns>Translated text.</returns>
 		public virtual string GetParticularString(string context, string text, params object[] args)
 		{
-			return String.Format(this._GetString(context + CONTEXT_GLUE + text, text), args);
+			return String.Format(this.GetStringDefault(context + CONTEXT_GLUE + text, text), args);
 		}
 
 		/// <summary>
@@ -133,7 +133,7 @@ namespace NGettext
 		/// <returns>Translated text.</returns>
 		public virtual string GetParticularPluralString(string context, string text, string pluralText, long n)
 		{
-			return this._GetPluralString(context + CONTEXT_GLUE + text, text, pluralText, n);
+			return this.GetPluralStringDefault(context + CONTEXT_GLUE + text, text, pluralText, n);
 		}
 
 		/// <summary>
@@ -148,108 +148,8 @@ namespace NGettext
 		/// <returns>Translated text.</returns>
 		public virtual string GetParticularPluralString(string context, string text, string pluralText, long n, params object[] args)
 		{
-			return String.Format(this._GetPluralString(context + CONTEXT_GLUE + text, text, pluralText, n), args);
+			return String.Format(this.GetPluralStringDefault(context + CONTEXT_GLUE + text, text, pluralText, n), args);
 		}
-
-		#region Aliases
-
-		/// <summary>
-		/// Alias for <see cref="ICatalog.GetString(string)"/> method.
-		/// </summary>
-		/// <param name="text">Text to translate.</param>
-		/// <returns>Translated text.</returns>
-		public string _(string text)
-		{
-			return this.GetString(text);
-		}
-
-		/// <summary>
-		/// Alias for <see cref="ICatalog.GetString(string,object[])"/> method.
-		/// </summary>
-		/// <param name="text">Text to translate.</param>
-		/// <param name="args">Optional arguments for <see cref="System.String.Format(string, object[])"/> method.</param>
-		/// <returns>Translated text.</returns>
-		public string _(string text, params object[] args)
-		{
-			return this.GetString(text, args);
-		}
-
-		/// <summary>
-		/// Alias for <see cref="ICatalog.GetPluralString(string,string,long)"/> method.
-		/// </summary>
-		/// <param name="text">Singular form of message to translate.</param>
-		/// <param name="pluralText">Plural form of message to translate.</param>
-		/// <param name="n">Value that determines the plural form.</param>
-		/// <returns>Translated text.</returns>
-		public string _n(string text, string pluralText, long n)
-		{
-			return this.GetPluralString(text, pluralText, n);
-		}
-
-		/// <summary>
-		/// Alias for <see cref="ICatalog.GetPluralString(string,string,long,object[])"/> method.
-		/// </summary>
-		/// <param name="text">Singular form of message to translate.</param>
-		/// <param name="pluralText">Plural form of message to translate.</param>
-		/// <param name="n">Value that determines the plural form.</param>
-		/// <param name="args">Optional arguments for <see cref="System.String.Format(string, object[])"/> method.</param>
-		/// <returns>Translated text.</returns>
-		public string _n(string text, string pluralText, long n, params object[] args)
-		{
-			return this.GetPluralString(text, pluralText, n, args);
-		}
-
-		/// <summary>
-		/// Alias for <see cref="ICatalog.GetParticularString(string,string)"/> method.
-		/// </summary>
-		/// <param name="context">Context.</param>
-		/// <param name="text">Text to translate.</param>
-		/// <returns>Translated text.</returns>
-		public string _p(string context, string text)
-		{
-			return this.GetParticularString(context, text);
-		}
-
-		/// <summary>
-		/// Alias for <see cref="ICatalog.GetParticularString(string,string,object[])"/> method.
-		/// </summary>
-		/// <param name="context">Context.</param>
-		/// <param name="text">Text to translate.</param>
-		/// <param name="args">Optional arguments for <see cref="System.String.Format(string, object[])"/> method.</param>
-		/// <returns>Translated text.</returns>
-		public string _p(string context, string text, params object[] args)
-		{
-			return this.GetParticularString(context, text, args);
-		}
-
-		/// <summary>
-		/// Alias for <see cref="ICatalog.GetParticularPluralString(string,string,string,long)"/> method.
-		/// </summary>
-		/// <param name="context">Context.</param>
-		/// <param name="text">Singular form of message to translate.</param>
-		/// <param name="pluralText">Plural form of message to translate.</param>
-		/// <param name="n">Value that determines the plural form.</param>
-		/// <returns>Translated text.</returns>
-		public string _pn(string context, string text, string pluralText, long n)
-		{
-			return this.GetParticularPluralString(context, text, pluralText, n);
-		}
-
-		/// <summary>
-		/// Alias for <see cref="ICatalog.GetParticularPluralString(string,string,string,long,object[])"/> method.
-		/// </summary>
-		/// <param name="context">Context.</param>
-		/// <param name="text">Singular form of message to translate.</param>
-		/// <param name="pluralText">Plural form of message to translate.</param>
-		/// <param name="n">Value that determines the plural form.</param>
-		/// <param name="args">Optional arguments for <see cref="System.String.Format(string, object[])"/> method.</param>
-		/// <returns>Translated text.</returns>
-		public string _pn(string context, string text, string pluralText, long n, params object[] args)
-		{
-			return this.GetParticularPluralString(context, text, pluralText, n, args);
-		}
-
-		#endregion
 
 		#endregion
 
@@ -259,9 +159,9 @@ namespace NGettext
 		/// <param name="messageId">Message ID</param>
 		/// <param name="defaultMessage">Default message</param>
 		/// <returns>Translated string</returns>
-		protected virtual string _GetString(string messageId, string defaultMessage)
+		public virtual string GetStringDefault(string messageId, string defaultMessage)
 		{
-			var translations = this._GetTranslations(messageId);
+			var translations = this.GetTranslations(messageId);
 
 			if (translations == null || translations.Length == 0)
 			{
@@ -281,9 +181,9 @@ namespace NGettext
 		/// <param name="defaultPluralMessage">Default message plural form</param>
 		/// <param name="n">Value that determines the plural form</param>
 		/// <returns>Translated string</returns>
-		protected virtual string _GetPluralString(string messageId, string defaultMessage, string defaultPluralMessage, long n)
+		public virtual string GetPluralStringDefault(string messageId, string defaultMessage, string defaultPluralMessage, long n)
 		{
-			var translations = this._GetTranslations(messageId);
+			var translations = this.GetTranslations(messageId);
 			var pluralIndex = this.PluralForms.GetPluralFormIndex(this.CultureInfo, n);
 
 			if (translations == null || translations.Length <= pluralIndex)
@@ -300,7 +200,7 @@ namespace NGettext
 		/// </summary>
 		/// <param name="messageId"></param>
 		/// <returns>Returns all translations for given <paramref name="messageId"/> or null if not found.</returns>
-		protected virtual string[] _GetTranslations(string messageId)
+		public virtual string[] GetTranslations(string messageId)
 		{
 			if (String.IsNullOrEmpty(messageId)) return null;
 			if (!this.Translations.ContainsKey(messageId)) return null;

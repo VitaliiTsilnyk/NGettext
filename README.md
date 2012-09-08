@@ -88,6 +88,7 @@ catalog.GetPluralString("You have {0} apple.", "You have {0} apples.", count);
 
 catalog.GetPluralString("You have {0} apple.", "You have {0} apples.", 5, 5);
 // Returns translated plural massage: "You have 5 apples." (for en_US locale)
+// First “5” used in plural forms determination; second — in String.Format method
 
 
 ```
@@ -148,12 +149,26 @@ Debugging
 
 Debug binary version outputs debug messages to System.Diagnostics.Trace.
 You can register trace listeners to see NGettext debug messages.
-Please note that Release version of NGettext binary does not produse any trase messages.
+Please note that Release version of NGettext binary does not produse any trace messages.
 
 ```csharp
 
 Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
 
+```
+
+
+
+Poedit compatibility
+--------------------
+
+For [Poedit](http://www.poedit.net/) support, you need to specify plural form in your *.pot file header, even for english language:
+```
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+```
+And a keywords list:
+```
+"X-Poedit-KeywordsList: GetString;GetPluralString:1,2;GetParticularString:1c,2;GetParticularPluralString:1c,2,3;_;_n:1,2;_p:1c,2;_pn:1c,2,3\n"
 ```
 
 

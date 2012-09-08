@@ -34,6 +34,9 @@ namespace NGettext.Loaders
 		/// <summary>
 		/// Read and load all translation strings from given MO file stream.
 		/// </summary>
+		/// <remarks>
+		///	http://www.gnu.org/software/gettext/manual/html_node/MO-Files.html
+		/// </remarks>
 		/// <param name="stream">Stream that contain binary data in the MO file format</param>
 		/// <returns>Raw translations</returns>
 		public Dictionary<string, string[]> GetTranslations(Stream stream)
@@ -54,13 +57,22 @@ namespace NGettext.Loaders
 			}
 
 			var revision = reader.ReadUInt32();
-			Trace.WriteLine(String.Format("MO File Revision: {0}.", revision), "NGettext");
+			Trace.WriteLine(String.Format("MO File Revision: {0}.{1}.", revision >> 16, revision & 0xffff), "NGettext");
+
+			if ((revision >> 16) > 1)
+			{
+				throw new Exception(String.Format("Unsupported MO file major revision: {0}.", revision >> 16));
+			}
 
 			var stringCount = reader.ReadInt32();
 			var originalTableOffset = reader.ReadInt32();
 			var translationlTableOffset = reader.ReadInt32();
 
+			// We don't support hash tables and system dependent segments.
+
 			Trace.WriteLine(String.Format("MO File contains {0} strings.", stringCount), "NGettext");
+
+
 
 			var originalTable = new StringOffsetTable[stringCount];
 			var translationlTable = new StringOffsetTable[stringCount];
@@ -86,8 +98,8 @@ namespace NGettext.Loaders
 
 			for (int i = 0; i < stringCount; i++)
 			{
-				var originalStrings = _ReadStrings(reader, originalTable[i].Offset, originalTable[i].Length);
-				var translatedStrings = _ReadStrings(reader, translationlTable[i].Offset, translationlTable[i].Length);
+				var originalStrings = this._ReadStrings(reader, originalTable[i].Offset, originalTable[i].Length);
+				var translatedStrings = this._ReadStrings(reader, translationlTable[i].Offset, translationlTable[i].Length);
 
 				dict.Add(originalStrings[0], translatedStrings);
 			}

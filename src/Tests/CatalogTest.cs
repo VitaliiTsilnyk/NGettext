@@ -54,13 +54,13 @@ namespace Tests
 
 		private void _TestLoadedTranslation(ICatalog t)
 		{
-			Assert.AreEqual("тест", t._("test"));
-			Assert.AreEqual("тест2", t._("test2"));
-			Assert.AreEqual("1 минута", t._n("{0} minute", "{0} minutes", 1, 1));
-			Assert.AreEqual("5 минут", t._n("{0} minute", "{0} minutes", 5, 5));
+			Assert.AreEqual("тест", t.GetString("test"));
+			Assert.AreEqual("тест2", t.GetString("test2"));
+			Assert.AreEqual("1 минута", t.GetPluralString("{0} minute", "{0} minutes", 1, 1));
+			Assert.AreEqual("5 минут", t.GetPluralString("{0} minute", "{0} minutes", 5, 5));
 
-			Assert.AreEqual("тест3контекст1", t._p("context1", "test3"));
-			Assert.AreEqual("тест3контекст2", t._p("context2", "test3"));
+			Assert.AreEqual("тест3контекст1", t.GetParticularString("context1", "test3"));
+			Assert.AreEqual("тест3контекст2", t.GetParticularString("context2", "test3"));
 		}
 
 	}

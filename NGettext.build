@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+<project name="NGettext" default="build" basedir=".">	
+	
+	<include buildfile="build.conf" if="${file::exists('build.conf')}" />
+	
+	<if test="${not platform::is-windows()}">
+		<property name="xbuild" value="true" /> <!-- Always build with xbuild on non-windows platforms -->
+		<property name="mono" value="true" overwrite="false" /> <!-- Set mono build as default on unix platform -->
+	</if>
+	
+	
+	<!-- Base properties -->
+	<property name="debug" value="false" overwrite="false" />
+	<property name="xbuild" value="false" overwrite="false" />
+	<property name="strong" value="false" overwrite="false" />
+	
+	
+	<!-- Tools -->
+	<property name="xbuild.path" value="xbuild" overwrite="false" /> <!-- Path to xbuild executable -->
+	<property name="mdoc.path" value="mdoc" overwrite="false" /> <!-- Path to mdoc executable -->
+	<property name="msbuild.path" value="${framework::get-framework-directory(nant.settings.currentframework)}\MSBuild.exe" overwrite="false" />
+	
+	
+	<!-- Paths -->
+	<property name="src.dir" value="src" overwrite="false" />
+	
+	
+	<!-- Flag targets -->
+	
+	<target name="+debug" description="Set the 'debug' property to true">
+		<property name="debug" value="true" />
+	</target>
+	<target name="+xbuild" description="Set the 'xbuild' property to true">
+		<property name="xbuild" value="true" />
+	</target>
+	<target name="+release" description="Set the 'debug' property to false">
+		<property name="debug" value="false" />
+	</target>
+	<target name="+strong" description="Set the 'strong' property to true">
+		<property name="strong" value="true" />
+	</target>
+	
+	
+	<!-- Targets -->
+	
+	<target name="build" description="Compile the source code">
+		
+		<property name="build.conf" value="Release" />
+		<if test="${debug}">
+			<property name="build.conf" value="Debug" />
+		</if>
+		<echo message="Target configuration: '${build.conf}'" />
+		<echo message="Strong Key Assembly: ${strong}" />
+		
+		
+		<echo message="Compiling source files using xbuild..." if="${xbuild}" />
+		<echo message="Compiling source files using msbuild..." if="${not xbuild}" />
+		
+		<property name="build.tool" value="${xbuild.path}" />
+		<if test="${not xbuild}">
+			<property name="build.tool" value="${msbuild.path}" />
+		</if>
+		
+		<exec program="${build.tool}">
+			<environment>
+				<variable name="XBUILD_EMIT_SOLUTION" value="1" />
+			</environment>
+			<arg value="/nologo" />
+			<arg value="/verbosity:quiet" />
+			<arg value="/target:rebuild" />
+			<arg value="/property:Configuration=${build.conf}"/>
+			<arg value="/property:Strong=${strong}"/>
+			<arg value="${src.dir}/NGettext.sln" />
+		</exec>
+		
+		<echo message="Build complete." />
+		
+	</target>
+	
+	
+	
+	
+	
+</project>
