@@ -27,10 +27,10 @@ It uses satellite assemblies as a translation files and does not support multipl
 It's hard to build and maintain translation files and change locale inside your application.
 
 **So why NGettext?**
-* NGettext is fully cross-platform as it don't uses any native or 3rd-party libraries.
+* NGettext is fully cross-platform as it don't uses any native or managed 3rd-party libraries.
 * NGettext supports multiple domains. You can separate translation files for each of your application's module or plugin.
 * NGettext supports multiple locales in one application instance and gives really simple API to choose locale of your application.
-  You don't even need to care about locales of your threads.
+  You don't even need to care about locales of your application's threads.
 * NGettext loads translations from *.mo files. You can even load translations from specified file or stream.
 * NGettext supports message contexts.
 * NGettext provides nice and simple API for translation.
@@ -44,32 +44,20 @@ Add reference to `NGettext.dll` to your project.
 
 Now you can use NGettext in your code:
 ```csharp
-using NGettext;
+	using NGettext;
 ```
-
 ```csharp
-
-// This will load translations from "./locale/<CurrentUICulture>/LC_MESSAGES/Example.mo"
-ICatalog catalog = new Catalog("Example", "./locale");
-
+	// This will load translations from "./locale/<CurrentUICulture>/LC_MESSAGES/Example.mo"
+	ICatalog catalog = new Catalog("Example", "./locale");
+	
+	// or
+	
+	// This will load translations from "./locale/ru_RU/LC_MESSAGES/Example.mo"
+	ICatalog catalog = new Catalog("Example", "./locale", CultureInfo.CreateSpecificCulture("ru-RU"));
 ```
-
-or
-
 ```csharp
-
-// This will load translations from "./locale/ru_RU/LC_MESSAGES/Example.mo"
-ICatalog catalog = new Catalog("Example", "./locale", CultureInfo.CreateSpecificCulture("ru-RU"));
-
-```
-
-
-
-```csharp
-
-Console.WriteLine(catalog.GetString("test")); // will translate "test" using loaded translations
-Console.WriteLine(catalog.GetString("Hello, {0}!", "World")); // String.Format support
-
+	Console.WriteLine(catalog.GetString("Hello, World!")); // will translate "Hello, World!" using loaded translations
+	Console.WriteLine(catalog.GetString("Hello, {0}!", "World")); // String.Format support
 ```
 
 
@@ -77,19 +65,15 @@ Console.WriteLine(catalog.GetString("Hello, {0}!", "World")); // String.Format s
 ### Plural forms
 
 ```csharp
+	catalog.GetPluralString("You have {0} apple.", "You have {0} apples.", count);
+	// Returns (for en_US locale):
+	//     "You have {0} apple." for count = 1
+	//     "You have {0} apples." otherwise
 
 
-catalog.GetPluralString("You have {0} apple.", "You have {0} apples.", count);
-// Returns (for en_US locale):
-//     "You have {0} apple." for count = 1
-//     "You have {0} apples." otherwise
-
-
-catalog.GetPluralString("You have {0} apple.", "You have {0} apples.", 5, 5);
-// Returns translated plural massage: "You have 5 apples." (for en_US locale)
-// First “5” used in plural forms determination; second — in String.Format method
-
-
+	catalog.GetPluralString("You have {0} apple.", "You have {0} apples.", 5, 5);
+	// Returns translated plural massage: "You have 5 apples." (for en_US locale)
+	// First “5” used in plural forms determination; second — in String.Format method
 ```
 
 
@@ -97,8 +81,8 @@ catalog.GetPluralString("You have {0} apple.", "You have {0} apples.", 5, 5);
 ### Contexts
 
 ```csharp
-catalog.GetParticularString("Menu|File|", "Open"); // will translate message "Open" using context "Menu|File|"
-catalog.GetParticularString("Menu|Project|", "Open"); // will translate message "Open" using context "Menu|Project|"
+	catalog.GetParticularString("Menu|File|", "Open"); // will translate message "Open" using context "Menu|File|"
+	catalog.GetParticularString("Menu|Project|", "Open"); // will translate message "Open" using context "Menu|Project|"
 ```
 
 
@@ -106,18 +90,14 @@ catalog.GetParticularString("Menu|Project|", "Open"); // will translate message 
 ### Multiple locales and domains in one application instance
 
 ```csharp
+	// "./locale/en_US/LC_MESSAGES/Example.mo"
+	ICatalog example_en = new Catalog("Example", "./locale", CultureInfo.CreateSpecificCulture("en-US"));
 
-// "./locale/en_US/LC_MESSAGES/Example.mo"
-ICatalog example_en = new Catalog("Example", "./locale", CultureInfo.CreateSpecificCulture("en-US"));
+	// "./locale/fr/LC_MESSAGES/Example.mo"
+	ICatalog example_fr = new Catalog("Example", "./locale", CultureInfo.CreateSpecificCulture("fr"));
 
-
-// "./locale/fr/LC_MESSAGES/Example.mo"
-ICatalog example_fr = new Catalog("Example", "./locale", CultureInfo.CreateSpecificCulture("fr"));
-
-
-// "./locale/<CurrentUICulture>/LC_MESSAGES/AnotherDomainName.mo"
-ICatalog anotherDomain = new Catalog("AnotherDomainName", "./locale");
-
+	// "./locale/<CurrentUICulture>/LC_MESSAGES/AnotherDomainName.mo"
+	ICatalog anotherDomain = new Catalog("AnotherDomainName", "./locale");
 ```
 
 
@@ -125,10 +105,8 @@ ICatalog anotherDomain = new Catalog("AnotherDomainName", "./locale");
 ### Direct MO file loading
 
 ```csharp
-
-Stream moFileStream = File.OpenRead("path/to/domain.mo");
-ICatalog catalog = new Catalog(moFileStream);
-
+	Stream moFileStream = File.OpenRead("path/to/domain.mo");
+	ICatalog catalog = new Catalog(moFileStream);
 ```
 
 
@@ -136,9 +114,7 @@ ICatalog catalog = new Catalog(moFileStream);
 ### Custom plural formulas
 
 ```csharp
-
-catalog.PluralForm.SetCustomFormula(cultureInfo, n => ( n == 1 ? 0 : 1 ));
-
+	catalog.PluralForm.SetCustomFormula(cultureInfo, n => ( n == 1 ? 0 : 1 ));
 ```
 
 
@@ -146,14 +122,25 @@ catalog.PluralForm.SetCustomFormula(cultureInfo, n => ( n == 1 ? 0 : 1 ));
 Debugging
 ---------
 
-Debug binary version outputs debug messages to System.Diagnostics.Trace.
+Debug version of the NGettext binary outputs debug messages to System.Diagnostics.Trace.
 You can register trace listeners to see NGettext debug messages.
-Please note that Release version of NGettext binary does not produse any trace messages.
+Please note that Release version of the NGettext binary does not produse any trace messages.
 
 ```csharp
+	Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
+```
 
-Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
 
+
+Shorter syntax
+--------------
+
+In `doc/examples/T.cs` you can see an example of shorter syntax creation for NGettext:
+```csharp
+	T._("Hello, World!"); // GetString
+	T._n("You have {0} apple.", "You have {0} apples.", count, count); // GetPluralString
+	T._p("Context", "Hello, World!"); // GetParticularString
+	T._pn("Context", "You have {0} apple.", "You have {0} apples.", count, count); // GetParticularPluralString
 ```
 
 
@@ -161,13 +148,14 @@ Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
 Poedit compatibility
 --------------------
 
-For [Poedit](http://www.poedit.net/) support, you need to specify plural form in your *.pot file header, even for english language:
+For [Poedit](http://www.poedit.net/) compatibility, you need to specify plural form in your *.pot file header, even for english language:
 ```
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+	"Plural-Forms: nplurals=2; plural=n != 1;\n"
 ```
+
 And a keywords list:
 ```
-"X-Poedit-KeywordsList: GetString;GetPluralString:1,2;GetParticularString:1c,2;GetParticularPluralString:1c,2,3;_;_n:1,2;_p:1c,2;_pn:1c,2,3\n"
+	"X-Poedit-KeywordsList: GetString;GetPluralString:1,2;GetParticularString:1c,2;GetParticularPluralString:1c,2,3;_;_n:1,2;_p:1c,2;_pn:1c,2,3\n"
 ```
 
 
