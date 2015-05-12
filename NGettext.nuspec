@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>NGettext</id>
-    <version>0.2.1</version>
+    <version>0.2.2</version>
     <authors>Neris Ereptoris</authors>
     <owners>Neris Ereptoris</owners>
     <licenseUrl>https://raw.githubusercontent.com/neris/NGettext/master/LICENSE</licenseUrl>
