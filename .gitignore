@@ -18,6 +18,7 @@
 [Oo]bj
 *.cache
 *.sln.proj
+*.nupkg
 
 
 ###### Custom NAnt configuration
