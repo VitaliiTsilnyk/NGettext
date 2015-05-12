@@ -22,7 +22,11 @@
 	
 	
 	<!-- Paths -->
+	<property name="bin.dir" value="bin" overwrite="false" />
+	<property name="bin.out.dir" value="${bin.dir}/out" overwrite="false" />
+	<property name="doc.dir" value="doc" overwrite="false" />
 	<property name="src.dir" value="src" overwrite="false" />
+	<property name="tools.dir" value="tools" overwrite="false" />
 	
 	
 	<!-- Flag targets -->
@@ -52,6 +56,16 @@
 		<echo message="Target configuration: '${build.conf}'" />
 		<echo message="Strong Key Assembly: ${strong}" />
 		
+		<echo message="Deleting old binary files..." />
+		<delete failonerror="false">
+			<fileset>
+				<include name="${bin.dir}/*.exe" />
+				<include name="${bin.dir}/*.dll" />
+				<include name="${bin.dir}/*.pdb" />
+				<include name="${bin.dir}/*.mdb" />
+			</fileset>
+		</delete>
+		
 		
 		<echo message="Compiling source files using xbuild..." if="${xbuild}" />
 		<echo message="Compiling source files using msbuild..." if="${not xbuild}" />
@@ -70,11 +84,76 @@
 			<arg value="/target:rebuild" />
 			<arg value="/property:Configuration=${build.conf}"/>
 			<arg value="/property:Strong=${strong}"/>
+			<arg value="/property:OutputPath=${path::get-full-path(bin.out.dir)}/" />
+			<arg value="/property:DocumentationDir=${path::get-full-path(doc.dir)}/generated/xml/" />
 			<arg value="${src.dir}/NGettext.sln" />
 		</exec>
 		
 		<echo message="Build complete." />
 		
+		<echo message="Moving compiled files..." />
+		<move todir="${bin.dir}">
+			<fileset basedir="${bin.out.dir}">
+				<!-- <include name="*.dll" />
+				<include name="*.dll.config" />
+				<include name="*.exe" />
+				<include name="*.exe.config" />
+				<include name="*.pdb" />
+				<include name="*.mdb" />
+				<include name="*.xml" /> -->
+				<include name="**" />
+			</fileset>
+		</move>
+		
+		<delete dir="${bin.out.dir}" />
+		
+	</target>
+	
+	
+	
+	
+	
+	<target name="doc" description="Create/Recreate project documentation using mono's mdoc tool">
+		<delete dir="${doc.dir}/generated/xml-mdoc" failonerror="false"/>
+		<delete dir="${doc.dir}/generated/html" failonerror="false"/>
+		
+		<foreach item="Line" in="${tools.dir}/mdoc/assembly_list.csv" delim=";" property="name,ext">
+			
+			<mkdir dir="${doc.dir}/generated/xml-mdoc/${name}" /> <!-- Do not remove this! -->
+			
+			<echo message="Converting xml-documentation to mono format for ${name}..." />
+			<exec program="${mdoc.path}" output="${doc.dir}/generated/xml-mdoc/${name}/.mdoc.log">
+				<arg value="update" />
+				<arg value="-i=${path::get-full-path(doc.dir)}/generated/xml/${name}.xml" />
+				<arg value="-o=${path::get-full-path(doc.dir)}/generated/xml-mdoc/${name}" />
+				<arg value="${bin.dir}/${name}.${ext}" />
+			</exec>
+			
+			<echo message="Building html-documentation for ${name}..." />
+			<exec program="${mdoc.path}" output="${doc.dir}/generated/html/${name}/.mdoc.log">
+				<arg value="export-html" />
+				<arg value="--template=${path::get-full-path(tools.dir)}/mdoc/doctemplate.xsl" />
+				<arg value="-o=${path::get-full-path(doc.dir)}/generated/html/${name}" />
+				<arg value="${path::get-full-path(doc.dir)}/generated/xml-mdoc/${name}" />
+			</exec>
+			
+		</foreach>
+	</target>
+	
+	
+	<target name="test" description="Run the unit tests.">
+		<nunit2>
+			<formatter type="Plain" />
+			<test assemblyname="${bin.dir}/NGettext.Tests.dll" appconfig="${bin.dir}/NGettext.Tests.dll.config" />
+		</nunit2>
+	</target>
+	
+	
+	<target name="nupkg" description="Compile a NuGet package.">
+		<exec program="${tools.dir}/nuget/NuGet.exe">
+			<arg value="pack" />
+			<arg value="NGettext.nuspec" />
+		</exec>
 	</target>
 	
 	

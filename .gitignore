@@ -18,6 +18,7 @@
 [Oo]bj
 *.cache
 *.sln.proj
+*.nupkg
 
 
 ###### Custom NAnt configuration
@@ -31,6 +32,7 @@ doc/reports/*
 
 ###### Other files
 dep/src/*
+src/packages/*
 NGettext.snk
 
 

@@ -1,0 +1,20 @@
+#
+# Travis CI configuration file
+#
+
+language: csharp
+solution: src/NGettext.sln
+mono:
+  - 3.12.0
+  - 3.2.8
+
+install:
+ - sudo apt-get install nant
+
+script:
+  - nant build
+  - nant test
+
+branches:
+  only:
+    - master
