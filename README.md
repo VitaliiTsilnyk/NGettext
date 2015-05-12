@@ -1,4 +1,4 @@
-NGettext
+NGettext [![Build Status](https://travis-ci.org/neris/NGettext.svg?branch=master)](https://travis-ci.org/neris/NGettext)
 ========
 
 Copyright (C) 2012 Neris Ereptoris <http://neris.ws/>.
