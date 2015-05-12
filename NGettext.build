@@ -144,4 +144,15 @@
 	
 	
 	
+	<target name="test" description="Run the unit tests.">
+		<nunit2>
+			<formatter type="Plain" />
+			<test assemblyname="${bin.dir}/NGettext.Tests.dll" appconfig="${bin.dir}/NGettext.Tests.dll.config" />
+		</nunit2>
+	</target>
+	
+	
+	
+	
+	
 </project>
