@@ -60,7 +60,12 @@ Building from the sources
 Installation and usage
 ----------------------
 
-Add reference to `NGettext.dll` or `NGettext.csproj` to your project.
+All you need to do is just install a [NuGet package](https://www.nuget.org/packages/NGettext/):
+```
+PM> Install-Package NGettext
+```
+
+Alternatively you can download [compiled binaries](https://github.com/neris/NGettext/releases) or the [source code](https://github.com/neris/NGettext) and add a reference to `NGettext.dll` or `NGettext.csproj` to your project.
 
 
 Now you can use NGettext in your code:

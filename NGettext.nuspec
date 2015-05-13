@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>NGettext</id>
-    <version>0.2.2</version>
+    <version>0.2.2.1</version>
     <authors>Neris Ereptoris</authors>
     <owners>Neris Ereptoris</owners>
     <licenseUrl>https://raw.githubusercontent.com/neris/NGettext/master/LICENSE</licenseUrl>
@@ -17,7 +17,6 @@
   <files>
     <file src="LICENSE" target="LICENSE" />
     <file src="bin/NGettext.dll" target="lib" />
-    <file src="bin/NGettext.pdb" target="lib" />
     <file src="bin/NGettext.xml" target="lib" />
   </files>
 </package>
