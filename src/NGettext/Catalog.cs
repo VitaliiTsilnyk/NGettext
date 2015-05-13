@@ -81,7 +81,7 @@ namespace NGettext
 		{
 			try
 			{
-				this.Load(CultureInfo, domain, localeDir);
+				this.Load(this.CultureInfo, domain, localeDir);
 			}
 			catch (FileNotFoundException exception)
 			{
@@ -101,7 +101,7 @@ namespace NGettext
 		{
 			try
 			{
-				this.Load(CultureInfo, domain, localeDir);
+				this.Load(this.CultureInfo, domain, localeDir);
 			}
 			catch (FileNotFoundException exception)
 			{
@@ -159,16 +159,16 @@ namespace NGettext
 
 		private string _FindTranslationFile(CultureInfo cultureInfo, string domain, string localeDir)
 		{
-			var posibleFiles = new [] {
+			var possibleFiles = new [] {
 				this._GetFileName(localeDir, domain, cultureInfo.Name),
 				this._GetFileName(localeDir, domain, cultureInfo.TwoLetterISOLanguageName)
 			};
 
-			foreach (var posibleFilePath in posibleFiles)
+			foreach (var possibleFilePath in possibleFiles)
 			{
-				if (File.Exists(posibleFilePath))
+				if (File.Exists(possibleFilePath))
 				{
-					return posibleFilePath;
+					return possibleFilePath;
 				}
 			}
 

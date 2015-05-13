@@ -12,6 +12,11 @@ namespace NGettext.Loaders
 	/// </summary>
 	public class MoFileParser
 	{
+		/// <summary>
+		/// MO file format magic number.
+		/// </summary>
+		public const uint MO_FILE_MAGIC = 0x950412de;
+
 		private struct StringOffsetTable
 		{
 			public int Length;
@@ -51,7 +56,7 @@ namespace NGettext.Loaders
 			var reader = new BinaryReader(stream);
 			var magicNumber = reader.ReadUInt32();
 
-			if (magicNumber != 0x950412de)
+			if (magicNumber != MO_FILE_MAGIC)
 			{
 				throw new ArgumentException("Invalid stream: can not find MO file magic number.");
 			}
@@ -66,7 +71,7 @@ namespace NGettext.Loaders
 
 			var stringCount = reader.ReadInt32();
 			var originalTableOffset = reader.ReadInt32();
-			var translationlTableOffset = reader.ReadInt32();
+			var translationTableOffset = reader.ReadInt32();
 
 			// We don't support hash tables and system dependent segments.
 
@@ -75,7 +80,7 @@ namespace NGettext.Loaders
 
 
 			var originalTable = new StringOffsetTable[stringCount];
-			var translationlTable = new StringOffsetTable[stringCount];
+			var translationTable = new StringOffsetTable[stringCount];
 
 			Trace.WriteLine(String.Format("Trying to parse strings using encoding \"{0}\"...", this.Encoding), "NGettext");
 
@@ -86,11 +91,11 @@ namespace NGettext.Loaders
 				originalTable[i].Offset = reader.ReadInt32();
 			}
 
-			reader.BaseStream.Seek(translationlTableOffset, SeekOrigin.Begin);
+			reader.BaseStream.Seek(translationTableOffset, SeekOrigin.Begin);
 			for (int i = 0; i < stringCount; i++)
 			{
-				translationlTable[i].Length = reader.ReadInt32();
-				translationlTable[i].Offset = reader.ReadInt32();
+				translationTable[i].Length = reader.ReadInt32();
+				translationTable[i].Offset = reader.ReadInt32();
 			}
 
 
@@ -99,7 +104,7 @@ namespace NGettext.Loaders
 			for (int i = 0; i < stringCount; i++)
 			{
 				var originalStrings = this._ReadStrings(reader, originalTable[i].Offset, originalTable[i].Length);
-				var translatedStrings = this._ReadStrings(reader, translationlTable[i].Offset, translationlTable[i].Length);
+				var translatedStrings = this._ReadStrings(reader, translationTable[i].Offset, translationTable[i].Length);
 
 				dict.Add(originalStrings[0], translatedStrings);
 			}
