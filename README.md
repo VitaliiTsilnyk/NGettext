@@ -11,7 +11,7 @@ This implementation loads translations directly from gettext *.mo files (no need
 
 NGettext currently not supports *.mo file headers (stored in mo file plural formulas, encoding, etc.).
 It uses precompiled plural formulas and supports custom plural formulas passed through API.
-It only supports little-endian MO files (witch produce most of popular platforms).
+It supports both little-endian and big-endian MO files.
 
 
 

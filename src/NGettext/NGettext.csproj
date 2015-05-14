@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="Catalog.cs" />
     <Compile Include="ICatalog.cs" />
+    <Compile Include="Loaders\BigEndianBinaryReader.cs" />
+    <Compile Include="Loaders\ReadOnlyStreamWrapper.cs" />
     <Compile Include="Loaders\MoFileParser.cs" />
     <Compile Include="Plural\PluralFormProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
