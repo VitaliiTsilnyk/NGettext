@@ -68,6 +68,9 @@
     <None Include="TestResources\locales\ru_RU\LC_MESSAGES\Test.po">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="TestResources\locales\ru_RU\LC_MESSAGES\TestBigEndian.mo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\..\tools\nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\..\tools\nuget\NuGet.targets')" />
