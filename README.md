@@ -88,6 +88,20 @@ Now you can use NGettext in your code:
 
 
 
+### Culture-specific message formatting
+
+```csharp
+	// All translation methods support String.Format optional arguments
+	catalog.GetString("Hello, {0}!", "World");
+	
+	// Catalog's current locale will be used to format messages correctly
+	catalog.GetString("Here's a number: {0}!", 1.23);
+	// Will return "Here's a number: 1.23!" for en_US locale
+	// But something like this will be returned for ru_RU locale with Russian translation: "ј вот и номер: 1,23!"
+```
+
+
+
 ### Plural forms
 
 ```csharp
@@ -100,6 +114,11 @@ Now you can use NGettext in your code:
 	catalog.GetPluralString("You have {0} apple.", "You have {0} apples.", 5, 5);
 	// Returns translated plural massage: "You have 5 apples." (for en_US locale)
 	// First У5Ф used in plural forms determination; second Ч in String.Format method
+
+
+	// Example plural forms usage for fractional numbers:
+	catalog.GetPluralString("You have {0} apple.", "You have {0} apples.", (long)1.23, 1.23);
+	// Internal String.Format will be used in context of catalog's locale and formats objects respectively
 ```
 
 
@@ -132,7 +151,7 @@ Now you can use NGettext in your code:
 
 ```csharp
 	Stream moFileStream = File.OpenRead("path/to/domain.mo");
-	ICatalog catalog = new Catalog(moFileStream);
+	ICatalog catalog = new Catalog(moFileStream, CultureInfo.CreateSpecificCulture("en-US"));
 ```
 
 

@@ -67,7 +67,7 @@ namespace NGettext
 		/// <returns>Translated text.</returns>
 		public virtual string GetString(string text, params object[] args)
 		{
-			return String.Format(this.GetStringDefault(text, text), args);
+			return String.Format(this.CultureInfo, this.GetStringDefault(text, text), args);
 		}
 
 		/// <summary>
@@ -94,7 +94,7 @@ namespace NGettext
 		/// <returns>Translated text.</returns>
 		public virtual string GetPluralString(string text, string pluralText, long n, params object[] args)
 		{
-			return String.Format(this.GetPluralStringDefault(text, text, pluralText, n), args);
+			return String.Format(this.CultureInfo, this.GetPluralStringDefault(text, text, pluralText, n), args);
 		}
 
 		/// <summary>
@@ -119,7 +119,7 @@ namespace NGettext
 		/// <returns>Translated text.</returns>
 		public virtual string GetParticularString(string context, string text, params object[] args)
 		{
-			return String.Format(this.GetStringDefault(context + CONTEXT_GLUE + text, text), args);
+			return String.Format(this.CultureInfo, this.GetStringDefault(context + CONTEXT_GLUE + text, text), args);
 		}
 
 		/// <summary>
@@ -148,7 +148,7 @@ namespace NGettext
 		/// <returns>Translated text.</returns>
 		public virtual string GetParticularPluralString(string context, string text, string pluralText, long n, params object[] args)
 		{
-			return String.Format(this.GetPluralStringDefault(context + CONTEXT_GLUE + text, text, pluralText, n), args);
+			return String.Format(this.CultureInfo, this.GetPluralStringDefault(context + CONTEXT_GLUE + text, text, pluralText, n), args);
 		}
 
 		#endregion
