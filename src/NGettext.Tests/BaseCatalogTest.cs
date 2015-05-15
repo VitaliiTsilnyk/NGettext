@@ -29,11 +29,13 @@ namespace Tests
 			t.Translations.Add("key1", new[] { "value1" });
 			t.Translations.Add("key2", new[] { "value2" });
 			t.Translations.Add("key3", new[] { "value3plural1", "value3plural2" });
+			t.Translations.Add("", new[] { "emptyIdValue" });
 
 			Assert.AreEqual("value1", t.GetString("key1"));
 			Assert.AreEqual("value2", t.GetString("key2"));
 			Assert.AreEqual("value3plural1", t.GetString("key3"));
 			Assert.AreEqual("notFoundKey2", t.GetString("notFoundKey2"));
+			Assert.AreEqual("", t.GetString(""));
 		}
 
 		[Test]
