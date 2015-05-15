@@ -6,10 +6,9 @@ using System.Globalization;
 
 using NUnit.Framework;
 
-using NGettext;
-using Tests.Stabs;
+using NGettext.Tests.Stabs;
 
-namespace Tests
+namespace NGettext.Tests
 {
 	[TestFixture]
 	public class BaseCatalogTest

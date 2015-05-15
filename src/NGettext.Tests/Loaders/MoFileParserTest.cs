@@ -7,10 +7,9 @@ using System.Reflection;
 
 using NUnit.Framework;
 
-using NGettext;
 using NGettext.Loaders;
 
-namespace Tests.Loaders
+namespace NGettext.Tests.Loaders
 {
 	[TestFixture]
 	public class MoFileParserTest

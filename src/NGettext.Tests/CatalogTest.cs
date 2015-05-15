@@ -8,9 +8,7 @@ using System.Reflection;
 
 using NUnit.Framework;
 
-using NGettext;
-
-namespace Tests
+namespace NGettext.Tests
 {
 	[TestFixture]
 	public class CatalogTest

@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 using NGettext.Plural;
 
-namespace Tests.Plural
+namespace NGettext.Tests.Plural
 {
 	[TestFixture]
 	public class PluralFormProcessorTest

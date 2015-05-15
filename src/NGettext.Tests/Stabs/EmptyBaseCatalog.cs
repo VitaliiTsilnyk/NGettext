@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Globalization;
 
-using NGettext;
-
-namespace Tests.Stabs
+namespace NGettext.Tests.Stabs
 {
 	public class EmptyBaseCatalog : BaseCatalog
 	{
