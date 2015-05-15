@@ -97,7 +97,7 @@ Now you can use NGettext in your code:
 	// Catalog's current locale will be used to format messages correctly
 	catalog.GetString("Here's a number: {0}!", 1.23);
 	// Will return "Here's a number: 1.23!" for en_US locale
-	// But something like this will be returned for ru_RU locale with Russian translation: "А вот и номер: 1,23!"
+	// But something like this will be returned for ru_RU locale with Russian translation: "Рђ РІРѕС‚ Рё РЅРѕРјРµСЂ: 1,23!"
 ```
 
 
@@ -113,7 +113,7 @@ Now you can use NGettext in your code:
 
 	catalog.GetPluralString("You have {0} apple.", "You have {0} apples.", 5, 5);
 	// Returns translated plural massage: "You have 5 apples." (for en_US locale)
-	// First “5” used in plural forms determination; second — in String.Format method
+	// First вЂњ5вЂќ used in plural forms determination; second вЂ” in String.Format method
 
 
 	// Example plural forms usage for fractional numbers:
