@@ -68,7 +68,13 @@
     <None Include="TestResources\locales\ru_RU\LC_MESSAGES\Test.po">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestResources\locales\ru_RU\LC_MESSAGES\TestBigEndian.mo">
+    <None Include="TestResources\locales\ru_RU\LC_MESSAGES\Test_BigEndian.mo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestResources\locales\ru_RU\LC_MESSAGES\Test_KOI8-R.mo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestResources\locales\ru_RU\LC_MESSAGES\Test_KOI8-R.po">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
