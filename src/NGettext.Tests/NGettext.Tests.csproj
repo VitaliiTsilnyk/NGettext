@@ -48,7 +48,8 @@
   <ItemGroup>
     <Compile Include="BaseCatalogTest.cs" />
     <Compile Include="Loaders\MoFileParserTest.cs" />
-    <Compile Include="Plural\PluralFormProcessorTest.cs" />
+    <Compile Include="Plural\PluralRuleTest.cs" />
+    <Compile Include="Plural\DefaultPluralRuleGeneratorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stabs\EmptyBaseCatalog.cs" />
     <Compile Include="CatalogTest.cs" />

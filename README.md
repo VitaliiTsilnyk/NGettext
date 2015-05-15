@@ -1,17 +1,17 @@
 NGettext [![Build Status](https://travis-ci.org/neris/NGettext.svg?branch=master)](https://travis-ci.org/neris/NGettext)
 ========
 
-Copyright (C) 2012 Neris Ereptoris <http://neris.ws/>.
+Copyright (C) 2012,2015 Neris Ereptoris <http://neris.ws/>.
 
 
 Just another one GNU/Gettext implementation for .NET.
 Requires Microsoft .NET Framework 2.0 or higher or Mono.
 
 This implementation loads translations directly from gettext *.mo files (no need to compile a satellite assembly) and can handle multiple translation domains and multiple locales in one application instance.
+It supports both little-endian and big-endian MO files, automatic (header-based) encoding detection.
 
-NGettext currently not supports *.mo file headers (stored in mo file plural formulas, encoding, etc.).
-It uses precompiled plural formulas and supports custom plural formulas passed through API.
-It supports both little-endian and big-endian MO files.
+NGettext currently not supports loading plural form rules from *.mo file headers.
+It uses precompiled plural form rules and supports custom plural form rules passed through API.
 
 
 
@@ -159,7 +159,7 @@ Now you can use NGettext in your code:
 ### Custom plural formulas
 
 ```csharp
-	catalog.PluralForm.SetCustomFormula(cultureInfo, n => ( n == 1 ? 0 : 1 ));
+	catalog.PluralRule = new PluralRule(numPlurals, n => ( n == 1 ? 0 : 1 ));
 ```
 
 

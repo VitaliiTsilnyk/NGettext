@@ -49,7 +49,11 @@
     <Compile Include="Loaders\BigEndianBinaryReader.cs" />
     <Compile Include="Loaders\ReadOnlyStreamWrapper.cs" />
     <Compile Include="Loaders\MoFileParser.cs" />
-    <Compile Include="Plural\PluralFormProcessor.cs" />
+    <Compile Include="Plural\IPluralRule.cs" />
+    <Compile Include="Plural\PluralRule.cs" />
+    <Compile Include="Plural\IPluralRuleGenerator.cs" />
+    <Compile Include="Plural\PluralRuleEvaluatorDelegate.cs" />
+    <Compile Include="Plural\DefaultPluralRuleGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseCatalog.cs" />
   </ItemGroup>
