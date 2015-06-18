@@ -12,6 +12,9 @@ namespace NGettext.Plural
 		/// </summary>
 		protected PluralRuleEvaluatorDelegate EvaluatorDelegate;
 
+
+		public static readonly PluralRule Default = new PluralRule(2, number => (number == 1) ? 0 : 1);
+
 		/// <summary>
 		/// Maximum number of plural forms supported.
 		/// </summary>

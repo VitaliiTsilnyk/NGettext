@@ -44,18 +44,22 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Catalog.cs" />
     <Compile Include="ICatalog.cs" />
     <Compile Include="Loaders\BigEndianBinaryReader.cs" />
+    <Compile Include="Loaders\ILoader.cs" />
+    <Compile Include="Loaders\MoAstPluralLoader.cs" />
+    <Compile Include="Loaders\MoLoader.cs" />
     <Compile Include="Loaders\ReadOnlyStreamWrapper.cs" />
     <Compile Include="Loaders\MoFileParser.cs" />
+    <Compile Include="Plural\AstPluralRuleGenerator.cs" />
     <Compile Include="Plural\IPluralRule.cs" />
+    <Compile Include="Plural\IPluralRuleTextParser.cs" />
     <Compile Include="Plural\PluralRule.cs" />
     <Compile Include="Plural\IPluralRuleGenerator.cs" />
     <Compile Include="Plural\PluralRuleEvaluatorDelegate.cs" />
     <Compile Include="Plural\DefaultPluralRuleGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BaseCatalog.cs" />
+    <Compile Include="Catalog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -71,8 +71,8 @@ namespace NGettext.Tests.Loaders
 			Assert.AreEqual(new[] { "тест" }, dict["test"]);
 			Assert.AreEqual(new[] { "тест2" }, dict["test2"]);
 			Assert.AreEqual(new[] { "{0} минута", "{0} минуты", "{0} минут" }, dict["{0} minute"]);
-			Assert.AreEqual(new[] { "тест3контекст1" }, dict["context1" + BaseCatalog.CONTEXT_GLUE + "test3"]);
-			Assert.AreEqual(new[] { "тест3контекст2" }, dict["context2" + BaseCatalog.CONTEXT_GLUE + "test3"]);
+			Assert.AreEqual(new[] { "тест3контекст1" }, dict["context1" + Catalog.CONTEXT_GLUE + "test3"]);
+			Assert.AreEqual(new[] { "тест3контекст2" }, dict["context2" + Catalog.CONTEXT_GLUE + "test3"]);
 		}
 	}
 }
