@@ -49,6 +49,7 @@
     <Compile Include="Loaders\BigEndianBinaryReader.cs" />
     <Compile Include="Loaders\ReadOnlyStreamWrapper.cs" />
     <Compile Include="Loaders\MoFileParser.cs" />
+    <Compile Include="Loaders\ContentType.cs" />
     <Compile Include="Plural\IPluralRule.cs" />
     <Compile Include="Plural\PluralRule.cs" />
     <Compile Include="Plural\IPluralRuleGenerator.cs" />
