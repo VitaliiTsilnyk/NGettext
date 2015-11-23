@@ -85,7 +85,7 @@ namespace NGettext.Tests.Plural
 							{10, 2},
 							{999, 2},
 						}},
-					{"se-SE", new Dictionary<long, int>()
+					{"se", new Dictionary<long, int>()
 						{
 							{0, 2},
 							{1, 0},
