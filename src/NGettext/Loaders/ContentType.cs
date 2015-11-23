@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace NGettext.Loaders
@@ -56,15 +55,13 @@ namespace NGettext.Loaders
 			Type = match.Groups["type"].Value;
 			SubType = match.Groups["subType"].Value;
 
-			var paramNames = match.Groups["paramName"].Captures.Cast<Capture>()
-				.ToArray();
-			var paramValues = match.Groups["paramValue"].Captures.Cast<Capture>()
-				.ToArray();
+			var paramNames = match.Groups["paramName"].Captures;
+			var paramValues = match.Groups["paramValue"].Captures;
 
-			for (var i = 0; i < paramNames.Length; i++)
+			for (var i = 0; i < paramNames.Count; i++)
 			{
-				var paramName = paramNames[i];
-				var paramValue = paramValues[i];
+				var paramName = (Capture)paramNames[i];
+				var paramValue = (Capture)paramValues[i];
 
 				var name = paramName.Value.ToLowerInvariant();
 				var value = paramValue.Value;
