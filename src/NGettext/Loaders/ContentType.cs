@@ -18,9 +18,9 @@ namespace NGettext.Loaders
 		public ContentType(string contentType)
 		{
 			if (contentType == null)
-				throw new ArgumentNullException(nameof(contentType));
+				throw new ArgumentNullException("contentType");
 			if (contentType == String.Empty)
-				throw new ArgumentException("Parameter cannot be an empty string", nameof(contentType));
+				throw new ArgumentException("Parameter cannot be an empty string", "contentType");
 
 			Source = contentType;
 			_parameters = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
@@ -35,7 +35,7 @@ namespace NGettext.Loaders
 		public string SubType { get; private set; }
 		public string MediaType
 		{
-			get { return $"${Type}/${MediaType}"; }
+			get { return Type + "/" + MediaType; }
 		}
 
 		public string CharSet { get { return GetParameter("charset"); } }
