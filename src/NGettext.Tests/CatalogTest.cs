@@ -18,7 +18,8 @@ namespace NGettext.Tests
 		[SetUp]
 		public void Init()
 		{
-			this.LocalesDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestResources", "locales");
+			//this.LocalesDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestResources", "locales");
+			this.LocalesDir = Path.Combine(Directory.GetCurrentDirectory(), "TestResources", "locales");
 		}
 
 		[Test]
@@ -29,8 +30,8 @@ namespace NGettext.Tests
 			Assert.AreEqual(0, t.Translations.Count);
 			Assert.AreEqual(CultureInfo.CurrentUICulture, t.CultureInfo);
 
-			t = new Catalog(CultureInfo.CreateSpecificCulture("fr"));
-			Assert.AreEqual(CultureInfo.CreateSpecificCulture("fr"), t.CultureInfo);
+			t = new Catalog(new CultureInfo("fr"));
+			Assert.AreEqual(new CultureInfo("fr"), t.CultureInfo);
 		}
 
 		[Test]
@@ -38,7 +39,7 @@ namespace NGettext.Tests
 		{
 			using (var stream = File.OpenRead(Path.Combine(this.LocalesDir, "ru_RU", "LC_MESSAGES", "Test.mo")))
 			{
-				var t = new Catalog(stream, CultureInfo.CreateSpecificCulture("ru-RU"));
+				var t = new Catalog(stream, new CultureInfo("ru-RU"));
 				this._TestLoadedTranslation(t);
 			}
 		}
@@ -46,7 +47,7 @@ namespace NGettext.Tests
 		[Test]
 		public void TestLocaleDir()
 		{
-			var t = new Catalog("Test", this.LocalesDir, CultureInfo.CreateSpecificCulture("ru-RU"));
+			var t = new Catalog("Test", this.LocalesDir, new CultureInfo("ru-RU"));
 			this._TestLoadedTranslation(t);
 		}
 

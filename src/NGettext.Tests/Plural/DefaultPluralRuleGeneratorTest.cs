@@ -110,7 +110,7 @@ namespace NGettext.Tests.Plural
 			var generator = new DefaultPluralRuleGenerator();
 			foreach (var testCase in dict)
 			{
-				var locale = CultureInfo.CreateSpecificCulture(testCase.Key);
+				var locale = new CultureInfo(testCase.Key);
 				var rule = generator.CreateRule(locale);
 				foreach (var data in testCase.Value)
 				{

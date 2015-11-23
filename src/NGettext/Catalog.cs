@@ -20,7 +20,7 @@ namespace NGettext
 		public Catalog()
 			: base(CultureInfo.CurrentUICulture)
 		{
-			
+
 		}
 
 		/// <summary>
@@ -30,7 +30,7 @@ namespace NGettext
 		public Catalog(CultureInfo cultureInfo)
 			: base(cultureInfo)
 		{
-			
+
 		}
 
 		/// <summary>
@@ -182,12 +182,12 @@ namespace NGettext
 
 		private string _GetFileName(string localeDir, string domain, string locale)
 		{
-			var relativePath =
-				locale.Replace('-', '_') + Path.DirectorySeparatorChar +
-				"LC_MESSAGES" + Path.DirectorySeparatorChar +
-				domain + ".mo";
-
-			return Path.Combine(localeDir, relativePath);
+			return Path.Combine(
+				localeDir,
+				locale.Replace('-', '_'),
+				"LC_MESSAGES",
+				domain + ".mo"
+			);
 		}
 	}
 }

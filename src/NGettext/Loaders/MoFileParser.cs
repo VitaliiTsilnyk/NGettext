@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 using System.IO;
-using System.Net.Mime;
+using System.Text.RegularExpressions;
 
 namespace NGettext.Loaders
 {
@@ -100,7 +100,7 @@ namespace NGettext.Loaders
 					{
 						Trace.WriteLine("Big Endian file detected. Switching readers...", "NGettext");
 						this.IsBigEndian = true;
-						reader.Close();
+						reader.Dispose();
 						reader = new BigEndianBinaryReader(new ReadOnlyStreamWrapper(stream));
 					}
 					else
@@ -157,9 +157,9 @@ namespace NGettext.Loaders
 					if (originalStrings[0].Length == 0)
 					{
 						// MO file metadata processing
-						foreach (var headerText in translatedStrings[0].Split(new []{'\n', '\r'}, StringSplitOptions.RemoveEmptyEntries))
+						foreach (var headerText in translatedStrings[0].Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries))
 						{
-							var header = headerText.Split(new [] {':'}, 2);
+							var header = headerText.Split(new[] { ':' }, 2);
 							if (header.Length == 2)
 							{
 								this.Headers.Add(header[0], header[1].Trim());
@@ -196,7 +196,7 @@ namespace NGettext.Loaders
 			}
 			finally
 			{
-				reader.Close();
+				reader.Dispose();
 			}
 		}
 
@@ -212,7 +212,7 @@ namespace NGettext.Loaders
 		{
 			reader.BaseStream.Seek(offset, SeekOrigin.Begin);
 			var stringBytes = reader.ReadBytes(length);
-			return this.Encoding.GetString(stringBytes).Split('\0');
+			return this.Encoding.GetString(stringBytes, 0, stringBytes.Length).Split('\0');
 		}
 
 		private static uint _ReverseBytes(uint value)

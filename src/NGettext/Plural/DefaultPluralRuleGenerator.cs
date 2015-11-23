@@ -183,14 +183,14 @@ namespace NGettext.Plural
 
 				case "ga":
 					return new PluralRule(5, number => (number == 1) ? 0 : ((number == 2) ? 1 : (((number >= 3) && (number <= 6)) ? 2 : ((number >= 7 && number <= 10) ? 3 : 4))));
-					
+
 				case "ro":
 				case "mo":
 					return new PluralRule(3, number => (number == 1) ? 0 : (((number == 0) || ((number % 100 > 0) && (number % 100 < 20))) ? 1 : 2));
-					
+
 				case "lt":
 					return new PluralRule(3, number => ((number % 10 == 1) && (number % 100 != 11)) ? 0 : (((number % 10 >= 2) && ((number % 100 < 10) || (number % 100 >= 20))) ? 1 : 2));
-					
+
 				case "be":
 				case "bs":
 				case "hr":
@@ -199,26 +199,26 @@ namespace NGettext.Plural
 				case "sr":
 				case "uk":
 					return new PluralRule(3, number => ((number % 10 == 1) && (number % 100 != 11)) ? 0 : (((number % 10 >= 2) && (number % 10 <= 4) && ((number % 100 < 10) || (number % 100 >= 20))) ? 1 : 2));
-					
+
 				case "cs":
 				case "sk":
 					return new PluralRule(3, number => (number == 1) ? 0 : (((number >= 2) && (number <= 4)) ? 1 : 2));
 
 				case "pl":
 					return new PluralRule(3, number => (number == 1) ? 0 : (((number % 10 >= 2) && (number % 10 <= 4) && ((number % 100 < 12) || (number % 100 > 14))) ? 1 : 2));
-					
+
 				case "sl":
 					return new PluralRule(4, number => (number % 100 == 1) ? 0 : ((number % 100 == 2) ? 1 : (((number % 100 == 3) || (number % 100 == 4)) ? 2 : 3)));
-					
+
 				case "mt":
 					return new PluralRule(4, number => (number == 1) ? 0 : (((number == 0) || ((number % 100 > 1) && (number % 100 < 11))) ? 1 : (((number % 100 > 10) && (number % 100 < 20)) ? 2 : 3)));
-					
+
 				case "mk":
 					return new PluralRule(2, number => ((number % 10 == 1) && (number != 11)) ? 0 : 1);
 
 				case "cy":
 					return new PluralRule(6, number => (number == 0) ? 0 : ((number == 1) ? 1 : ((number == 2) ? 2 : ((number == 3) ? 3 : ((number == 6) ? 4 : 5)))));
-					
+
 				case "lag":
 				case "ksh":
 					return new PluralRule(3, number => (number == 0) ? 0 : ((number == 1) ? 1 : 2));
