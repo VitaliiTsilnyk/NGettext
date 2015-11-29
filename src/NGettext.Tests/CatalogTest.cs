@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Globalization;
 using System.IO;
@@ -18,8 +17,7 @@ namespace NGettext.Tests
 		[SetUp]
 		public void Init()
 		{
-			//this.LocalesDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestResources", "locales");
-			this.LocalesDir = Path.Combine(Directory.GetCurrentDirectory(), "TestResources", "locales");
+			this.LocalesDir = Path.Combine(Directory.GetCurrentDirectory(), Path.Combine("TestResources", "locales"));
 		}
 
 		[Test]
@@ -37,7 +35,7 @@ namespace NGettext.Tests
 		[Test]
 		public void TestStream()
 		{
-			using (var stream = File.OpenRead(Path.Combine(this.LocalesDir, "ru_RU", "LC_MESSAGES", "Test.mo")))
+			using (var stream = File.OpenRead(Path.Combine(this.LocalesDir, Path.Combine("ru_RU", Path.Combine("LC_MESSAGES", "Test.mo")))))
 			{
 				var t = new Catalog(stream, new CultureInfo("ru-RU"));
 				this._TestLoadedTranslation(t);

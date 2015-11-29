@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.IO;
 using System.Reflection;
@@ -14,12 +13,18 @@ namespace NGettext.Tests.Loaders
 	[TestFixture]
 	public class MoFileParserTest
 	{
+		public string LocalesDir;
+
+		[SetUp]
+		public void Init()
+		{
+			this.LocalesDir = Path.Combine(Directory.GetCurrentDirectory(), Path.Combine("TestResources", "locales"));
+		}
+
 		[Test]
 		public void TestParsing()
 		{
-			//var localesDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestResources", "locales");
-			var localesDir = Path.Combine(Directory.GetCurrentDirectory(), "TestResources", "locales");
-			using (var stream = File.OpenRead(Path.Combine(localesDir, "ru_RU", "LC_MESSAGES", "Test.mo")))
+			using (var stream = File.OpenRead(Path.Combine(LocalesDir, Path.Combine("ru_RU", Path.Combine("LC_MESSAGES", "Test.mo")))))
 			{
 				var parser = new MoFileParser();
 				parser.Parse(stream);
@@ -30,9 +35,7 @@ namespace NGettext.Tests.Loaders
 		[Test]
 		public void TestBigEndianParsing()
 		{
-			//var localesDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestResources", "locales");
-			var localesDir = Path.Combine(Directory.GetCurrentDirectory(), "TestResources", "locales");
-			using (var stream = File.OpenRead(Path.Combine(localesDir, "ru_RU", "LC_MESSAGES", "Test_BigEndian.mo")))
+			using (var stream = File.OpenRead(Path.Combine(LocalesDir, Path.Combine("ru_RU", Path.Combine("LC_MESSAGES", "Test_BigEndian.mo")))))
 			{
 				var parser = new MoFileParser();
 				parser.Parse(stream);
@@ -43,9 +46,7 @@ namespace NGettext.Tests.Loaders
 		[Test]
 		public void TestAutoEncoding()
 		{
-			//var localesDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestResources", "locales");
-			var localesDir = Path.Combine(Directory.GetCurrentDirectory(), "TestResources", "locales");
-			using (var stream = File.OpenRead(Path.Combine(localesDir, "ru_RU", "LC_MESSAGES", "Test_KOI8-R.mo")))
+			using (var stream = File.OpenRead(Path.Combine(LocalesDir, Path.Combine("ru_RU", Path.Combine("LC_MESSAGES", "Test_KOI8-R.mo")))))
 			{
 				var parser = new MoFileParser();
 				parser.Parse(stream);
@@ -56,9 +57,7 @@ namespace NGettext.Tests.Loaders
 		[Test]
 		public void TestManualEncoding()
 		{
-			//var localesDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestResources", "locales");
-			var localesDir = Path.Combine(Directory.GetCurrentDirectory(), "TestResources", "locales");
-			using (var stream = File.OpenRead(Path.Combine(localesDir, "ru_RU", "LC_MESSAGES", "Test_KOI8-R.mo")))
+			using (var stream = File.OpenRead(Path.Combine(LocalesDir, Path.Combine("ru_RU", Path.Combine("LC_MESSAGES", "Test_KOI8-R.mo")))))
 			{
 				var parser = new MoFileParser()
 				{

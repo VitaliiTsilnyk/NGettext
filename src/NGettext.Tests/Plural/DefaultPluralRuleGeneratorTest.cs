@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 using NGettext.Plural;
 using NUnit.Framework;
@@ -11,7 +10,6 @@ namespace NGettext.Tests.Plural
 	[TestFixture]
 	public class DefaultPluralRuleGeneratorTest
 	{
-
 		[SetUp]
 		public void Init()
 		{
