@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 using NGettext.Plural;
 using NUnit.Framework;
@@ -11,7 +10,6 @@ namespace NGettext.Tests.Plural
 	[TestFixture]
 	public class DefaultPluralRuleGeneratorTest
 	{
-
 		[SetUp]
 		public void Init()
 		{
@@ -85,7 +83,7 @@ namespace NGettext.Tests.Plural
 							{10, 2},
 							{999, 2},
 						}},
-					{"se-SE", new Dictionary<long, int>()
+					{"se", new Dictionary<long, int>()
 						{
 							{0, 2},
 							{1, 0},
@@ -110,7 +108,7 @@ namespace NGettext.Tests.Plural
 			var generator = new DefaultPluralRuleGenerator();
 			foreach (var testCase in dict)
 			{
-				var locale = CultureInfo.CreateSpecificCulture(testCase.Key);
+				var locale = new CultureInfo(testCase.Key);
 				var rule = generator.CreateRule(locale);
 				foreach (var data in testCase.Value)
 				{

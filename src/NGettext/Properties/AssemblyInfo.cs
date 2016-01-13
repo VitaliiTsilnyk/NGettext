@@ -16,7 +16,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("0.2.2.1")]
 [assembly: AssemblyFileVersion("0.2.2.1")]
 
+#if !DNXCORE50
 [assembly: Guid("9ef9b9d7-7df8-4c3a-ac8c-58bea65f0526")]
+#endif
 
 [assembly: ComVisible(true)]
 [assembly: CLSCompliant(true)]

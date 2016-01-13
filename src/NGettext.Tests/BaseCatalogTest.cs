@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Globalization;
 
@@ -16,7 +15,7 @@ namespace NGettext.Tests
 		[SetUp]
 		public void Init()
 		{
-			
+
 		}
 
 		#region GetString
@@ -64,7 +63,7 @@ namespace NGettext.Tests
 		[Test]
 		public void TestGetPluralString()
 		{
-			var t = new EmptyBaseCatalog(CultureInfo.CreateSpecificCulture("en-US"));
+			var t = new EmptyBaseCatalog(new CultureInfo("en-US"));
 			t.Translations.Add("key1", new[] {"value1"});
 			t.Translations.Add("key2plural1", new[] {"value2plural1", "value2plural2"});
 
@@ -79,7 +78,7 @@ namespace NGettext.Tests
 		[Test]
 		public void TestGetPluralStringFormat()
 		{
-			var t = new EmptyBaseCatalog(CultureInfo.CreateSpecificCulture("en-US"));
+			var t = new EmptyBaseCatalog(new CultureInfo("en-US"));
 
 			Assert.AreEqual("You have 1 apple", t.GetPluralString("You have {0} apple", "You have {0} apples", 1, 1));
 			Assert.AreEqual("You have 2 apples", t.GetPluralString("You have {0} apple", "You have {0} apples", 2, 2));
@@ -93,7 +92,7 @@ namespace NGettext.Tests
 		[Test]
 		public void TestGetPluralStringInternational()
 		{
-			var t = new EmptyBaseCatalog(CultureInfo.CreateSpecificCulture("ru-RU"));
+			var t = new EmptyBaseCatalog(new CultureInfo("ru-RU"));
 			t.Translations.Add("You have {0} apple", new[] { "У Вас {0} яблоко", "У Вас {0} яблока", "У Вас {0} яблок" });
 
 			Assert.AreEqual("У Вас 1 яблоко", t.GetPluralString("You have {0} apple", "You have {0} apples", 1, 1));
@@ -162,7 +161,7 @@ namespace NGettext.Tests
 		[Test]
 		public void TestGetParticularPluralString()
 		{
-			var t = new EmptyBaseCatalog(CultureInfo.CreateSpecificCulture("en-US"));
+			var t = new EmptyBaseCatalog(new CultureInfo("en-US"));
 			t.Translations.Add("context1" + BaseCatalog.CONTEXT_GLUE + "key1-1", new[] { "value1-1", "value1-2" });
 			t.Translations.Add("context2" + BaseCatalog.CONTEXT_GLUE + "key1-1", new[] { "value2-1", "value2-2" });
 
@@ -175,7 +174,7 @@ namespace NGettext.Tests
 		[Test]
 		public void TestGetParticularPluralStringFormat()
 		{
-			var t = new EmptyBaseCatalog(CultureInfo.CreateSpecificCulture("en-US"));
+			var t = new EmptyBaseCatalog(new CultureInfo("en-US"));
 
 			Assert.AreEqual("Foo bar", t.GetParticularPluralString("context", "Foo {0}", "Bar {0}", 1, "bar"));
 			Assert.AreEqual("Bar bar", t.GetParticularPluralString("context", "Foo {0}", "Bar {0}", 2, "bar"));
@@ -211,7 +210,7 @@ namespace NGettext.Tests
 		[Test]
 		public void TestProtectedGetPluralString()
 		{
-			var t = new EmptyBaseCatalog(CultureInfo.CreateSpecificCulture("en-US"));
+			var t = new EmptyBaseCatalog(new CultureInfo("en-US"));
 			t.Translations.Add("key1", new[] { "value1" });
 
 			Assert.AreEqual("value1", t.GetPluralStringDefault("key1", "defaultSingular", "defaultPlural", 1));

@@ -11,6 +11,7 @@
 *.resources
 *.vs10x
 *_ReSharper.*
+.vs
 
 
 ###### Binary files
@@ -19,6 +20,11 @@
 *.cache
 *.sln.proj
 *.nupkg
+
+
+###### DNX
+project.lock.json
+artifacts
 
 
 ###### Custom NAnt configuration

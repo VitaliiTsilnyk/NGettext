@@ -62,7 +62,7 @@ namespace NGettext.Loaders
 		/// When overridden in a derived class, reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read.
 		/// </summary>
 		/// <returns>
-		/// The total number of bytes read into the buffer. This can be less than the number of bytes requested if that many bytes are not currently available, or zero (0) if the end of the stream has been reached. 
+		/// The total number of bytes read into the buffer. This can be less than the number of bytes requested if that many bytes are not currently available, or zero (0) if the end of the stream has been reached.
 		/// </returns>
 		/// <param name="buffer">An array of bytes. When this method returns, the buffer contains the specified byte array with the values between <paramref name="offset"/> and (<paramref name="offset"/> + <paramref name="count"/> - 1) replaced by the bytes read from the current source. </param><param name="offset">The zero-based byte offset in <paramref name="buffer"/> at which to begin storing the data read from the current stream. </param><param name="count">The maximum number of bytes to be read from the current stream. </param><exception cref="T:System.ArgumentException">The sum of <paramref name="offset"/> and <paramref name="count"/> is larger than the buffer length. </exception><exception cref="T:System.ArgumentNullException"><paramref name="buffer"/> is null. </exception><exception cref="T:System.ArgumentOutOfRangeException"><paramref name="offset"/> or <paramref name="count"/> is negative. </exception><exception cref="T:System.IO.IOException">An I/O error occurs. </exception><exception cref="T:System.NotSupportedException">The stream does not support reading. </exception><exception cref="T:System.ObjectDisposedException">Methods were called after the stream was closed. </exception><filterpriority>1</filterpriority>
 		public override int Read(byte[] buffer, int offset, int count)
@@ -152,6 +152,8 @@ namespace NGettext.Loaders
 			}
 		}
 
+#if !DNXCORE50
+
 		/// <summary>
 		/// Begins an asynchronous read operation.
 		/// </summary>
@@ -199,6 +201,8 @@ namespace NGettext.Loaders
 			throw new InvalidOperationException("Stream is in read-only mode.");
 		}
 
+#endif
+
 		/// <summary>
 		/// Reads a byte from the stream and advances the position within the stream by one byte, or returns -1 if at the end of the stream.
 		/// </summary>
@@ -221,11 +225,27 @@ namespace NGettext.Loaders
 			throw new InvalidOperationException("Stream is in read-only mode.");
 		}
 
+#if !DNXCORE50
+
 		/// <summary>
 		/// Closes the current stream and releases any resources (such as sockets and file handles) associated with the current stream.
 		/// </summary>
 		/// <filterpriority>1</filterpriority>
 		public override void Close()
+		{
+			if (!this._IsClosed)
+			{
+				this._IsClosed = true;
+			}
+		}
+
+#endif
+
+		/// <summary>
+		/// Releases the unmanaged resources used by the System.IO.Stream and optionally releases the managed resources.
+		/// </summary>
+		/// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources</param>
+		protected override void Dispose(bool disposing)
 		{
 			if (!this._IsClosed)
 			{

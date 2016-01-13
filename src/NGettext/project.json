@@ -1,0 +1,31 @@
+{
+    "version": "1.0.0-rc1-*",
+    "description": "NGettext",
+    "authors": [ "Neris Ereptoris" ],
+    "tags": [ "gettext", "i18n", "localization" ],
+    "projectUrl": "https://github.com/neris/NGettext",
+    "licenseUrl": "https://github.com/neris/NGettext/blob/master/LICENSE",
+
+    "dependencies": {
+
+    },
+
+    "frameworks": {
+        "net20": { },
+        "net45": { },
+        "dnx451": { },
+        "dnxcore50": {
+            "dependencies": {
+                "System.Runtime": "4.0.21-beta-23516",
+                "System.Globalization": "4.0.11-beta-23516",
+                "System.Collections": "4.0.0-beta-23019",
+                "System.IO": "4.0.11-beta-23516",
+                "System.Diagnostics.Debug": "4.0.0-beta-23019",
+                "System.Runtime.Extensions": "4.0.0-beta-23019",
+                "System.Text.RegularExpressions": "4.0.0-beta-23019",
+                "System.Diagnostics.TraceSource": "4.0.0-beta-23516",
+                "System.IO.FileSystem": "4.0.1-beta-23516"
+            }
+        }
+    }
+}
