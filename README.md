@@ -1,11 +1,11 @@
-NGettext [![Build Status](https://travis-ci.org/neris/NGettext.svg?branch=master)](https://travis-ci.org/neris/NGettext)
+NGettext [![Build Status](https://travis-ci.org/neris/NGettext.svg?branch=master)](https://travis-ci.org/neris/NGettext) [![Build Status](https://ci.appveyor.com/api/projects/status/oc151pvllqqy0po9?svg=true)](https://ci.appveyor.com/project/neris/ngettext)
 ========
 
-Copyright (C) 2012,2015 Neris Ereptoris <http://neris.ws/>.
+Copyright (C) 2012-2016 Neris Ereptoris <http://neris.ws/>.
 
 
 Just another one GNU/Gettext implementation for .NET.
-Requires Microsoft .NET Framework 2.0 or higher or Mono.
+Works fine on Microsoft .NET Framework version 2.0 or higher, Mono and even on .NET Core.
 
 This implementation loads translations directly from gettext *.mo files (no need to compile a satellite assembly) and can handle multiple translation domains and multiple locales in one application instance.
 It supports both little-endian and big-endian MO files, automatic (header-based) encoding detection.
@@ -50,8 +50,8 @@ Building from the sources
 ### Building on Windows
   
   Requirements:
-    Microsoft .NET Framework 2.0 or higher,
-    [NAnt](http://nant.sourceforge.net/).
+    Microsoft Visual Studio 2015,
+    .
   
   Just run `build.bat` to build project with the Release configuration.
 
@@ -60,9 +60,14 @@ Building from the sources
 Installation and usage
 ----------------------
 
-All you need to do is just install a [NuGet package](https://www.nuget.org/packages/NGettext/):
+All you need to do is just install a [NuGet package](https://www.nuget.org/packages/NGettext/)
+from the package manager console:
 ```
 PM> Install-Package NGettext
+```
+or through DNX Utility:
+```
+$ dnu install NGettext
 ```
 
 Alternatively you can download [compiled binaries](https://github.com/neris/NGettext/releases) or the [source code](https://github.com/neris/NGettext) and add a reference to `NGettext.dll` or `NGettext.csproj` to your project.
@@ -86,6 +91,14 @@ Now you can use NGettext in your code:
 	Console.WriteLine(catalog.GetString("Hello, {0}!", "World")); // String.Format support
 ```
 
+### .NET CoreCLR
+
+If you using this library under CoreCLR and you want to use encodings different from UTF-8 for your *.mo files, you need to include [System.Text.Encoding.CodePages](https://www.nuget.org/packages/System.Text.Encoding.CodePages/) package into your application and initialize it like this:
+```csharp
+	#if DNXCORE50
+		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+	#endif
+```
 
 
 ### Culture-specific message formatting
