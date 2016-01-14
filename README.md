@@ -36,26 +36,6 @@ It's hard to build and maintain translation files and change locale inside your 
 * NGettext provides nice and simple API for translation.
 
 
-Building from the sources
--------------------------
-
-### Building on Linux
-  
-  Requirements:
-    [Mono](http://www.go-mono.com/mono-downloads/download.html),
-    [NAnt](http://nant.sourceforge.net/).
-  
-  Execute the `nant` command in the project directory to build project with the Release configuration.
-
-### Building on Windows
-  
-  Requirements:
-    Microsoft Visual Studio 2015,
-    .
-  
-  Just run `build.bat` to build project with the Release configuration.
-
-
 
 Installation and usage
 ----------------------
