@@ -182,14 +182,7 @@ namespace NGettext
 
 		private string _GetFileName(string localeDir, string domain, string locale)
 		{
-			// mono weirdness
-			var path1 = Path.Combine(localeDir, locale.Replace('-', '_'));
-			var path2 = Path.Combine("LC_MESSAGES", domain + ".mo");
-
-			return Path.Combine(
-				path1,
-				path2
-			);
+			return Path.Combine(localeDir, Path.Combine(locale.Replace('-', '_'), Path.Combine("LC_MESSAGES", domain + ".mo")));
 		}
 	}
 }

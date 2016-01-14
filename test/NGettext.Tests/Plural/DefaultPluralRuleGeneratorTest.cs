@@ -1,24 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 using NGettext.Plural;
-using NUnit.Framework;
+using Xunit;
 
 namespace NGettext.Tests.Plural
 {
-	[TestFixture]
 	public class DefaultPluralRuleGeneratorTest
 	{
-		[SetUp]
-		public void Init()
-		{
-
-		}
-
 		#region Default forms
 
-		[Test]
+		[Fact]
 		public void TestDefaultForms()
 		{
 			var dict = new Dictionary<string, Dictionary<long, int>>()
@@ -112,7 +103,7 @@ namespace NGettext.Tests.Plural
 				var rule = generator.CreateRule(locale);
 				foreach (var data in testCase.Value)
 				{
-					Assert.AreEqual(data.Value, rule.Evaluate(data.Key));
+					Assert.Equal(data.Value, rule.Evaluate(data.Key));
 				}
 			}
 		}

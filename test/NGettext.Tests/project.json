@@ -1,0 +1,27 @@
+﻿{
+	"version": "1.0.0-*",
+	"description": "NGettext Tests",
+	"authors": [ "Neris Ereptoris" ],
+	"tags": [ "" ],
+	"projectUrl": "",
+	"licenseUrl": "",
+
+	"dependencies": {
+		"xunit": "2.1.0",
+		"xunit.runner.dnx": "2.1.0-rc1-build204",
+
+		"NGettext": { "target": "project" }
+	},
+	"commands": {
+		"test": "xunit.runner.dnx"
+	},
+
+	"frameworks": {
+		"dnx46": { },
+		"dnxcore50": {
+			"dependencies": {
+				"System.Text.Encoding.CodePages": "4.0.1-beta-23409"
+			}
+		}
+	}
+}

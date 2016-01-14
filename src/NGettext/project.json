@@ -1,31 +1,102 @@
-{
-    "version": "1.0.0-rc1-*",
-    "description": "NGettext",
-    "authors": [ "Neris Ereptoris" ],
-    "tags": [ "gettext", "i18n", "localization" ],
-    "projectUrl": "https://github.com/neris/NGettext",
-    "licenseUrl": "https://github.com/neris/NGettext/blob/master/LICENSE",
+﻿{
+	"version": "0.3.0.0",
+	"title": "NGettext",
+	"description": "A .NET implementation of the GNU/Gettext library.",
+	"owners": [ "Neris Ereptoris" ],
+	"authors": [ "Neris Ereptoris" ],
+	"tags": [ "ngettext", "gettext", "internationalization", "localization", "i18n", "l10n", "translate" ],
+	"projectUrl": "https://github.com/neris/NGettext",
+	"licenseUrl": "https://raw.githubusercontent.com/neris/NGettext/master/LICENSE",
+	"requireLicenseAcceptance": false,
 
-    "dependencies": {
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/neris/NGettext"
+	},
 
-    },
+	"compilationOptions": {
+		"languageVersion": "csharp6",
+		"keyFile": "..\\..\\NGettext.snk"
+	},
 
-    "frameworks": {
-        "net20": { },
-        "net45": { },
-        "dnx451": { },
-        "dnxcore50": {
-            "dependencies": {
-                "System.Runtime": "4.0.21-beta-23516",
-                "System.Globalization": "4.0.11-beta-23516",
-                "System.Collections": "4.0.0-beta-23019",
-                "System.IO": "4.0.11-beta-23516",
-                "System.Diagnostics.Debug": "4.0.0-beta-23019",
-                "System.Runtime.Extensions": "4.0.0-beta-23019",
-                "System.Text.RegularExpressions": "4.0.0-beta-23019",
-                "System.Diagnostics.TraceSource": "4.0.0-beta-23516",
-                "System.IO.FileSystem": "4.0.1-beta-23516"
-            }
-        }
-    }
+	"packInclude": {
+		"LICENSE": "..\\..\\LICENSE"
+	},
+
+	"dependencies": {
+	},
+
+	"frameworks": {
+		"net20": {
+			"frameworkAssemblies": {
+				"System": ""
+			}
+		},
+		"net35": {
+			"frameworkAssemblies": {
+				"System": ""
+			}
+		},
+		"net35-client": {
+			"frameworkAssemblies": {
+				"System": ""
+			}
+		},
+		"net40": {
+			"frameworkAssemblies": {
+				"System": ""
+			}
+		},
+		"net40-client": {
+			"frameworkAssemblies": {
+				"System": ""
+			}
+		},
+		"net45": {
+			"frameworkAssemblies": {
+				"System": ""
+			}
+		},
+		"net46": {
+			"frameworkAssemblies": {
+				"System": ""
+			}
+		},
+		"dnx451": {
+			"frameworkAssemblies": {
+				"System": ""
+			}
+		},
+		"dnxcore50": {
+			"dependencies": {
+				"Microsoft.CSharp": "4.0.1-beta-23516",
+				"System.Runtime": "4.0.21-beta-23516",
+				"System.Globalization": "4.0.11-beta-23516",
+				"System.Collections": "4.0.0-beta-23019",
+				"System.IO": "4.0.11-beta-23516",
+				"System.Diagnostics.Debug": "4.0.0-beta-23019",
+				"System.Runtime.Extensions": "4.0.0-beta-23019",
+				"System.Text.RegularExpressions": "4.0.0-beta-23019",
+				"System.Diagnostics.TraceSource": "4.0.0-beta-23516",
+				"System.IO.FileSystem": "4.0.1-beta-23516"
+			}
+		},
+		"uap10.0": {
+			"dependencies": {
+				"Microsoft.CSharp": "4.0.1-beta-23516",
+				"System.Runtime": "4.0.21-beta-23516",
+				"System.Globalization": "4.0.11-beta-23516",
+				"System.Collections": "4.0.0-beta-23019",
+				"System.IO": "4.0.11-beta-23516",
+				"System.Diagnostics.Debug": "4.0.0-beta-23019",
+				"System.Runtime.Extensions": "4.0.0-beta-23019",
+				"System.Text.RegularExpressions": "4.0.0-beta-23019",
+				"System.Diagnostics.TraceSource": "4.0.0-beta-23516",
+				"System.IO.FileSystem": "4.0.1-beta-23516"
+			},
+			"compilationOptions": {
+				"define": [ "DNXCORE50" ]
+			}
+		}
+	}
 }
