@@ -13,7 +13,7 @@ env:
 
 install:
  - nuget install secure-file -ExcludeVersion
- - mono secure-file/tools/secure-file.exe -decrypt NGettext.snk.enc -secret %SNK_SECRET%
+ - mono secure-file/tools/secure-file.exe -decrypt NGettext.snk.enc -secret "${SNK_SECRET}"
 
 solution: src/NGettext.sln
 
