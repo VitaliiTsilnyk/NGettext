@@ -14,8 +14,16 @@ env:
 install:
  - nuget install secure-file -ExcludeVersion
  - mono secure-file/tools/secure-file.exe -decrypt NGettext.snk.enc -secret "${SNK_SECRET}"
+ - curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | sh && source ~/.dnx/dnvm/dnvm.sh
+ - dnvm upgrade
 
 solution: NGettext.sln
 
 script:
-  - xbuild NGettext.sln
+  - dnvm list
+  - dnu restore
+  - cd src/NGettext
+  - dnu build
+  - cd ../..
+  - cd test/NGettext.Tests
+  - dnx test
