@@ -16,11 +16,11 @@
 
 	"compilationOptions": {
 		"languageVersion": "csharp6",
-		"keyFile": "..\\..\\NGettext.snk"
+		"keyFile": "../../NGettext.snk"
 	},
 
 	"packInclude": {
-		"LICENSE": "..\\..\\LICENSE"
+		"LICENSE": "../../LICENSE"
 	},
 
 	"dependencies": {
