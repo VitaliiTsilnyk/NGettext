@@ -28,4 +28,4 @@ script:
   - dnu build --framework dnx451
   - cd ../..
   - cd test/NGettext.Tests
-  - dnx test
+  - dnx test -parallel none
