@@ -1,40 +1,23 @@
-{
-    "version": "1.0.0-rc1-*",
-    "description": "NGettext",
-    "authors": [ "Neris Ereptoris" ],
-    "tags": [ "gettext", "i18n", "localization" ],
-    "projectUrl": "https://github.com/neris/NGettext",
-    "licenseUrl": "https://github.com/neris/NGettext/blob/master/LICENSE",
+﻿{
+	"version": "1.0.0-*",
+	"description": "NGettext Tests",
+	"authors": [ "Neris Ereptoris" ],
+	"tags": [ "" ],
+	"projectUrl": "",
+	"licenseUrl": "",
 
-    "compilationOptions": {
-        "emitEntryPoint": true
-    },
+	"dependencies": {
+		"xunit": "2.1.0",
+		"xunit.runner.dnx": "2.1.0-rc1-build204",
 
-    "dependencies": {
-        "NUnit": "3.0.0",
-        "NUnitLite": "3.0.0",
+		"NGettext": { "target": "project" }
+	},
+	"commands": {
+		"test": "xunit.runner.dnx"
+	},
 
-        "NGettext": ""
-    },
-
-    "commands": {
-        "test": "NGettext.Tests"
-    },
-
-    "frameworks": {
-        "net20": { },
-        "net45": { },
-        "dnx451": { },
-        "dnxcore50": {
-            "dependencies": {
-                "System.Runtime": "4.0.21-beta-23516",
-                "System.Globalization": "4.0.11-beta-23516",
-                "System.Collections": "4.0.0-beta-23019",
-                "System.IO": "4.0.11-beta-23516",
-                "System.Console": "4.0.0-beta-23516",
-                "System.Text.Encoding.CodePages": "4.0.1-beta-23516",
-                "System.Reflection": "4.1.0-beta-23516"
-            }
-        }
-    }
+	"frameworks": {
+		"dnx46": { },
+		"dnxcore50": { }
+	}
 }

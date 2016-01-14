@@ -1,27 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using System.IO;
-using System.Reflection;
-
-using NUnit.Framework;
-
+using Xunit;
 using NGettext.Loaders;
 
 namespace NGettext.Tests.Loaders
 {
-	[TestFixture]
 	public class MoFileParserTest
 	{
 		public string LocalesDir;
-
-		[SetUp]
-		public void Init()
+		
+		public MoFileParserTest()
 		{
 			this.LocalesDir = Path.Combine(Directory.GetCurrentDirectory(), Path.Combine("TestResources", "locales"));
 		}
 
-		[Test]
+		[Fact]
 		public void TestParsing()
 		{
 			using (var stream = File.OpenRead(Path.Combine(LocalesDir, Path.Combine("ru_RU", Path.Combine("LC_MESSAGES", "Test.mo")))))
@@ -32,7 +26,7 @@ namespace NGettext.Tests.Loaders
 			}
 		}
 
-		[Test]
+		[Fact]
 		public void TestBigEndianParsing()
 		{
 			using (var stream = File.OpenRead(Path.Combine(LocalesDir, Path.Combine("ru_RU", Path.Combine("LC_MESSAGES", "Test_BigEndian.mo")))))
@@ -43,7 +37,7 @@ namespace NGettext.Tests.Loaders
 			}
 		}
 
-		[Test]
+		[Fact]
 		public void TestAutoEncoding()
 		{
 			using (var stream = File.OpenRead(Path.Combine(LocalesDir, Path.Combine("ru_RU", Path.Combine("LC_MESSAGES", "Test_KOI8-R.mo")))))
@@ -54,7 +48,7 @@ namespace NGettext.Tests.Loaders
 			}
 		}
 
-		[Test]
+		[Fact]
 		public void TestManualEncoding()
 		{
 			using (var stream = File.OpenRead(Path.Combine(LocalesDir, Path.Combine("ru_RU", Path.Combine("LC_MESSAGES", "Test_KOI8-R.mo")))))
@@ -71,11 +65,11 @@ namespace NGettext.Tests.Loaders
 
 		private void _TestLoadedTranslation(IDictionary<string, string[]> dict)
 		{
-			Assert.AreEqual(new[] { "тест" }, dict["test"]);
-			Assert.AreEqual(new[] { "тест2" }, dict["test2"]);
-			Assert.AreEqual(new[] { "{0} минута", "{0} минуты", "{0} минут" }, dict["{0} minute"]);
-			Assert.AreEqual(new[] { "тест3контекст1" }, dict["context1" + BaseCatalog.CONTEXT_GLUE + "test3"]);
-			Assert.AreEqual(new[] { "тест3контекст2" }, dict["context2" + BaseCatalog.CONTEXT_GLUE + "test3"]);
+			Assert.Equal(new[] { "тест" }, dict["test"]);
+			Assert.Equal(new[] { "тест2" }, dict["test2"]);
+			Assert.Equal(new[] { "{0} минута", "{0} минуты", "{0} минут" }, dict["{0} minute"]);
+			Assert.Equal(new[] { "тест3контекст1" }, dict["context1" + BaseCatalog.CONTEXT_GLUE + "test3"]);
+			Assert.Equal(new[] { "тест3контекст2" }, dict["context2" + BaseCatalog.CONTEXT_GLUE + "test3"]);
 		}
 	}
 }
