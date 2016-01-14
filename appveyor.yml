@@ -1,5 +1,6 @@
 os: Visual Studio 2015
-init:
+before_build:
   - dnvm install latest
+  - dnu restore
 build:
   project: NGettext.sln
