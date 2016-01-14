@@ -18,6 +18,10 @@
 
 	"frameworks": {
 		"dnx46": { },
-		"dnxcore50": { }
+		"dnxcore50": {
+			"dependencies": {
+				"System.Text.Encoding.CodePages": "4.0.1-beta-23409"
+			}
+		}
 	}
 }
