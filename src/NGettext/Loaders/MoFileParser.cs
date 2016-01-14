@@ -100,11 +100,7 @@ namespace NGettext.Loaders
 					{
 						Trace.WriteLine("Big Endian file detected. Switching readers...", "NGettext");
 						this.IsBigEndian = true;
-#if DNXCORE50
-						reader.Dispose();
-#else
-						reader.Close();
-#endif
+						((IDisposable)reader).Dispose();
 						reader = new BigEndianBinaryReader(new ReadOnlyStreamWrapper(stream));
 					}
 					else
@@ -200,11 +196,7 @@ namespace NGettext.Loaders
 			}
 			finally
 			{
-#if DNXCORE50
-				reader.Dispose();
-#else
-				reader.Close();
-#endif
+				((IDisposable)reader).Dispose();
 			}
 		}
 
