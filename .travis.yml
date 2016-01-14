@@ -16,7 +16,6 @@ install:
  - mono secure-file/tools/secure-file.exe -decrypt NGettext.snk.enc -secret "${SNK_SECRET}"
  - curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | sh && source ~/.dnx/dnvm/dnvm.sh
  - dnvm upgrade
- - dnvm install latest -r coreclr
 
 solution: NGettext.sln
 
