@@ -1,6 +1,11 @@
 os: Visual Studio 2015
+environment:
+  snk_secret:
+    secure: 0l0TrDvCNXH4z922G/Qa5hFG4+4payl1zRAfjMfEXRw=
 before_build:
   - dnvm install latest
   - dnu restore
+  - nuget install secure-file -ExcludeVersion
+  - secure-file\tools\secure-file -decrypt NGettext.snk.enc -secret %snk_secret%
 build:
   project: NGettext.sln
