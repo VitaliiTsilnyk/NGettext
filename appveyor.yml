@@ -1,2 +1,5 @@
+os: Visual Studio 2015
+init:
+  - dnvm install latest
 build:
   project: NGettext.sln
