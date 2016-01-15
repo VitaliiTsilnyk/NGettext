@@ -5,7 +5,7 @@ environment:
 
 install:
   - dnvm install latest
-  - dnu restore
+  - dnu restore --quiet
   - nuget install secure-file -ExcludeVersion
   - secure-file\tools\secure-file -decrypt NGettext.snk.enc -secret %snk_secret%
 

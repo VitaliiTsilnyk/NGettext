@@ -21,7 +21,7 @@ solution: NGettext.sln
 
 script:
   - dnvm list
-  - dnu restore
+  - dnu restore --quiet
   - cd src/NGettext
   - dnu build --framework dnx451
   - cd ../..
