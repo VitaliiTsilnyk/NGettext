@@ -1,7 +1,7 @@
 ﻿{
-	"version": "0.3.0.0",
+	"version": "0.3.0.1",
 	"title": "NGettext",
-	"description": "A .NET implementation of the GNU/Gettext library.",
+	"description": "A cross-platform .NET implementation of the GNU/Gettext library.",
 	"owners": [ "Neris Ereptoris" ],
 	"authors": [ "Neris Ereptoris" ],
 	"tags": [ "ngettext", "gettext", "internationalization", "localization", "i18n", "l10n", "translate" ],
@@ -17,6 +17,20 @@
 	"compilationOptions": {
 		"languageVersion": "csharp6",
 		"keyFile": "../../NGettext.snk"
+	},
+
+	"configurations": {
+		"Debug": {
+			"compilationOptions": {
+				"define": [ "DEBUG", "TRACE" ]
+			}
+		},
+		"Release": {
+			"compilationOptions": {
+				"define": [ "RELEASE" ],
+				"optimize": true
+			}
+		}
 	},
 
 	"packInclude": {
