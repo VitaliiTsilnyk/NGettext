@@ -15,6 +15,16 @@ It uses precompiled plural form rules and supports custom plural form rules pass
 
 
 
+Build status
+------------
+
+|OS |Target frameworks (build)|Target frameworks (test)|Status|
+|:--|:--|:--|:--|
+|Windows|net20 net35 net40 net45 net46<br/>net35-client net40-client<br/>dnx451<br/>dnxcore50 uap10.0|dnx451|[![Build Status](https://ci.appveyor.com/api/projects/status/oc151pvllqqy0po9?svg=true)](https://ci.appveyor.com/project/neris/ngettext)|
+|Linux|dnx451-mono|dnx451-mono|[![Build Status](https://travis-ci.org/neris/NGettext.svg?branch=master)](https://travis-ci.org/neris/NGettext)|
+
+
+
 Why not others?
 ---------------
 
@@ -64,7 +74,7 @@ Now you can use NGettext in your code:
 	// or
 	
 	// This will load translations from "./locale/ru_RU/LC_MESSAGES/Example.mo"
-	ICatalog catalog = new Catalog("Example", "./locale", CultureInfo.CreateSpecificCulture("ru-RU"));
+	ICatalog catalog = new Catalog("Example", "./locale", new CultureInfo("ru-RU"));
 ```
 ```csharp
 	Console.WriteLine(catalog.GetString("Hello, World!")); // will translate "Hello, World!" using loaded translations
@@ -129,10 +139,10 @@ If you using this library under CoreCLR and you want to use encodings different 
 
 ```csharp
 	// "./locale/en_US/LC_MESSAGES/Example.mo"
-	ICatalog example_en = new Catalog("Example", "./locale", CultureInfo.CreateSpecificCulture("en-US"));
+	ICatalog example_en = new Catalog("Example", "./locale", new CultureInfo("en-US"));
 
 	// "./locale/fr/LC_MESSAGES/Example.mo"
-	ICatalog example_fr = new Catalog("Example", "./locale", CultureInfo.CreateSpecificCulture("fr"));
+	ICatalog example_fr = new Catalog("Example", "./locale", new CultureInfo("fr"));
 
 	// "./locale/<CurrentUICulture>/LC_MESSAGES/AnotherDomainName.mo"
 	ICatalog anotherDomain = new Catalog("AnotherDomainName", "./locale");
@@ -144,7 +154,7 @@ If you using this library under CoreCLR and you want to use encodings different 
 
 ```csharp
 	Stream moFileStream = File.OpenRead("path/to/domain.mo");
-	ICatalog catalog = new Catalog(moFileStream, CultureInfo.CreateSpecificCulture("en-US"));
+	ICatalog catalog = new Catalog(moFileStream, new CultureInfo("en-US"));
 ```
 
 
@@ -154,6 +164,8 @@ If you using this library under CoreCLR and you want to use encodings different 
 ```csharp
 	catalog.PluralRule = new PluralRule(numPlurals, n => ( n == 1 ? 0 : 1 ));
 ```
+Also you can create custom plural rule generator by implementing IPluralRuleGenerator interface, which will create
+a PluralRule for any culture.
 
 
 
