@@ -24,8 +24,8 @@ namespace NGettext.Tests.Loaders
 			using (var stream = File.OpenRead(Path.Combine(LocalesDir, Path.Combine("ru_RU", Path.Combine("LC_MESSAGES", "Test.mo")))))
 			{
 				var parser = new MoFileParser();
-				parser.Parse(stream);
-				this._TestLoadedTranslation(parser.Translations);
+				var parsedFile = parser.Parse(stream);
+				this._TestLoadedTranslation(parsedFile.Translations);
 			}
 		}
 
@@ -35,8 +35,8 @@ namespace NGettext.Tests.Loaders
 			using (var stream = File.OpenRead(Path.Combine(LocalesDir, Path.Combine("ru_RU", Path.Combine("LC_MESSAGES", "Test_BigEndian.mo")))))
 			{
 				var parser = new MoFileParser();
-				parser.Parse(stream);
-				this._TestLoadedTranslation(parser.Translations);
+				var parsedFile = parser.Parse(stream);
+				this._TestLoadedTranslation(parsedFile.Translations);
 			}
 		}
 
@@ -46,8 +46,8 @@ namespace NGettext.Tests.Loaders
 			using (var stream = File.OpenRead(Path.Combine(LocalesDir, Path.Combine("ru_RU", Path.Combine("LC_MESSAGES", "Test_KOI8-R.mo")))))
 			{
 				var parser = new MoFileParser();
-				parser.Parse(stream);
-				this._TestLoadedTranslation(parser.Translations);
+				var parsedFile = parser.Parse(stream);
+				this._TestLoadedTranslation(parsedFile.Translations);
 			}
 		}
 
@@ -56,13 +56,9 @@ namespace NGettext.Tests.Loaders
 		{
 			using (var stream = File.OpenRead(Path.Combine(LocalesDir, Path.Combine("ru_RU", Path.Combine("LC_MESSAGES", "Test_KOI8-R.mo")))))
 			{
-				var parser = new MoFileParser()
-				{
-					Encoding = Encoding.GetEncoding("KOI8-R"),
-					DetectEncoding = false,
-				};
-				parser.Parse(stream);
-				this._TestLoadedTranslation(parser.Translations);
+				var parser = new MoFileParser(Encoding.GetEncoding("KOI8-R"), false);
+				var parsedFile = parser.Parse(stream);
+				this._TestLoadedTranslation(parsedFile.Translations);
 			}
 		}
 
@@ -71,8 +67,8 @@ namespace NGettext.Tests.Loaders
 			Assert.Equal(new[] { "тест" }, dict["test"]);
 			Assert.Equal(new[] { "тест2" }, dict["test2"]);
 			Assert.Equal(new[] { "{0} минута", "{0} минуты", "{0} минут" }, dict["{0} minute"]);
-			Assert.Equal(new[] { "тест3контекст1" }, dict["context1" + BaseCatalog.CONTEXT_GLUE + "test3"]);
-			Assert.Equal(new[] { "тест3контекст2" }, dict["context2" + BaseCatalog.CONTEXT_GLUE + "test3"]);
+			Assert.Equal(new[] { "тест3контекст1" }, dict["context1" + Catalog.CONTEXT_GLUE + "test3"]);
+			Assert.Equal(new[] { "тест3контекст2" }, dict["context2" + Catalog.CONTEXT_GLUE + "test3"]);
 		}
 	}
 }

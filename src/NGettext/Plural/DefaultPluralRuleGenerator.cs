@@ -235,7 +235,7 @@ namespace NGettext.Plural
 				case "gd":
 					return new PluralRule(4, number => ((number == 1) || (number == 11)) ? 0 : (((number == 2) || (number == 12)) ? 1 : (((((number >= 3) && (number <= 10)) || ((number >= 13) && (number <= 19))) ? 2 : 3))));
 			}
-			return new PluralRule(1, number => 0);
+			return PluralRule.Default;
 		}
 	}
 }

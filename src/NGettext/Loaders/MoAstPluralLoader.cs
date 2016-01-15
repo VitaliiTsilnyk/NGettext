@@ -55,7 +55,7 @@ namespace NGettext.Loaders
 		/// <param name="domain"></param>
 		/// <param name="localeDir"></param>
 		public MoAstPluralLoader(string domain, string localeDir)
-			: base(domain, localeDir, new AstPluralRuleGenerator(), new MoFileParser())
+			: base(domain, localeDir, new AstPluralRuleGenerator())
 		{
 		}
 
@@ -66,7 +66,7 @@ namespace NGettext.Loaders
 		/// </summary>
 		/// <param name="filePath"></param>
 		public MoAstPluralLoader(string filePath)
-			: base(filePath, new AstPluralRuleGenerator(), new MoFileParser())
+			: base(filePath, new AstPluralRuleGenerator())
 		{
 		}
 
@@ -77,7 +77,7 @@ namespace NGettext.Loaders
 		/// </summary>
 		/// <param name="moStream"></param>
 		public MoAstPluralLoader(Stream moStream)
-			: base(moStream, new AstPluralRuleGenerator(), new MoFileParser())
+			: base(moStream, new AstPluralRuleGenerator())
 		{
 		}
 	}

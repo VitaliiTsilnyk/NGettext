@@ -11,6 +11,9 @@ namespace NGettext.Loaders
 	/// </summary>
 	public class MoLoader : ILoader
 	{
+		private const string LC_MESSAGES = "LC_MESSAGES";
+		private const string MO_FILE_EXT = ".mo";
+
 		private readonly Stream _MoStream;
 		private readonly string _FilePath;
 		private readonly string _Domain;
@@ -26,8 +29,10 @@ namespace NGettext.Loaders
 		/// </summary>
 		public MoFileParser Parser { get; private set; }
 
+		#region Constructors
+
 		/// <summary>
-		/// Initializes a new instance of the <see cref="MoLoader"/> class whitch will try to load a MO file
+		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
 		/// that will be located in the localeDir using the domain name and catalog's culture info.
 		/// </summary>
 		/// <param name="domain"></param>
@@ -52,7 +57,7 @@ namespace NGettext.Loaders
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="MoLoader"/> class whitch will try to load a MO file
+		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
 		/// from the specified path.
 		/// </summary>
 		/// <param name="filePath"></param>
@@ -73,7 +78,7 @@ namespace NGettext.Loaders
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="MoLoader"/> class whitch will try to load a MO file
+		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
 		/// from the specified stream.
 		/// </summary>
 		/// <param name="moStream"></param>
@@ -93,8 +98,36 @@ namespace NGettext.Loaders
 			this.Parser = parser;
 		}
 
+		#endregion
+
+		#region Constructor overloads
+
 		/// <summary>
-		/// Initializes a new instance of the <see cref="MoLoader"/> class whitch will try to load a MO file
+		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
+		/// that will be located in the localeDir using the domain name and catalog's culture info.
+		/// </summary>
+		/// <param name="domain"></param>
+		/// <param name="localeDir"></param>
+		/// <param name="pluralRuleGenerator"></param>
+		public MoLoader(string domain, string localeDir, IPluralRuleGenerator pluralRuleGenerator)
+			: this(domain, localeDir, pluralRuleGenerator, new MoFileParser())
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
+		/// that will be located in the localeDir using the domain name and catalog's culture info.
+		/// </summary>
+		/// <param name="domain"></param>
+		/// <param name="localeDir"></param>
+		/// <param name="parser"></param>
+		public MoLoader(string domain, string localeDir, MoFileParser parser)
+			: this(domain, localeDir, new DefaultPluralRuleGenerator(), parser)
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
 		/// that will be located in the localeDir using the domain name and catalog's culture info.
 		/// </summary>
 		/// <param name="domain"></param>
@@ -105,7 +138,29 @@ namespace NGettext.Loaders
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="MoLoader"/> class whitch will try to load a MO file
+		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
+		/// from the specified path.
+		/// </summary>
+		/// <param name="filePath"></param>
+		/// <param name="pluralRuleGenerator"></param>
+		public MoLoader(string filePath, IPluralRuleGenerator pluralRuleGenerator)
+			: this(filePath, pluralRuleGenerator, new MoFileParser())
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
+		/// from the specified path.
+		/// </summary>
+		/// <param name="filePath"></param
+		/// <param name="parser"></param>
+		public MoLoader(string filePath, MoFileParser parser)
+			: this(filePath, new DefaultPluralRuleGenerator(), parser)
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
 		/// from the specified path.
 		/// </summary>
 		/// <param name="filePath"></param>
@@ -115,7 +170,29 @@ namespace NGettext.Loaders
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="MoLoader"/> class whitch will try to load a MO file
+		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
+		/// from the specified stream.
+		/// </summary>
+		/// <param name="moStream"></param>
+		/// <param name="pluralRuleGenerator"></param>
+		public MoLoader(Stream moStream, IPluralRuleGenerator pluralRuleGenerator)
+			: this(moStream, pluralRuleGenerator, new MoFileParser())
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
+		/// from the specified stream.
+		/// </summary>
+		/// <param name="moStream"></param>
+		/// <param name="parser"></param>
+		public MoLoader(Stream moStream, MoFileParser parser)
+			: this(moStream, new DefaultPluralRuleGenerator(), parser)
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
 		/// from the specified stream.
 		/// </summary>
 		/// <param name="moStream"></param>
@@ -123,6 +200,8 @@ namespace NGettext.Loaders
 			: this(moStream, new DefaultPluralRuleGenerator(), new MoFileParser())
 		{
 		}
+
+		#endregion
 
 
 		/// <summary>
@@ -183,30 +262,29 @@ namespace NGettext.Loaders
 		/// <param name="catalog"></param>
 		protected virtual void Load(Stream moStream, Catalog catalog)
 		{
-			var parser = this.Parser;
-			parser.Parse(moStream);
+			var parsedMoFile = this.Parser.Parse(moStream);
 
-			this.Load(parser, catalog);
+			this.Load(parsedMoFile, catalog);
 		}
 
 		/// <summary>
 		/// Loads translations to the specified catalog using specified MO file parser.
 		/// </summary>
-		/// <param name="parser"></param>
+		/// <param name="parsedMoFile"></param>
 		/// <param name="catalog"></param>
-		protected virtual void Load(MoFileParser parser, Catalog catalog)
+		protected virtual void Load(MoFile parsedMoFile, Catalog catalog)
 		{
-			foreach (var translation in parser.Translations)
+			foreach (var translation in parsedMoFile.Translations)
 			{
 				catalog.Translations.Add(translation.Key, translation.Value);
 			}
 
-			if (parser.Headers.ContainsKey("Plural-Forms"))
+			if (parsedMoFile.Headers.ContainsKey("Plural-Forms"))
 			{
 				var generator = this.PluralRuleGenerator as IPluralRuleTextParser;
 				if (generator != null)
 				{
-					generator.SetPluralRuleText(parser.Headers["Plural-Forms"]);
+					generator.SetPluralRuleText(parsedMoFile.Headers["Plural-Forms"]);
 				}
 			}
 			catalog.PluralRule = this.PluralRuleGenerator.CreateRule(catalog.CultureInfo);
@@ -222,6 +300,7 @@ namespace NGettext.Loaders
 		protected virtual string FindTranslationFile(CultureInfo cultureInfo, string domain, string localeDir)
 		{
 			var possibleFiles = new[] {
+				this.GetFileName(localeDir, domain, cultureInfo.Name.Replace('-', '_')),
 				this.GetFileName(localeDir, domain, cultureInfo.Name),
 				this.GetFileName(localeDir, domain, cultureInfo.TwoLetterISOLanguageName)
 			};
@@ -247,7 +326,7 @@ namespace NGettext.Loaders
 		/// <returns></returns>
 		protected virtual string GetFileName(string localeDir, string domain, string locale)
 		{
-			return Path.Combine(localeDir, Path.Combine(locale.Replace('-', '_'), Path.Combine("LC_MESSAGES", domain + ".mo")));
+			return Path.Combine(localeDir, Path.Combine(locale, Path.Combine(LC_MESSAGES, domain + MO_FILE_EXT)));
 		}
 	}
 }

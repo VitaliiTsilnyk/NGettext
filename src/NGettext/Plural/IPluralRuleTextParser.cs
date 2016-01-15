@@ -5,7 +5,7 @@ namespace NGettext.Plural
 	/// <summary>
 	/// Represents a plural rule generator that can generate plural rules based on parsed text.
 	/// </summary>
-	public interface IPluralRuleTextParser
+	public interface IPluralRuleTextParser : IPluralRuleGenerator
 	{
 		/// <summary>
 		/// Sets a plural rule text representation that needs to be parsed.

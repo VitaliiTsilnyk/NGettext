@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 using System.IO;
-using System.Text.RegularExpressions;
 
 namespace NGettext.Loaders
 {
@@ -27,48 +25,35 @@ namespace NGettext.Loaders
 		}
 
 		/// <summary>
-		/// Current encoding for decoding all strings in given MO file.
+		/// Default encoding for decoding all strings in given MO file.
+		/// Must be binary compatible with US-ASCII to be able to read file headers.
 		/// </summary>
 		/// <remarks>
-		/// Default value is UTF-8 as it is compatible with required by specifications us-ascii.
-		/// This value could be changed when DetectEncoding property is set to True and the MO file
-		/// contains a valid charset name in the Content-Type header.
+		/// Default value is UTF-8 as it is compatible with required by specifications US-ASCII.
 		/// </remarks>
-		public Encoding Encoding { get; set; }
+		public Encoding DefaultEncoding { get; set; }
 
 		/// <summary>
 		/// Gets or sets a value that indicates whenever the parser can detect file encoding using the Content-Type MIME header.
 		/// </summary>
-		public bool DetectEncoding { get; set; }
+		public bool AutoDetectEncoding { get; set; }
 
 		/// <summary>
-		/// Gets a value that indicates whenever loaded file was in the big-endian format.
-		/// </summary>
-		public bool IsBigEndian { get; protected set; }
-
-		/// <summary>
-		/// Gets parsed file's format revision.
-		/// </summary>
-		public Version FormatRevision { get; protected set; }
-
-		/// <summary>
-		/// Gets parsed file's metadata.
-		/// </summary>
-		public Dictionary<string, string> Headers { get; protected set; }
-
-		/// <summary>
-		/// Gets parsed file's translation strings.
-		/// </summary>
-		public Dictionary<string, string[]> Translations { get; protected set; }
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="MoFileParser"/> class.
+		/// Initializes a new instance of the <see cref="MoFileParser"/> class with UTF-8 as default encoding and with enabled automatic encoding detection.
 		/// </summary>
 		public MoFileParser()
 		{
-			this.Encoding = Encoding.UTF8;
-			this.DetectEncoding = true;
-			this._Init();
+			this.DefaultEncoding = Encoding.UTF8;
+			this.AutoDetectEncoding = true;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MoFileParser"/> class using given default encoding and given automatic encoding detection option.
+		/// </summary>
+		public MoFileParser(Encoding defaultEncoding, bool autoDetectEncoding = true)
+		{
+			this.DefaultEncoding = defaultEncoding;
+			this.AutoDetectEncoding = autoDetectEncoding;
 		}
 
 		/// <summary>
@@ -78,9 +63,9 @@ namespace NGettext.Loaders
 		///	http://www.gnu.org/software/gettext/manual/html_node/MO-Files.html
 		/// </remarks>
 		/// <param name="stream">Stream that contain binary data in the MO file format</param>
-		public void Parse(Stream stream)
+		/// <returns>Parsed file data.</returns>
+		public MoFile Parse(Stream stream)
 		{
-			this._Init();
 			Trace.WriteLine("Trying to parse a MO file stream...", "NGettext");
 
 			if (stream == null || stream.Length < 20)
@@ -88,18 +73,19 @@ namespace NGettext.Loaders
 				throw new ArgumentException("Stream can not be null of less than 20 bytes long.");
 			}
 
+			var bigEndian = false;
 			var reader = new BinaryReader(new ReadOnlyStreamWrapper(stream));
 			try
 			{
 				var magicNumber = reader.ReadUInt32();
 				if (magicNumber != MO_FILE_MAGIC)
 				{
-					// System.IO.BinaryReader does not respect machine endianness and always uses little-endian
-					// So we need to detect and read big-endian files by ourselves
+					// System.IO.BinaryReader does not respect machine endianness and always uses LittleEndian
+					// So we need to detect and read BigEendian files by ourselves
 					if (_ReverseBytes(magicNumber) == MO_FILE_MAGIC)
 					{
-						Trace.WriteLine("Big Endian file detected. Switching readers...", "NGettext");
-						this.IsBigEndian = true;
+						Trace.WriteLine("BigEndian file detected. Switching readers...", "NGettext");
+						bigEndian = true;
 						((IDisposable)reader).Dispose();
 						reader = new BigEndianBinaryReader(new ReadOnlyStreamWrapper(stream));
 					}
@@ -110,13 +96,13 @@ namespace NGettext.Loaders
 				}
 
 				var revision = reader.ReadInt32();
-				this.FormatRevision = new Version(revision >> 16, revision & 0xffff);
+				var parsedFile = new MoFile(new Version(revision >> 16, revision & 0xffff), this.DefaultEncoding, bigEndian);
 
-				Trace.WriteLine(String.Format("MO File Revision: {0}.{1}.", this.FormatRevision.Major, this.FormatRevision.Minor), "NGettext");
+				Trace.WriteLine(String.Format("MO File Revision: {0}.{1}.", parsedFile.FormatRevision.Major, parsedFile.FormatRevision.Minor), "NGettext");
 
-				if (this.FormatRevision.Major > MAX_SUPPORTED_VERSION)
+				if (parsedFile.FormatRevision.Major > MAX_SUPPORTED_VERSION)
 				{
-					throw new Exception(String.Format("Unsupported MO file major revision: {0}.", this.FormatRevision.Major));
+					throw new Exception(String.Format("Unsupported MO file major revision: {0}.", parsedFile.FormatRevision.Major));
 				}
 
 				var stringCount = reader.ReadInt32();
@@ -130,7 +116,7 @@ namespace NGettext.Loaders
 				var originalTable = new StringOffsetTable[stringCount];
 				var translationTable = new StringOffsetTable[stringCount];
 
-				Trace.WriteLine(String.Format("Trying to parse strings using encoding \"{0}\"...", this.Encoding), "NGettext");
+				Trace.WriteLine(String.Format("Trying to parse strings using encoding \"{0}\"...", parsedFile.Encoding), "NGettext");
 
 				reader.BaseStream.Seek(originalTableOffset, SeekOrigin.Begin);
 				for (int i = 0; i < stringCount; i++)
@@ -149,32 +135,32 @@ namespace NGettext.Loaders
 
 				for (int i = 0; i < stringCount; i++)
 				{
-					var originalStrings = this._ReadStrings(reader, originalTable[i].Offset, originalTable[i].Length);
-					var translatedStrings = this._ReadStrings(reader, translationTable[i].Offset, translationTable[i].Length);
+					var originalStrings = this._ReadStrings(reader, originalTable[i].Offset, originalTable[i].Length, parsedFile.Encoding);
+					var translatedStrings = this._ReadStrings(reader, translationTable[i].Offset, translationTable[i].Length, parsedFile.Encoding);
 
 					if (originalStrings.Length == 0 || translatedStrings.Length == 0) continue;
 
 					if (originalStrings[0].Length == 0)
 					{
-						// MO file metadata processing
+						// MO file meta data processing
 						foreach (var headerText in translatedStrings[0].Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries))
 						{
 							var header = headerText.Split(new[] { ':' }, 2);
 							if (header.Length == 2)
 							{
-								this.Headers.Add(header[0], header[1].Trim());
+								parsedFile.Headers.Add(header[0], header[1].Trim());
 							}
 						}
 
-						if (this.DetectEncoding && this.Headers.ContainsKey("Content-Type"))
+						if (this.AutoDetectEncoding && parsedFile.Headers.ContainsKey("Content-Type"))
 						{
 							try
 							{
-								var contentType = new ContentType(this.Headers["Content-Type"]);
+								var contentType = new ContentType(parsedFile.Headers["Content-Type"]);
 								if (!String.IsNullOrEmpty(contentType.CharSet))
 								{
-									this.Encoding = Encoding.GetEncoding(contentType.CharSet);
-									Trace.WriteLine(String.Format("File encoding switched to \"{0}\" (\"{1}\" requested).", this.Encoding, contentType.CharSet), "NGettext");
+									parsedFile.Encoding = Encoding.GetEncoding(contentType.CharSet);
+									Trace.WriteLine(String.Format("File encoding switched to \"{0}\" (\"{1}\" requested).", parsedFile.Encoding, contentType.CharSet), "NGettext");
 								}
 							}
 							catch (Exception exception)
@@ -184,11 +170,11 @@ namespace NGettext.Loaders
 						}
 					}
 
-					this.Translations.Add(originalStrings[0], translatedStrings);
+					parsedFile.Translations.Add(originalStrings[0], translatedStrings);
 				}
 
 				Trace.WriteLine("String parsing completed.", "NGettext");
-
+				return parsedFile;
 			}
 			finally
 			{
@@ -196,19 +182,11 @@ namespace NGettext.Loaders
 			}
 		}
 
-		private void _Init()
-		{
-			this.Headers = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-			this.Translations = new Dictionary<string, string[]>();
-			this.FormatRevision = null;
-			this.IsBigEndian = false;
-		}
-
-		private string[] _ReadStrings(BinaryReader reader, int offset, int length)
+		private string[] _ReadStrings(BinaryReader reader, int offset, int length, Encoding encoding)
 		{
 			reader.BaseStream.Seek(offset, SeekOrigin.Begin);
 			var stringBytes = reader.ReadBytes(length);
-			return this.Encoding.GetString(stringBytes, 0, stringBytes.Length).Split('\0');
+			return encoding.GetString(stringBytes, 0, stringBytes.Length).Split('\0');
 		}
 
 		private static uint _ReverseBytes(uint value)
