@@ -1,188 +1,330 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Globalization;
-using System.Text;
-
+using System.IO;
 using NGettext.Loaders;
+using NGettext.Plural;
 
 namespace NGettext
 {
 	/// <summary>
 	/// Represents a Gettext catalog instance.
-	/// Loads translations from gettext *.mo files.
 	/// </summary>
-	public class Catalog : BaseCatalog
+	public class Catalog : ICatalog
 	{
+		private IPluralRule _PluralRule;
+
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Catalog"/> class with no translations and with current CultureInfo.
+		/// Context glue (&lt;EOT&gt; symbol)
+		/// </summary>
+		public const char CONTEXT_GLUE = '\u0004';
+
+		/// <summary>
+		/// Current catalog locale.
+		/// </summary>
+		public CultureInfo CultureInfo { get; protected set; }
+
+		/// <summary>
+		/// Loaded raw translation strings.
+		/// (msgctxt&lt;EOT&gt;)msgid => msgstr[]
+		/// </summary>
+		public Dictionary<string, string[]> Translations { get; protected set; }
+
+		/// <summary>
+		/// Gets or sets current plural form rule.
+		/// </summary>
+		public IPluralRule PluralRule
+		{
+			get { return this._PluralRule; }
+			set
+			{
+				if (value == null)
+					throw new ArgumentNullException("value");
+				this._PluralRule = value;
+			}
+		}
+
+		#region Constructors
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Catalog"/> class that has no translations
+		/// using the current UI culture info and default plural rule.
 		/// </summary>
 		public Catalog()
-			: base(CultureInfo.CurrentUICulture)
+			: this(CultureInfo.CurrentUICulture)
 		{
-
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Catalog"/> class with no translations and with given CultureInfo.
+		/// Initializes a new instance of the <see cref="Catalog"/> class that has no translations
+		/// using given culture info and default plural rule.
 		/// </summary>
-		/// <param name="cultureInfo">Culture info</param>
+		/// <param name="cultureInfo">Culture info.</param>
 		public Catalog(CultureInfo cultureInfo)
-			: base(cultureInfo)
 		{
-
+			this.CultureInfo = cultureInfo;
+			this.Translations = new Dictionary<string, string[]>();
+			this.PluralRule = Plural.PluralRule.Default;
+		}
+			
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Catalog"/> class using the current UI culture info
+		/// and loads data using given loader.
+		/// </summary>
+		/// <param name="loader">Loader instance.</param>
+		public Catalog(ILoader loader)
+			: this(loader, CultureInfo.CurrentUICulture)
+		{
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Catalog"/> class with current CultureInfo
-		/// and loads MO translations from given stream.
+		/// Initializes a new instance of the <see cref="Catalog"/> class using given culture info
+		/// and loads data using given loader.
 		/// </summary>
-		/// <param name="moStream">Stream that contain binary data in the MO file format</param>
+		/// <param name="loader">Loader instance.</param>
+		/// <param name="cultureInfo">Culture info.</param>
+		public Catalog(ILoader loader, CultureInfo cultureInfo)
+			: this(cultureInfo)
+		{
+			try
+			{
+				this.Load(loader);
+			}
+			catch (FileNotFoundException exception)
+			{
+				// Supress FileNotFound exceptions
+				Trace.WriteLine(String.Format("Translation file loading fail: {0}", exception.Message), "NGettext");
+			}
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Catalog"/> class using the current UI culture info
+		/// and loads data from specified stream using a new <see cref="MoLoader"/> instance.
+		/// </summary>
+		/// <param name="moStream">Stream that contain binary data in the MO file format.</param>
 		public Catalog(Stream moStream)
-			: this()
+			: this(new MoLoader(moStream))
 		{
-			try
-			{
-				this.Load(moStream);
-			}
-			catch (FileNotFoundException exception)
-			{
-				Trace.WriteLine(String.Format("Translation file loading fail: {0}", exception.Message), "NGettext");
-			}
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Catalog"/> class with given CultureInfo
-		/// and loads MO translations from given stream.
+		/// Initializes a new instance of the <see cref="Catalog"/> class using given culture info
+		/// and loads data from specified stream using a new <see cref="MoLoader"/> instance.
 		/// </summary>
-		/// <param name="moStream">Stream that contain binary data in the MO file format</param>
-		/// <param name="cultureInfo">Culture info</param>
+		/// <param name="moStream">Stream that contain binary data in the MO file format.</param>
+		/// <param name="cultureInfo">Culture info.</param>
 		public Catalog(Stream moStream, CultureInfo cultureInfo)
-			: this(cultureInfo)
+			: this(new MoLoader(moStream), cultureInfo)
 		{
-			try
-			{
-				this.Load(moStream);
-			}
-			catch (FileNotFoundException exception)
-			{
-				Trace.WriteLine(String.Format("Translation file loading fail: {0}", exception.Message), "NGettext");
-			}
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Catalog"/> class with current CultureInfo
-		/// and loads translations from MO file that can be found by given parameters.
+		/// Initializes a new instance of the <see cref="Catalog"/> class using the current UI culture info
+		/// and loads data for specified domain and locale directory using a new <see cref="MoLoader"/> instance.
 		/// </summary>
-		/// <param name="domain">Catalog domain name</param>
-		/// <param name="localeDir">Directory that contains gettext localization files</param>
+		/// <param name="domain">Catalog domain name.</param>
+		/// <param name="localeDir">Directory that contains gettext localization files.</param>
 		public Catalog(string domain, string localeDir)
-			: this()
+			: this(new MoLoader(domain, localeDir))
 		{
-			try
-			{
-				this.Load(this.CultureInfo, domain, localeDir);
-			}
-			catch (FileNotFoundException exception)
-			{
-				Trace.WriteLine(String.Format("Translation file loading fail: {0}", exception.Message), "NGettext");
-			}
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Catalog"/> class with given CultureInfo
-		/// and loads translations from MO file that can be found by given parameters.
+		/// Initializes a new instance of the <see cref="Catalog"/> class using given culture info
+		/// and loads data for specified domain and locale directory using a new <see cref="MoLoader"/> instance.
 		/// </summary>
-		/// <param name="domain">Catalog domain name</param>
-		/// <param name="localeDir">Directory that contains gettext localization files</param>
-		/// <param name="cultureInfo">Culture info</param>
+		/// <param name="domain">Catalog domain name.</param>
+		/// <param name="localeDir">Directory that contains gettext localization files.</param>
+		/// <param name="cultureInfo">Culture info.</param>
 		public Catalog(string domain, string localeDir, CultureInfo cultureInfo)
-			: this(cultureInfo)
+			: this(new MoLoader(domain, localeDir), cultureInfo)
 		{
-			try
-			{
-				this.Load(this.CultureInfo, domain, localeDir);
-			}
-			catch (FileNotFoundException exception)
-			{
-				Trace.WriteLine(String.Format("Translation file loading fail: {0}", exception.Message), "NGettext");
-			}
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Loads data to the current catalog using specified loader instance.
+		/// </summary>
+		/// <param name="loader">Loader instance.</param>
+		public void Load(ILoader loader)
+		{
+			if (loader == null)
+				throw new ArgumentNullException("loader");
+
+			loader.Load(this);
+		}
+
+		#region ICatalog implementation
+
+		/// <summary>
+		/// Returns <paramref name="text"/> translated into the selected language.
+		/// Similar to <c>gettext</c> function.
+		/// </summary>
+		/// <param name="text">Text to translate.</param>
+		/// <returns>Translated text.</returns>
+		public virtual string GetString(string text)
+		{
+			return this.GetStringDefault(text, text);
 		}
 
 		/// <summary>
-		/// Load translations from MO file that can be found by given parameters.
+		/// Returns <paramref name="text"/> translated into the selected language.
+		/// Similar to <c>gettext</c> function.
 		/// </summary>
-		/// <param name="cultureInfo">Culture info</param>
-		/// <param name="domain">Catalog domain name</param>
-		/// <param name="localeDir">Directory that contains gettext localization files</param>
-		public void Load(CultureInfo cultureInfo, string domain, string localeDir)
+		/// <param name="text">Text to translate.</param>
+		/// <param name="args">Optional arguments for <see cref="System.String.Format(string, object[])"/> method.</param>
+		/// <returns>Translated text.</returns>
+		public virtual string GetString(string text, params object[] args)
 		{
-			var path = this._FindTranslationFile(cultureInfo, domain, localeDir);
-			if (path == null)
-			{
-				throw new FileNotFoundException(String.Format("Can not find MO file name in locale directory \"{0}\".", localeDir));
-			}
-
-			this.Load(path);
+			return String.Format(this.CultureInfo, this.GetStringDefault(text, text), args);
 		}
 
 		/// <summary>
-		/// Load translations from MO file that can be found by given path.
+		/// Returns the plural form for <paramref name="n"/> of the translation of <paramref name="text"/>.
+		/// Similar to <c>ngettext</c> function.
 		/// </summary>
-		/// <param name="path">Path to *.mo file</param>
-		public void Load(string path)
+		/// <param name="text">Singular form of message to translate.</param>
+		/// <param name="pluralText">Plural form of message to translate.</param>
+		/// <param name="n">Value that determines the plural form.</param>
+		/// <returns>Translated text.</returns>
+		public virtual string GetPluralString(string text, string pluralText, long n)
 		{
-			Trace.WriteLine(String.Format("Loading translations from file \"{0}\"...", path), "NGettext");
-			using (var stream = File.OpenRead(path))
-			{
-				this.Load(stream);
-			}
+			return this.GetPluralStringDefault(text, text, pluralText, n);
 		}
 
 		/// <summary>
-		/// Load translations from given MO file stream using given encoding.
+		/// Returns the plural form for <paramref name="n"/> of the translation of <paramref name="text"/>.
+		/// Similar to <c>ngettext</c> function.
 		/// </summary>
-		/// <remarks>
-		/// By default, parser will try to detect file encoding automatically with fallback to UTF-8 encoding.
-		/// If you specify any encoding in this method, auto-detect will be turned off and given encoding will be used instead.
-		/// </remarks>
-		/// <param name="moStream">Stream that contain binary data in the MO file format</param>
-		/// <param name="encoding">File encoding (auto detect by default)</param>
-		public void Load(Stream moStream, Encoding encoding = null)
+		/// <param name="text">Singular form of message to translate.</param>
+		/// <param name="pluralText">Plural form of message to translate.</param>
+		/// <param name="n">Value that determines the plural form.</param>
+		/// <param name="args">Optional arguments for <see cref="System.String.Format(string, object[])"/> method.</param>
+		/// <returns>Translated text.</returns>
+		public virtual string GetPluralString(string text, string pluralText, long n, params object[] args)
 		{
-			var parser = new MoFileParser();
-			if (encoding != null)
-			{
-				parser.DetectEncoding = false;
-				parser.Encoding = encoding;
-			}
-
-			parser.Parse(moStream);
-
-			this.Translations = parser.Translations;
+			return String.Format(this.CultureInfo, this.GetPluralStringDefault(text, text, pluralText, n), args);
 		}
 
-		private string _FindTranslationFile(CultureInfo cultureInfo, string domain, string localeDir)
+		/// <summary>
+		/// Returns <paramref name="text"/> translated into the selected language using given <paramref name="context"/>.
+		/// Similar to <c>pgettext</c> function.
+		/// </summary>
+		/// <param name="context">Context.</param>
+		/// <param name="text">Text to translate.</param>
+		/// <returns>Translated text.</returns>
+		public virtual string GetParticularString(string context, string text)
 		{
-			var possibleFiles = new [] {
-				this._GetFileName(localeDir, domain, cultureInfo.Name),
-				this._GetFileName(localeDir, domain, cultureInfo.TwoLetterISOLanguageName)
-			};
-
-			foreach (var possibleFilePath in possibleFiles)
-			{
-				if (File.Exists(possibleFilePath))
-				{
-					return possibleFilePath;
-				}
-			}
-
-			return null;
+			return this.GetStringDefault(context + CONTEXT_GLUE + text, text);
 		}
 
-		private string _GetFileName(string localeDir, string domain, string locale)
+		/// <summary>
+		/// Returns <paramref name="text"/> translated into the selected language using given <paramref name="context"/>.
+		/// Similar to <c>pgettext</c> function.
+		/// </summary>
+		/// <param name="context">Context.</param>
+		/// <param name="text">Text to translate.</param>
+		/// <param name="args">Optional arguments for <see cref="System.String.Format(string, object[])"/> method.</param>
+		/// <returns>Translated text.</returns>
+		public virtual string GetParticularString(string context, string text, params object[] args)
 		{
-			return Path.Combine(localeDir, Path.Combine(locale.Replace('-', '_'), Path.Combine("LC_MESSAGES", domain + ".mo")));
+			return String.Format(this.CultureInfo, this.GetStringDefault(context + CONTEXT_GLUE + text, text), args);
+		}
+
+		/// <summary>
+		/// Returns the plural form for <paramref name="n"/> of the translation of <paramref name="text"/> using given <paramref name="context"/>.
+		/// Similar to <c>npgettext</c> function.
+		/// </summary>
+		/// <param name="context">Context.</param>
+		/// <param name="text">Singular form of message to translate.</param>
+		/// <param name="pluralText">Plural form of message to translate.</param>
+		/// <param name="n">Value that determines the plural form.</param>
+		/// <returns>Translated text.</returns>
+		public virtual string GetParticularPluralString(string context, string text, string pluralText, long n)
+		{
+			return this.GetPluralStringDefault(context + CONTEXT_GLUE + text, text, pluralText, n);
+		}
+
+		/// <summary>
+		/// Returns the plural form for <paramref name="n"/> of the translation of <paramref name="text"/> using given <paramref name="context"/>.
+		/// Similar to <c>npgettext</c> function.
+		/// </summary>
+		/// <param name="context">Context.</param>
+		/// <param name="text">Singular form of message to translate.</param>
+		/// <param name="pluralText">Plural form of message to translate.</param>
+		/// <param name="n">Value that determines the plural form.</param>
+		/// <param name="args">Optional arguments for <see cref="System.String.Format(string, object[])"/> method.</param>
+		/// <returns>Translated text.</returns>
+		public virtual string GetParticularPluralString(string context, string text, string pluralText, long n, params object[] args)
+		{
+			return String.Format(this.CultureInfo, this.GetPluralStringDefault(context + CONTEXT_GLUE + text, text, pluralText, n), args);
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Returns translated string for given <paramref name="messageId"/> or <paramref name="defaultMessage"/> on fail.
+		/// </summary>
+		/// <param name="messageId">Message ID</param>
+		/// <param name="defaultMessage">Default message</param>
+		/// <returns>Translated string</returns>
+		public virtual string GetStringDefault(string messageId, string defaultMessage)
+		{
+			var translations = this.GetTranslations(messageId);
+
+			if (translations == null || translations.Length == 0)
+			{
+				Trace.WriteLine(String.Format("Translation not found for message id \"{0}\".", messageId), "NGettext");
+				return defaultMessage;
+			}
+
+			return translations[0];
+		}
+
+		/// <summary>
+		/// Returns translated plural string for given <paramref name="messageId"/> or 
+		/// <paramref name="defaultMessage"/> or <paramref name="defaultPluralMessage"/> on fail.
+		/// </summary>
+		/// <param name="messageId">Message ID</param>
+		/// <param name="defaultMessage">Default message singular form</param>
+		/// <param name="defaultPluralMessage">Default message plural form</param>
+		/// <param name="n">Value that determines the plural form</param>
+		/// <returns>Translated string</returns>
+		public virtual string GetPluralStringDefault(string messageId, string defaultMessage, string defaultPluralMessage, long n)
+		{
+			var translations = this.GetTranslations(messageId);
+			var pluralIndex = this.PluralRule.Evaluate(n);
+			if (pluralIndex < 0 || pluralIndex >= this.PluralRule.NumPlurals)
+			{
+				throw new IndexOutOfRangeException(String.Format(
+					"Calculated plural form index ({0}) is out of allowed range (0~{1}).",
+					pluralIndex,
+					this.PluralRule.NumPlurals - 1
+				));
+			}
+
+			if (translations == null || translations.Length <= pluralIndex)
+			{
+				Trace.WriteLine(String.Format("Translation not found (plural) for message id \"{0}\".", messageId), "NGettext");
+				return (n == 1) ? defaultMessage : defaultPluralMessage;
+			}
+
+			return translations[pluralIndex];
+		}
+
+		/// <summary>
+		/// Returns all translations for given <paramref name="messageId"/>.
+		/// </summary>
+		/// <param name="messageId"></param>
+		/// <returns>Returns all translations for given <paramref name="messageId"/> or null if not found.</returns>
+		public virtual string[] GetTranslations(string messageId)
+		{
+			if (String.IsNullOrEmpty(messageId)) return null;
+			if (!this.Translations.ContainsKey(messageId)) return null;
+
+			return this.Translations[messageId];
 		}
 	}
 }

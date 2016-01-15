@@ -182,10 +182,6 @@ namespace NGettext.Loaders
 								Trace.WriteLine(String.Format("Unable to change parser encoding using the Content-Type header: \"{0}\".", exception.Message), "NGettext");
 							}
 						}
-						if (this.Headers.ContainsKey("Plural-Forms"))
-						{
-							//TODO: Plural forms parsing.
-						}
 					}
 
 					this.Translations.Add(originalStrings[0], translatedStrings);

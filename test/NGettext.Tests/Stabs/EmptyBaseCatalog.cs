@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace NGettext.Tests.Stabs
 {
-	public class EmptyBaseCatalog : BaseCatalog
+	public class EmptyBaseCatalog : Catalog
 	{
 		public EmptyBaseCatalog() : base(CultureInfo.CurrentUICulture) { }
 
