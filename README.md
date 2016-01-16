@@ -1,22 +1,23 @@
 NGettext [![Build Status](https://travis-ci.org/neris/NGettext.svg?branch=master)](https://travis-ci.org/neris/NGettext) [![Build Status](https://ci.appveyor.com/api/projects/status/oc151pvllqqy0po9?svg=true)](https://ci.appveyor.com/project/neris/ngettext)
 ========
 
-Copyright (C) 2012-2016 Neris Ereptoris <http://neris.ws/>.
-
-
-Just another one GNU/Gettext implementation for .NET.
-Works fine on Microsoft .NET Framework version 2.0 or higher, Mono and even on .NET Core.
+A cross-platform .NET implementation of the GNU/Gettext library.
+This fully managed library works fine on **Microsoft .NET Framework** version 2.0 or higher, **Mono** and **.NET Core** even on full-AOT runtimes.
+It is fully **COM** and **CLS** compatible.
 
 This implementation loads translations directly from gettext *.mo files (no need to compile a satellite assembly) and can handle multiple translation domains and multiple locales in one application instance.
-It supports both little-endian and big-endian MO files, automatic (header-based) encoding detection.
+NGettext supports both little-endian and big-endian MO files, automatic (header-based) encoding detection and (optional) plural form rules parsing.
 
 By default, NGettext uses pre-compiled plural form rules for most known locales.
-You can enable plural form rule parsing from *.mo file headers or use a custom plural rules (see description below).
+You can enable plural form rule parsing from *.mo file headers (see `MoCompilingPluralLoader` description below) 
+or use a custom plural rules passed to your Catalog instance through API.
 
 
 
-Why not others?
+Why NGettext?
 ---------------
+
+There are other GNU/Gettext implementations for C#, but they all have some huge disadvantages.
 
 **Why not Mono.Unix.Catalog?**
 Mono's Catalog is just a bindings to three native functions (bindtextdomain, gettext, and ngettext). It does not support multiple domains/locales and contexts. It is not cross-patform, it have problems with Windows OS.
@@ -33,7 +34,7 @@ It's hard to build and maintain translation files and change locale inside your 
   You don't even need to care about locales of your application's threads.
 * NGettext loads translations from *.mo files. You can even load translations from specified file or stream.
 * NGettext supports message contexts.
-* NGettext provides nice and simple API for translation.
+* NGettext provides nice and simple API, compatible with any type of application (console, GUI, web...).
 
 
 
@@ -158,12 +159,22 @@ If you using this library under CoreCLR and you want to use encodings different 
 
 ### Parsing plural rules from the *.mo file header
 
-To support this you can just create catalog using `MoAstPluralLoader`.
+NGettext can parse plural rules directly from the *.mo file header and compile it to a dynamic method in runtime.
+To enable this option you can just create a catalog using the `MoCompilingPluralLoader`:
 ```csharp
-	ICatalog catalog = new Catalog(new MoAstPluralLoader("Example", "./locale"));
+	ICatalog catalog = new Catalog(new MoCompilingPluralLoader("Example", "./locale"));
 ```
-Please note that this solution is slightly slower than NGettext default behavior even it's pretty well optimized.
-However, in most cases, performance degradation will not be noticeable.
+This loader will parse plural formula from the *.mo file header and compile it to plural rule for 
+your Catalog instance at runtime, just when your *.mo file loads.
+Your Catalog's *PluralString methods performance will be the same as if you were using NGettext's default precompiled plural rules, 
+only *.mo file loading will be slightly slower.
+
+This feature requires enabled JIT compiler in your runtime. You can not use MoCompilingPluralLoader in an full-AOT environment.
+This is why MoCompilingPluralLoader moved to a separate library.
+
+For hosts without enabled JIT you can use `MoAstPluralLoader` which will only parse plural formulas to an abstract syntax tree
+and interpret it every time you call a *PluralString method from your catalog, without compiling.
+Please note that this solution is slightly slower than MoCompilingPluralLoader even it's pretty well optimized.
 
 
 
@@ -218,3 +229,6 @@ And a keywords list:
 
 
 
+---- 
+
+Copyright (C) 2012-2016 Neris Ereptoris <http://neris.ws/>.
