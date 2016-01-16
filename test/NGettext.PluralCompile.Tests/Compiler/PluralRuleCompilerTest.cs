@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using NGettext.Plural;
 using NGettext.Plural.Ast;
+using NGettext.PluralCompile.Compiler;
 using Xunit;
 
-namespace NGettext.Tests.Plural.Ast
+namespace NGettext.PluralCompile.Tests.Compiler
 {
-    public class AstTokenParserTest
+    public class PluralRuleCompilerTest
     {
 		public static IEnumerable<object[]> GetParseRulesTestData()
 		{
@@ -45,14 +46,16 @@ namespace NGettext.Tests.Plural.Ast
 		}
 
 		[Fact]
-		public void ParseRulesTest()
+		public void CompileRulesTest()
 		{
 			var parser = new AstTokenParser();
+			var compiler = new PluralRuleCompiler();
 			foreach (object[] mapping in GetParseRulesTestData())
 			{
 				var astRoot = parser.Parse((string)mapping[1]);
-				var rule = new AstPluralRule(100, astRoot);
-				Assert.Equal((int)mapping[2], rule.Evaluate(0));
+				var dynamicMethod = (PluralRuleEvaluatorDelegate)compiler.CompileToDynamicMethod(astRoot, typeof(PluralRuleEvaluatorDelegate));
+
+				Assert.Equal((int)mapping[2], dynamicMethod(0));
 			}
 		}
 
@@ -98,20 +101,20 @@ namespace NGettext.Tests.Plural.Ast
 		}
 
 		[Fact]
-		public void ParseCompleteRulesTest()
+		public void CompileCompleteRulesTest()
 		{
 			var parser = new AstTokenParser();
-			var t = 0;
+			var compiler = new PluralRuleCompiler();
 			foreach (object[] mapping in GetParseCompleteRulesTestData())
 			{
 				var astRoot = parser.Parse((string)mapping[0]);
-				var rule = new AstPluralRule(100, astRoot);
 				var expectedSeq = (string)mapping[1];
+				var dynamicMethod = (PluralRuleEvaluatorDelegate)compiler.CompileToDynamicMethod(astRoot, typeof(PluralRuleEvaluatorDelegate));
 
 				for (int i = 0; i < 200; i++)
 				{
 					var expected = int.Parse(expectedSeq[i].ToString());
-					Assert.Equal(expected, rule.Evaluate(i));
+					Assert.Equal(expected, dynamicMethod(i));
 				}
 			}
 		}

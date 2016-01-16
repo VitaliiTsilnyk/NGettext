@@ -4,19 +4,19 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 
-[assembly: AssemblyTitle("NGettext")]
-[assembly: AssemblyDescription(".NET implementation of GNU/Gettext library")]
+[assembly: AssemblyTitle("NGettext.PluralCompile")]
+[assembly: AssemblyDescription("Provides support of plural rule compilation to the IL bytecode.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("NGettext")]
-[assembly: AssemblyCopyright("Copyright © 2012 Neris Ereptoris (www.neris.ws)")]
+[assembly: AssemblyProduct("NGettext.PluralCompile")]
+[assembly: AssemblyCopyright("Copyright © 2016 Neris Ereptoris (www.neris.ws)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 [assembly: AssemblyVersion("0.5.0.0")]
 [assembly: AssemblyFileVersion("0.5.0.0")]
 
-[assembly: Guid("9ef9b9d7-7df8-4c3a-ac8c-58bea65f0526")]
+[assembly: Guid("2ef87e11-a829-4480-b97f-3f3b6d0b23f5")]
 
 [assembly: ComVisible(true)]
 [assembly: CLSCompliant(true)]

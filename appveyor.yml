@@ -15,3 +15,6 @@ build:
 test_script:
   - cd test\NGettext.Tests
   - dnx test
+  - cd ..\..
+  - cd test\NGettext.PluralCompile.Tests
+  - dnx test

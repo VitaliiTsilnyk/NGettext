@@ -27,3 +27,6 @@ script:
   - cd ../..
   - cd test/NGettext.Tests
   - dnx test -parallel none
+  - cd ../..
+  - cd test/NGettext.PluralCompile.Tests
+  - dnx test -parallel none

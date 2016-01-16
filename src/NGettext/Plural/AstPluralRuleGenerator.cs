@@ -32,22 +32,43 @@ namespace NGettext.Plural
 		/// </summary>
 		protected string PluralRuleText { get; private set; }
 
-		public AstTokenParser Parser { get; set; }
+		/// <summary>
+		/// An instance of the <see cref="AstTokenParser"/> class that will be used to parse a plural rule string into an abstract syntax tree.
+		/// </summary>
+		public AstTokenParser Parser { get; protected set; }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="AstPluralRuleGenerator"/> class with no plural rule text.
+		/// Initializes a new instance of the <see cref="AstPluralRuleGenerator"/> class with no plural rule text using default AstTokenParser.
 		/// </summary>
 		public AstPluralRuleGenerator()
+			: this(new AstTokenParser())
 		{
-			this.Parser = new AstTokenParser();
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="AstPluralRuleGenerator"/> class and sets a plural rule text.
+		/// Initializes a new instance of the <see cref="AstPluralRuleGenerator"/> class with no plural rule text using given AstTokenParser.
+		/// </summary>
+		public AstPluralRuleGenerator(AstTokenParser parser)
+		{
+			this.Parser = parser;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="AstPluralRuleGenerator"/> class using default AstTokenParser and sets a plural rule text.
 		/// </summary>
 		/// <param name="pluralRuleText"></param>
 		public AstPluralRuleGenerator(string pluralRuleText)
 			: this()
+		{
+			this.SetPluralRuleText(pluralRuleText);
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="AstPluralRuleGenerator"/> class using given AstTokenParser and sets a plural rule text.
+		/// </summary>
+		/// <param name="pluralRuleText"></param>
+		public AstPluralRuleGenerator(string pluralRuleText, AstTokenParser parser)
+			: this(parser)
 		{
 			this.SetPluralRuleText(pluralRuleText);
 		}
@@ -72,14 +93,19 @@ namespace NGettext.Plural
 			{
 				var numPlurals = this.ParseNumPlurals(this.PluralRuleText);
 				var plural = this.ParsePluralFormulaText(this.PluralRuleText);
-				var astTree = this.Parser.Parse(plural);
+				var astRoot = this.Parser.Parse(plural);
 
-				return new AstPluralRule(numPlurals, astTree);
+				return new AstPluralRule(numPlurals, astRoot);
 			}
 
 			return base.CreateRule(cultureInfo);
 		}
 
+		/// <summary>
+		/// Parses value of the 'nplurals' parameter from the plural rule text.
+		/// </summary>
+		/// <param name="input"></param>
+		/// <returns></returns>
 		public int ParseNumPlurals(string input)
 		{
 			var match = NPluralsRegex.Match(input);
@@ -89,6 +115,11 @@ namespace NGettext.Plural
 			return int.Parse(match.Groups["nplurals"].Value);
 		}
 
+		/// <summary>
+		/// Parses value of the 'plural' parameter from the plural rule text.
+		/// </summary>
+		/// <param name="input"></param>
+		/// <returns></returns>
 		public string ParsePluralFormulaText(string input)
 		{
 			var match = PluralRegex.Match(input);

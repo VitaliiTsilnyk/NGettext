@@ -1,7 +1,7 @@
 ﻿{
 	"version": "0.5.0.0",
-	"title": "NGettext",
-	"description": "A cross-platform .NET implementation of the GNU/Gettext library.",
+	"title": "NGettext.PluralCompile",
+	"description": "Provides support of plural rule compilation to the IL bytecode.",
 	"owners": [ "Neris Ereptoris" ],
 	"authors": [ "Neris Ereptoris" ],
 	"tags": [ "ngettext", "gettext", "internationalization", "localization", "i18n", "l10n", "translate" ],
@@ -38,6 +38,7 @@
 	},
 
 	"dependencies": {
+		"NGettext": { "target": "project" }
 	},
 
 	"frameworks": {
@@ -90,9 +91,9 @@
 				"System.IO": "4.0.11-beta-23516",
 				"System.Diagnostics.Debug": "4.0.0-beta-23019",
 				"System.Runtime.Extensions": "4.0.0-beta-23019",
-				"System.Text.RegularExpressions": "4.0.0-beta-23019",
 				"System.Diagnostics.TraceSource": "4.0.0-beta-23516",
-				"System.IO.FileSystem": "4.0.1-beta-23516"
+				"System.Reflection.Emit.Lightweight": "4.0.1-beta-23516",
+				"System.Reflection.TypeExtensions": "4.0.1-beta-23409"
 			}
 		},
 		"uap10.0": {
@@ -104,9 +105,9 @@
 				"System.IO": "4.0.11-beta-23516",
 				"System.Diagnostics.Debug": "4.0.0-beta-23019",
 				"System.Runtime.Extensions": "4.0.0-beta-23019",
-				"System.Text.RegularExpressions": "4.0.0-beta-23019",
 				"System.Diagnostics.TraceSource": "4.0.0-beta-23516",
-				"System.IO.FileSystem": "4.0.1-beta-23516"
+				"System.Reflection.Emit.Lightweight": "4.0.1-beta-23516",
+				"System.Reflection.TypeExtensions": "4.0.1-beta-23409"
 			},
 			"compilationOptions": {
 				"define": [ "DNXCORE50" ]
