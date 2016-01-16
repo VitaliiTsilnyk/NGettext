@@ -2,6 +2,7 @@ NGettext [![Build Status](https://travis-ci.org/neris/NGettext.svg?branch=master
 ========
 
 A cross-platform .NET implementation of the GNU/Gettext library.
+
 This fully managed library works fine on **Microsoft .NET Framework** version 2.0 or higher, **Mono** and **.NET Core** even on full-AOT runtimes.
 It is fully **COM** and **CLS** compatible.
 
