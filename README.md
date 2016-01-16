@@ -10,18 +10,8 @@ Works fine on Microsoft .NET Framework version 2.0 or higher, Mono and even on .
 This implementation loads translations directly from gettext *.mo files (no need to compile a satellite assembly) and can handle multiple translation domains and multiple locales in one application instance.
 It supports both little-endian and big-endian MO files, automatic (header-based) encoding detection.
 
-NGettext currently not supports loading plural form rules from *.mo file headers.
-It uses precompiled plural form rules and supports custom plural form rules passed through API.
-
-
-
-Build status
-------------
-
-|OS |Target frameworks (build)|Target frameworks (test)|Status|
-|:--|:--|:--|:--|
-|Windows|net20 net35 net40 net45 net46<br/>net35-client net40-client<br/>dnx451<br/>dnxcore50 uap10.0|dnx451|[![Build Status](https://ci.appveyor.com/api/projects/status/oc151pvllqqy0po9?svg=true)](https://ci.appveyor.com/project/neris/ngettext)|
-|Linux|dnx451-mono|dnx451-mono|[![Build Status](https://travis-ci.org/neris/NGettext.svg?branch=master)](https://travis-ci.org/neris/NGettext)|
+By default, NGettext uses pre-compiled plural form rules for most known locales.
+You can enable plural form rule parsing from *.mo file headers or use a custom plural rules (see description below).
 
 
 
@@ -37,13 +27,23 @@ It uses satellite assemblies as a translation files and does not support multipl
 It's hard to build and maintain translation files and change locale inside your application.
 
 **So why NGettext?**
-* NGettext is fully cross-platform as it don't uses any native or managed 3rd-party libraries.
+* NGettext is fully cross-platform as it doesn't use any native or managed 3rd-party libraries.
 * NGettext supports multiple domains. You can separate translation files for each of your application's module or plugin.
 * NGettext supports multiple locales in one application instance and gives really simple API to choose locale of your application.
   You don't even need to care about locales of your application's threads.
 * NGettext loads translations from *.mo files. You can even load translations from specified file or stream.
 * NGettext supports message contexts.
 * NGettext provides nice and simple API for translation.
+
+
+
+Build status
+------------
+
+|OS |Target frameworks (build)|Target frameworks (test)|Status|
+|:--|:--|:--|:--|
+|Windows|net20 net35 net40 net45 net46<br/>net35-client net40-client<br/>dnx451<br/>dnxcore50 uap10.0|dnx451|[![Build Status](https://ci.appveyor.com/api/projects/status/oc151pvllqqy0po9?svg=true)](https://ci.appveyor.com/project/neris/ngettext)|
+|Linux|dnx451-mono|dnx451-mono|[![Build Status](https://travis-ci.org/neris/NGettext.svg?branch=master)](https://travis-ci.org/neris/NGettext)|
 
 
 
@@ -153,6 +153,17 @@ If you using this library under CoreCLR and you want to use encodings different 
 	Stream moFileStream = File.OpenRead("path/to/domain.mo");
 	ICatalog catalog = new Catalog(moFileStream, new CultureInfo("en-US"));
 ```
+
+
+
+### Parsing plural rules from the *.mo file header
+
+To support this you can just create catalog using `MoAstPluralLoader`.
+```csharp
+	ICatalog catalog = new Catalog(new MoAstPluralLoader("Example", "./locale"));
+```
+Please note that this solution is slightly slower than NGettext default behavior even it's pretty well optimized.
+However, in most cases, performance degradation will not be noticeable.
 
 
 
