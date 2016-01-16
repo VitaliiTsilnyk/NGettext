@@ -1,5 +1,5 @@
 ﻿{
-	"version": "0.4.0.0",
+	"version": "0.5.0.0",
 	"title": "NGettext.PluralCompile",
 	"description": "Provides support of plural rule compilation to the IL bytecode.",
 	"owners": [ "Neris Ereptoris" ],
