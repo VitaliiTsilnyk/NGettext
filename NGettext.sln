@@ -28,6 +28,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{4A
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NGettext.Tests", "test\NGettext.Tests\NGettext.Tests.xproj", "{006D0C2E-C347-4E1F-BA5B-CE075BA25B18}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NGettext.PluralCompile", "src\NGettext.PluralCompile\NGettext.PluralCompile.xproj", "{2EF87E11-A829-4480-B97F-3F3B6D0B23F5}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NGettext.PluralCompile.Tests", "test\NGettext.PluralCompile.Tests\NGettext.PluralCompile.Tests.xproj", "{0FE65EB5-973A-4EA8-8EB3-102E1DECCF51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +46,14 @@ Global
 		{006D0C2E-C347-4E1F-BA5B-CE075BA25B18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{006D0C2E-C347-4E1F-BA5B-CE075BA25B18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{006D0C2E-C347-4E1F-BA5B-CE075BA25B18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EF87E11-A829-4480-B97F-3F3B6D0B23F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EF87E11-A829-4480-B97F-3F3B6D0B23F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EF87E11-A829-4480-B97F-3F3B6D0B23F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EF87E11-A829-4480-B97F-3F3B6D0B23F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FE65EB5-973A-4EA8-8EB3-102E1DECCF51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FE65EB5-973A-4EA8-8EB3-102E1DECCF51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FE65EB5-973A-4EA8-8EB3-102E1DECCF51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FE65EB5-973A-4EA8-8EB3-102E1DECCF51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,5 +62,7 @@ Global
 		{A6E2D0F9-52F7-421A-A8C2-E43B3394C0B7} = {11866FB2-5A5E-45EC-99D2-690156524ED9}
 		{4AAD088A-469B-4766-81D9-E0878F20638F} = {954C9D61-96B7-42FD-BD5A-EA7AC483668C}
 		{006D0C2E-C347-4E1F-BA5B-CE075BA25B18} = {E9CE19D0-FF12-4ACE-86D2-5B649D56E11C}
+		{2EF87E11-A829-4480-B97F-3F3B6D0B23F5} = {11866FB2-5A5E-45EC-99D2-690156524ED9}
+		{0FE65EB5-973A-4EA8-8EB3-102E1DECCF51} = {E9CE19D0-FF12-4ACE-86D2-5B649D56E11C}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,28 @@
+﻿{
+	"version": "1.0.0-*",
+	"description": "NGettext.PluralCompile Tests",
+	"authors": [ "Neris Ereptoris" ],
+	"tags": [ "" ],
+	"projectUrl": "",
+	"licenseUrl": "",
+
+	"dependencies": {
+		"xunit": "2.1.0",
+		"xunit.runner.dnx": "2.1.0-rc1-build204",
+
+		"NGettext": { "target": "project" },
+		"NGettext.PluralCompile": { "target": "project" }
+	},
+	"commands": {
+		"test": "xunit.runner.dnx"
+	},
+
+	"frameworks": {
+		"dnx451": { },
+		"dnxcore50": {
+			"dependencies": {
+				"System.Text.Encoding.CodePages": "4.0.1-beta-23409"
+			}
+		}
+	}
+}

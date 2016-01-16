@@ -1,83 +1,83 @@
 ﻿using System;
 using System.IO;
-using NGettext.Plural;
+using NGettext.Loaders;
 
-namespace NGettext.Loaders
+namespace NGettext.PluralCompile
 {
 	/// <summary>
 	/// A catalog loader that loads data from files in the GNU/Gettext MO file format and generates
-	/// a plural form rule using <see cref="AstPluralRuleGenerator"/>.
+	/// a plural form rule using <see cref="CompiledPluralRuleGenerator"/>.
 	/// </summary>
-	public class MoAstPluralLoader : MoLoader
+	public class MoCompilingPluralLoader : MoLoader
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="MoAstPluralLoader"/> class which will try to load a MO file
+		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
 		/// that will be located in the localeDir using the domain name and catalog's culture info.
-		/// <see cref="AstPluralRuleGenerator"/> will be used to generate a plural form rule.
+		/// <see cref="CompiledPluralRuleGenerator"/> will be used to generate a plural form rule.
 		/// </summary>
 		/// <param name="domain"></param>
 		/// <param name="localeDir"></param>
 		/// <param name="parser"></param>
-		public MoAstPluralLoader(string domain, string localeDir, MoFileParser parser)
-			: base(domain, localeDir, new AstPluralRuleGenerator(), parser)
+		public MoCompilingPluralLoader(string domain, string localeDir, MoFileParser parser)
+			: base(domain, localeDir, new CompiledPluralRuleGenerator(), parser)
 		{
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
 		/// from the specified path.
-		/// <see cref="AstPluralRuleGenerator"/> will be used to generate a plural form rule.
+		/// <see cref="CompiledPluralRuleGenerator"/> will be used to generate a plural form rule.
 		/// </summary>
 		/// <param name="filePath"></param>
 		/// <param name="parser"></param>
-		public MoAstPluralLoader(string filePath, MoFileParser parser)
-			: base(filePath, new AstPluralRuleGenerator(), parser)
+		public MoCompilingPluralLoader(string filePath, MoFileParser parser)
+			: base(filePath, new CompiledPluralRuleGenerator(), parser)
 		{
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
 		/// from the specified stream.
-		/// <see cref="AstPluralRuleGenerator"/> will be used to generate a plural form rule.
+		/// <see cref="CompiledPluralRuleGenerator"/> will be used to generate a plural form rule.
 		/// </summary>
 		/// <param name="moStream"></param>
 		/// <param name="parser"></param>
-		public MoAstPluralLoader(Stream moStream, MoFileParser parser)
-			: base(moStream, new AstPluralRuleGenerator(), parser)
+		public MoCompilingPluralLoader(Stream moStream, MoFileParser parser)
+			: base(moStream, new CompiledPluralRuleGenerator(), parser)
 		{
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
 		/// that will be located in the localeDir using the domain name and catalog's culture info.
-		/// <see cref="AstPluralRuleGenerator"/> will be used to generate a plural form rule.
+		/// <see cref="CompiledPluralRuleGenerator"/> will be used to generate a plural form rule.
 		/// </summary>
 		/// <param name="domain"></param>
 		/// <param name="localeDir"></param>
-		public MoAstPluralLoader(string domain, string localeDir)
-			: base(domain, localeDir, new AstPluralRuleGenerator())
+		public MoCompilingPluralLoader(string domain, string localeDir)
+			: base(domain, localeDir, new CompiledPluralRuleGenerator())
 		{
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
 		/// from the specified path.
-		/// <see cref="AstPluralRuleGenerator"/> will be used to generate a plural form rule.
+		/// <see cref="CompiledPluralRuleGenerator"/> will be used to generate a plural form rule.
 		/// </summary>
 		/// <param name="filePath"></param>
-		public MoAstPluralLoader(string filePath)
-			: base(filePath, new AstPluralRuleGenerator())
+		public MoCompilingPluralLoader(string filePath)
+			: base(filePath, new CompiledPluralRuleGenerator())
 		{
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
 		/// from the specified stream.
-		/// <see cref="AstPluralRuleGenerator"/> will be used to generate a plural form rule.
+		/// <see cref="CompiledPluralRuleGenerator"/> will be used to generate a plural form rule.
 		/// </summary>
 		/// <param name="moStream"></param>
-		public MoAstPluralLoader(Stream moStream)
-			: base(moStream, new AstPluralRuleGenerator())
+		public MoCompilingPluralLoader(Stream moStream)
+			: base(moStream, new CompiledPluralRuleGenerator())
 		{
 		}
 	}

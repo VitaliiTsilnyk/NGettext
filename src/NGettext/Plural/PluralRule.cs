@@ -3,7 +3,7 @@
 namespace NGettext.Plural
 {
 	/// <summary>
-	/// Default plural rule implementation whitch uses a evaluation delegate instance to evaluate a plural form.
+	/// Default plural rule implementation which uses a evaluation delegate instance to evaluate a plural form.
 	/// </summary>
 	public class PluralRule : IPluralRule
 	{
@@ -46,7 +46,7 @@ namespace NGettext.Plural
 		/// <summary>
 		/// Evaluates a number and returns a plural form index.
 		/// </summary>
-		/// <param name="number">Number whitch needs to be evaluated.</param>
+		/// <param name="number">Number which needs to be evaluated.</param>
 		/// <returns>Plural form index.</returns>
 		public virtual int Evaluate(long number)
 		{
