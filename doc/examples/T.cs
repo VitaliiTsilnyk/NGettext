@@ -3,8 +3,10 @@ using NGettext;
 
 //
 // Usage:
-//     T._("Hello, World!");
-//     T._n("You have {0} apple.", "You have {0} apples.", count, count);
+//		T._("Hello, World!"); // GetString
+//		T._n("You have {0} apple.", "You have {0} apples.", count, count); // GetPluralString
+//		T._p("Context", "Hello, World!"); // GetParticularString
+//		T._pn("Context", "You have {0} apple.", "You have {0} apples.", count, count); // GetParticularPluralString
 //
 namespace Example
 {
