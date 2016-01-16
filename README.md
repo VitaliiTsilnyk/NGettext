@@ -161,7 +161,7 @@ If you using this library under CoreCLR and you want to use encodings different 
 ### Parsing plural rules from the *.mo file header
 
 NGettext can parse plural rules directly from the *.mo file header and compile it to a dynamic method in runtime.
-To enable this option you can just create a catalog using the `MoCompilingPluralLoader`:
+To enable this option you can just create a catalog using the `MoCompilingPluralLoader` from the [NGettext.PluralCompile](https://www.nuget.org/packages/NGettext.PluralCompile) package:
 ```csharp
 	ICatalog catalog = new Catalog(new MoCompilingPluralLoader("Example", "./locale"));
 ```
