@@ -1,4 +1,4 @@
-NGettext [![Build Status](https://travis-ci.org/neris/NGettext.svg?branch=master)](https://travis-ci.org/neris/NGettext) [![Build Status](https://ci.appveyor.com/api/projects/status/oc151pvllqqy0po9?svg=true)](https://ci.appveyor.com/project/neris/ngettext)
+NGettext [![Build Status](https://travis-ci.org/neris/NGettext.svg?branch=master)](https://travis-ci.org/neris/NGettext) [![Build Status](https://ci.appveyor.com/api/projects/status/oc151pvllqqy0po9?svg=true)](https://ci.appveyor.com/project/neris/ngettext) [![NuGet](https://img.shields.io/nuget/v/NGettext.svg?label=nuget:%20NGettext)](https://www.nuget.org/packages/NGettext/) [![NuGet](https://img.shields.io/nuget/v/NGettext.svg?label=nuget:%20NGettext.PluralCompile)](https://www.nuget.org/packages/NGettext.PluralCompile/)
 ========
 
 A cross-platform .NET implementation of the GNU/Gettext library.
