@@ -152,7 +152,7 @@ namespace NGettext.Loaders
 			}
 		}
 
-#if !DNXCORE50
+#if !DNXCORE50 && !PORTABLE
 
 		/// <summary>
 		/// Begins an asynchronous read operation.
@@ -225,7 +225,7 @@ namespace NGettext.Loaders
 			throw new InvalidOperationException("Stream is in read-only mode.");
 		}
 
-#if !DNXCORE50
+#if !DNXCORE50 && !PORTABLE
 
 		/// <summary>
 		/// Closes the current stream and releases any resources (such as sockets and file handles) associated with the current stream.

@@ -101,7 +101,6 @@ namespace NGettext.Tests.Plural.Ast
 		public void ParseCompleteRulesTest()
 		{
 			var parser = new AstTokenParser();
-			var t = 0;
 			foreach (object[] mapping in GetParseCompleteRulesTestData())
 			{
 				var astRoot = parser.Parse((string)mapping[0]);

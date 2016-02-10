@@ -13,12 +13,14 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("0.5.0.0")]
-[assembly: AssemblyFileVersion("0.5.0.0")]
+[assembly: AssemblyVersion("0.5.1.0")]
+[assembly: AssemblyFileVersion("0.5.1.0")]
 
+#if !PORTABLE
 [assembly: Guid("9ef9b9d7-7df8-4c3a-ac8c-58bea65f0526")]
 
 [assembly: ComVisible(true)]
+#endif
 [assembly: CLSCompliant(true)]
 
 

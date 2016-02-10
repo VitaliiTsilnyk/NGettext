@@ -31,6 +31,8 @@ namespace NGettext.Loaders
 
 		#region Constructors
 
+#if !PORTABLE
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
 		/// that will be located in the localeDir using the domain name and catalog's culture info.
@@ -76,6 +78,7 @@ namespace NGettext.Loaders
 			this.PluralRuleGenerator = pluralRuleGenerator;
 			this.Parser = parser;
 		}
+#endif
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
@@ -102,6 +105,7 @@ namespace NGettext.Loaders
 
 		#region Constructor overloads
 
+#if !PORTABLE
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
 		/// that will be located in the localeDir using the domain name and catalog's culture info.
@@ -168,6 +172,7 @@ namespace NGettext.Loaders
 			: this(filePath, new DefaultPluralRuleGenerator(), new MoFileParser())
 		{
 		}
+#endif
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
@@ -201,7 +206,7 @@ namespace NGettext.Loaders
 		{
 		}
 
-		#endregion
+#endregion
 
 
 		/// <summary>
@@ -214,6 +219,7 @@ namespace NGettext.Loaders
 			{
 				this.Load(this._MoStream, catalog);
 			}
+#if !PORTABLE
 			else if (this._FilePath != null)
 			{
 				this.Load(this._FilePath, catalog);
@@ -222,8 +228,10 @@ namespace NGettext.Loaders
 			{
 				this.Load(this._Domain, this._LocaleDir, catalog);
 			}
+#endif
 		}
 
+#if !PORTABLE
 		/// <summary>
 		/// Loads translations to the specified catalog using catalog's culture info from specified locale directory and specified domain.
 		/// </summary>
@@ -254,6 +262,7 @@ namespace NGettext.Loaders
 				this.Load(stream, catalog);
 			}
 		}
+#endif
 
 		/// <summary>
 		/// Loads translations to the specified catalog from specified MO file stream.
@@ -289,6 +298,8 @@ namespace NGettext.Loaders
 			}
 			catalog.PluralRule = this.PluralRuleGenerator.CreateRule(catalog.CultureInfo);
 		}
+
+#if !PORTABLE
 
 		/// <summary>
 		/// Finds corresponding translation file using specified culture info, domain and a locale directory.
@@ -328,5 +339,6 @@ namespace NGettext.Loaders
 		{
 			return Path.Combine(localeDir, Path.Combine(locale, Path.Combine(LC_MESSAGES, domain + MO_FILE_EXT)));
 		}
+#endif
 	}
 }
