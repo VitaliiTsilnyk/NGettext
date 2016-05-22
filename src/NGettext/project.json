@@ -5,7 +5,8 @@
   "authors": [ "Vitaly Zilnik" ],
 
   "buildOptions": {
-    "languageVersion": "csharp6"
+    "languageVersion": "csharp6",
+    "warningsAsErrors": true
   },
 
   "configurations": {
