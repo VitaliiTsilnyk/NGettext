@@ -31,7 +31,7 @@ namespace NGettext.Loaders
 
 		#region Constructors
 
-#if !PORTABLE
+#if !NETSTANDARD1_0
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
@@ -105,7 +105,7 @@ namespace NGettext.Loaders
 
 		#region Constructor overloads
 
-#if !PORTABLE
+#if !NETSTANDARD1_0
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
 		/// that will be located in the localeDir using the domain name and catalog's culture info.
@@ -219,7 +219,7 @@ namespace NGettext.Loaders
 			{
 				this.Load(this._MoStream, catalog);
 			}
-#if !PORTABLE
+#if !NETSTANDARD1_0
 			else if (this._FilePath != null)
 			{
 				this.Load(this._FilePath, catalog);
@@ -231,7 +231,7 @@ namespace NGettext.Loaders
 #endif
 		}
 
-#if !PORTABLE
+#if !NETSTANDARD1_0
 		/// <summary>
 		/// Loads translations to the specified catalog using catalog's culture info from specified locale directory and specified domain.
 		/// </summary>
@@ -299,7 +299,7 @@ namespace NGettext.Loaders
 			catalog.PluralRule = this.PluralRuleGenerator.CreateRule(catalog.CultureInfo);
 		}
 
-#if !PORTABLE
+#if !NETSTANDARD1_0
 
 		/// <summary>
 		/// Finds corresponding translation file using specified culture info, domain and a locale directory.

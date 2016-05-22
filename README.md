@@ -84,7 +84,7 @@ Now you can use NGettext in your code:
 
 If you using this library under CoreCLR and you want to use encodings different from UTF-8 for your *.mo files, you need to include [System.Text.Encoding.CodePages](https://www.nuget.org/packages/System.Text.Encoding.CodePages/) package into your application and initialize it like this:
 ```csharp
-	#if DNXCORE50
+	#if NETCOREAPP1_0
 		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 	#endif
 ```

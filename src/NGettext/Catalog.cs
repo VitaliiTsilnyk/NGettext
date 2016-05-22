@@ -94,7 +94,7 @@ namespace NGettext
 			catch (FileNotFoundException exception)
 			{
 				// Suppress FileNotFound exceptions
-#if !PORTABLE
+#if !NETSTANDARD1_0
 				Trace.WriteLine(String.Format("Translation file loading fail: {0}", exception.Message), "NGettext");
 #endif
 			}
@@ -121,7 +121,7 @@ namespace NGettext
 		{
 		}
 
-#if !PORTABLE
+#if !NETSTANDARD1_0
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Catalog"/> class using the current UI culture info
 		/// and loads data for specified domain and locale directory using a new <see cref="MoLoader"/> instance.
@@ -280,7 +280,7 @@ namespace NGettext
 
 			if (translations == null || translations.Length == 0)
 			{
-#if !PORTABLE
+#if !NETSTANDARD1_0
 				Trace.WriteLine(String.Format("Translation not found for message id \"{0}\".", messageId), "NGettext");
 #endif
 				return defaultMessage;
@@ -313,7 +313,7 @@ namespace NGettext
 
 			if (translations == null || translations.Length <= pluralIndex)
 			{
-#if !PORTABLE
+#if !NETSTANDARD1_0
 				Trace.WriteLine(String.Format("Translation not found (plural) for message id \"{0}\".", messageId), "NGettext");
 #endif
 				return (n == 1) ? defaultMessage : defaultPluralMessage;

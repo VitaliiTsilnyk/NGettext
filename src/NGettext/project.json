@@ -1,44 +1,45 @@
 ﻿{
-	"version": "0.5.1-beta1",
-	"title": "NGettext",
-	"description": "A cross-platform .NET implementation of the GNU/Gettext library.",
-	"owners": [ "Neris Ereptoris" ],
-	"authors": [ "Neris Ereptoris" ],
-	"tags": [ "ngettext", "gettext", "internationalization", "localization", "i18n", "l10n", "translate" ],
-	"projectUrl": "https://github.com/neris/NGettext",
-	"licenseUrl": "https://raw.githubusercontent.com/neris/NGettext/master/LICENSE",
-	"requireLicenseAcceptance": false,
+  "version": "0.6.0",
+  "title": "NGettext",
+  "description": "A cross-platform .NET implementation of the GNU/Gettext library.",
+  "authors": [ "Vitaly Zilnik" ],
 
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/neris/NGettext"
-	},
+  "buildOptions": {
+    "languageVersion": "csharp6"
+  },
 
-	"compilationOptions": {
-		"languageVersion": "csharp6",
-		"keyFile": "../../NGettext.snk"
-	},
+  "configurations": {
+    "Debug": {
+      "buildOptions": {
+        "define": [ "DEBUG", "TRACE" ]
+      }
+    },
+    "Release": {
+      "buildOptions": {
+        "define": [ "RELEASE" ],
+        "optimize": true,
+        "keyFile": "../../NGettext.snk"
+      }
+    }
+  },
 
-	"configurations": {
-		"Debug": {
-			"compilationOptions": {
-				"define": [ "DEBUG", "TRACE" ]
-			}
-		},
-		"Release": {
-			"compilationOptions": {
-				"define": [ "RELEASE" ],
-				"optimize": true
-			}
-		}
-	},
+  "packOptions": {
+    "projectUrl": "https://github.com/neris/NGettext",
+    "licenseUrl": "https://raw.githubusercontent.com/neris/NGettext/master/LICENSE",
+    "tags": [ "ngettext", "gettext", "internationalization", "localization", "i18n", "l10n", "translate" ],
+    "requireLicenseAcceptance": false,
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/neris/NGettext"
+    },
 
-	"packInclude": {
-		"LICENSE": "../../LICENSE"
-	},
+    "files": {
+      "LICENSE": "../../LICENSE"
+    }
+  },
 
-	"dependencies": {
-	},
+  "dependencies": {
+  },
 
   "frameworks": {
     "net20": {
@@ -76,19 +77,14 @@
         "System": ""
       }
     },
-    "dnx451": {
-      "frameworkAssemblies": {
-        "System": ""
-      }
-    },
     ".NETPortable,Version=v4.0,Profile=Profile136": {
       "frameworkAssemblies": {
         "mscorlib": "",
         "System": "",
         "System.Core": ""
       },
-      "compilationOptions": {
-        "define": [ "PORTABLE" ]
+      "buildOptions": {
+        "define": [ "NETSTANDARD1_0" ]
       }
     },
     ".NETPortable,Version=v4.0,Profile=Profile328": {
@@ -97,8 +93,8 @@
         "System": "",
         "System.Core": ""
       },
-      "compilationOptions": {
-        "define": [ "PORTABLE" ]
+      "buildOptions": {
+        "define": [ "NETSTANDARD1_0" ]
       }
     },
     ".NETPortable,Version=v4.5,Profile=Profile259": {
@@ -119,39 +115,35 @@
         "System.Text.Encoding.Extensions": "",
         "System.Text.RegularExpressions": ""
       },
-      "compilationOptions": {
-        "define": [ "PORTABLE" ]
+      "buildOptions": {
+        "define": [ "NETSTANDARD1_0" ]
       }
     },
-    "dnxcore50": {
+    "netstandard1.0": {
       "dependencies": {
-        "Microsoft.CSharp": "4.0.1-beta-23516",
-        "System.Runtime": "4.0.21-beta-23516",
-        "System.Globalization": "4.0.11-beta-23516",
-        "System.Collections": "4.0.0-beta-23019",
-        "System.IO": "4.0.11-beta-23516",
-        "System.Diagnostics.Debug": "4.0.0-beta-23019",
-        "System.Runtime.Extensions": "4.0.0-beta-23019",
-        "System.Text.RegularExpressions": "4.0.0-beta-23019",
-        "System.Diagnostics.TraceSource": "4.0.0-beta-23516",
-        "System.IO.FileSystem": "4.0.1-beta-23516"
+        "Microsoft.CSharp": "4.0.1-*",
+        "System.Runtime": "4.1.0-*",
+        "System.Globalization": "4.0.11-*",
+        "System.Collections": "4.0.11-*",
+        "System.IO": "4.1.0-*",
+        "System.Diagnostics.Debug": "4.0.11-*",
+        "System.Runtime.Extensions": "4.1.0-*",
+        "System.Text.RegularExpressions": "4.0.12-*"
       }
     },
-    "uap10.0": {
+    "netstandard1.3": {
       "dependencies": {
-        "Microsoft.CSharp": "4.0.1-beta-23516",
-        "System.Runtime": "4.0.21-beta-23516",
-        "System.Globalization": "4.0.11-beta-23516",
-        "System.Collections": "4.0.0-beta-23019",
-        "System.IO": "4.0.11-beta-23516",
-        "System.Diagnostics.Debug": "4.0.0-beta-23019",
-        "System.Runtime.Extensions": "4.0.0-beta-23019",
-        "System.Text.RegularExpressions": "4.0.0-beta-23019",
-        "System.Diagnostics.TraceSource": "4.0.0-beta-23516",
-        "System.IO.FileSystem": "4.0.1-beta-23516"
-      },
-      "compilationOptions": {
-        "define": [ "DNXCORE50" ]
+        "Microsoft.CSharp": "4.0.1-*",
+        "System.Runtime": "4.1.0-*",
+        "System.Globalization": "4.0.11-*",
+        "System.Collections": "4.0.11-*",
+        "System.IO": "4.1.0-*",
+        "System.Diagnostics.Debug": "4.0.11-*",
+        "System.Runtime.Extensions": "4.1.0-*",
+        "System.Text.RegularExpressions": "4.0.12-*",
+        "System.Runtime.InteropServices": "4.1.0-*",
+        "System.Diagnostics.TraceSource": "4.0.0-*",
+        "System.IO.FileSystem": "4.0.1-*"
       }
     }
   }
