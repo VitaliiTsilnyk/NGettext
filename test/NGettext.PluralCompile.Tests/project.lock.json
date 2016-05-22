@@ -2451,7 +2451,7 @@
         "framework": ".NETStandard,Version=v1.3",
         "dependencies": {
           "Microsoft.CSharp": "4.0.1",
-          "NGettext": "1.0.0",
+          "NGettext": "(, )",
           "System.Collections": "4.0.11",
           "System.Diagnostics.Debug": "4.0.11",
           "System.Diagnostics.TraceSource": "4.0.0",
