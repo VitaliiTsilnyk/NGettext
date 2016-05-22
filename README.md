@@ -1,4 +1,4 @@
-NGettext [![Build Status](https://travis-ci.org/neris/NGettext.svg?branch=master)](https://travis-ci.org/neris/NGettext) [![Build Status](https://ci.appveyor.com/api/projects/status/oc151pvllqqy0po9?svg=true)](https://ci.appveyor.com/project/neris/ngettext)
+NGettext [![Build Status](https://travis-ci.org/neris/NGettext.svg?branch=master)](https://travis-ci.org/neris/NGettext) [![Build Status](https://ci.appveyor.com/api/projects/status/oc151pvllqqy0po9?svg=true)](https://ci.appveyor.com/project/neris/ngettext) [![NuGet](https://img.shields.io/nuget/v/NGettext.svg?label=nuget:%20NGettext)](https://www.nuget.org/packages/NGettext/) [![NuGet](https://img.shields.io/nuget/v/NGettext.svg?label=nuget:%20NGettext.PluralCompile)](https://www.nuget.org/packages/NGettext.PluralCompile/)
 ========
 
 A cross-platform .NET implementation of the GNU/Gettext library.
@@ -44,8 +44,8 @@ Build status
 
 |OS |Target frameworks (build)|Target frameworks (test)|Status|
 |:--|:--|:--|:--|
-|Windows|net20 net35 net40 net45 net46<br/>net35-client net40-client<br/>dnx451<br/>dnxcore50 uap10.0|dnx451|[![Build Status](https://ci.appveyor.com/api/projects/status/oc151pvllqqy0po9?svg=true)](https://ci.appveyor.com/project/neris/ngettext)|
-|Linux|dnx451-mono|dnx451-mono|[![Build Status](https://travis-ci.org/neris/NGettext.svg?branch=master)](https://travis-ci.org/neris/NGettext)|
+|Windows|net20 net35 net40 net45 net46<br/>net35-client net40-client<br/>netstandard1.0 netstandard1.3<br/>.NETPortable,Version=v4.0,Profile=Profile136<br/>.NETPortable,Version=v4.0,Profile=Profile328<br/>.NETPortable,Version=v4.5,Profile=Profile259|netcoreapp1.0|[![Build Status](https://ci.appveyor.com/api/projects/status/oc151pvllqqy0po9?svg=true)](https://ci.appveyor.com/project/neris/ngettext)|
+|Linux|net20 net40 net45<br/>net40-client<br/>netstandard1.0 netstandard1.3<br/>.NETPortable,Version=v4.0,Profile=Profile136<br/>.NETPortable,Version=v4.0,Profile=Profile328<br/>.NETPortable,Version=v4.5,Profile=Profile259|netcoreapp1.0|[![Build Status](https://travis-ci.org/neris/NGettext.svg?branch=master)](https://travis-ci.org/neris/NGettext)|
 
 
 
@@ -84,7 +84,7 @@ Now you can use NGettext in your code:
 
 If you using this library under CoreCLR and you want to use encodings different from UTF-8 for your *.mo files, you need to include [System.Text.Encoding.CodePages](https://www.nuget.org/packages/System.Text.Encoding.CodePages/) package into your application and initialize it like this:
 ```csharp
-	#if DNXCORE50
+	#if NETCOREAPP1_0
 		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 	#endif
 ```
@@ -161,7 +161,7 @@ If you using this library under CoreCLR and you want to use encodings different 
 ### Parsing plural rules from the *.mo file header
 
 NGettext can parse plural rules directly from the *.mo file header and compile it to a dynamic method in runtime.
-To enable this option you can just create a catalog using the `MoCompilingPluralLoader`:
+To enable this option you can just create a catalog using the `MoCompilingPluralLoader` from the [NGettext.PluralCompile](https://www.nuget.org/packages/NGettext.PluralCompile) package:
 ```csharp
 	ICatalog catalog = new Catalog(new MoCompilingPluralLoader("Example", "./locale"));
 ```

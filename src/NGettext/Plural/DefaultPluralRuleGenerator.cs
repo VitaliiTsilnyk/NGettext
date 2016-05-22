@@ -21,7 +21,9 @@ namespace NGettext.Plural
 		{
 
 			var langCode = cultureInfo.TwoLetterISOLanguageName;
+#if !NETSTANDARD1_0
 			Trace.WriteLine(String.Format("Creating a built-in plural rule for langcode \"{0}\" for locale \"{1}\".", langCode, cultureInfo.Name), "NGettext");
+#endif
 
 			switch (langCode)
 			{

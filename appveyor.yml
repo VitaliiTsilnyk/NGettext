@@ -4,8 +4,7 @@ environment:
     secure: 0l0TrDvCNXH4z922G/Qa5hFG4+4payl1zRAfjMfEXRw=
 
 install:
-  - dnvm install latest
-  - dnu restore --quiet
+  - dotnet restore
   - nuget install secure-file -ExcludeVersion
   - secure-file\tools\secure-file -decrypt NGettext.snk.enc -secret %snk_secret%
 
@@ -14,7 +13,7 @@ build:
 
 test_script:
   - cd test\NGettext.Tests
-  - dnx test
+  - dotnet restore && dotnet build && dotnet test
   - cd ..\..
   - cd test\NGettext.PluralCompile.Tests
-  - dnx test
+  - dotnet restore && dotnet build && dotnet test

@@ -1,117 +1,97 @@
 ﻿{
-	"version": "0.5.0.0",
-	"title": "NGettext.PluralCompile",
-	"description": "Provides support of plural rule compilation to the IL bytecode.",
-	"owners": [ "Neris Ereptoris" ],
-	"authors": [ "Neris Ereptoris" ],
-	"tags": [ "ngettext", "gettext", "internationalization", "localization", "i18n", "l10n", "translate" ],
-	"projectUrl": "https://github.com/neris/NGettext",
-	"licenseUrl": "https://raw.githubusercontent.com/neris/NGettext/master/LICENSE",
-	"requireLicenseAcceptance": false,
+  "version": "0.6.0",
+  "title": "NGettext.PluralCompile",
+  "description": "Provides support of plural rule compilation to the IL bytecode.",
+  "authors": [ "Vitaly Zilnik" ],
 
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/neris/NGettext"
-	},
+  "buildOptions": {
+    "languageVersion": "csharp6"
+  },
 
-	"compilationOptions": {
-		"languageVersion": "csharp6",
-		"keyFile": "../../NGettext.snk"
-	},
+  "configurations": {
+    "Debug": {
+      "buildOptions": {
+        "define": [ "DEBUG", "TRACE" ]
+      }
+    },
+    "Release": {
+      "buildOptions": {
+        "define": [ "RELEASE" ],
+        "optimize": true,
+        "keyFile": "../../NGettext.snk"
+      }
+    }
+  },
 
-	"configurations": {
-		"Debug": {
-			"compilationOptions": {
-				"define": [ "DEBUG", "TRACE" ]
-			}
-		},
-		"Release": {
-			"compilationOptions": {
-				"define": [ "RELEASE" ],
-				"optimize": true
-			}
-		}
-	},
+  "packOptions": {
+    "projectUrl": "https://github.com/neris/NGettext",
+    "licenseUrl": "https://raw.githubusercontent.com/neris/NGettext/master/LICENSE",
+    "tags": [ "ngettext", "gettext", "internationalization", "localization", "i18n", "l10n", "translate" ],
+    "requireLicenseAcceptance": false,
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/neris/NGettext"
+    },
 
-	"packInclude": {
-		"LICENSE": "../../LICENSE"
-	},
+    "files": {
+      "LICENSE": "../../LICENSE"
+    }
+  },
 
-	"dependencies": {
-		"NGettext": { "target": "project" }
-	},
+  "dependencies": {
+    "NGettext": { "target": "project" }
+  },
 
-	"frameworks": {
-		"net20": {
-			"frameworkAssemblies": {
-				"System": ""
-			}
-		},
-		"net35": {
-			"frameworkAssemblies": {
-				"System": ""
-			}
-		},
-		"net35-client": {
-			"frameworkAssemblies": {
-				"System": ""
-			}
-		},
-		"net40": {
-			"frameworkAssemblies": {
-				"System": ""
-			}
-		},
-		"net40-client": {
-			"frameworkAssemblies": {
-				"System": ""
-			}
-		},
-		"net45": {
-			"frameworkAssemblies": {
-				"System": ""
-			}
-		},
-		"net46": {
-			"frameworkAssemblies": {
-				"System": ""
-			}
-		},
-		"dnx451": {
-			"frameworkAssemblies": {
-				"System": ""
-			}
-		},
-		"dnxcore50": {
-			"dependencies": {
-				"Microsoft.CSharp": "4.0.1-beta-23516",
-				"System.Runtime": "4.0.21-beta-23516",
-				"System.Globalization": "4.0.11-beta-23516",
-				"System.Collections": "4.0.0-beta-23019",
-				"System.IO": "4.0.11-beta-23516",
-				"System.Diagnostics.Debug": "4.0.0-beta-23019",
-				"System.Runtime.Extensions": "4.0.0-beta-23019",
-				"System.Diagnostics.TraceSource": "4.0.0-beta-23516",
-				"System.Reflection.Emit.Lightweight": "4.0.1-beta-23516",
-				"System.Reflection.TypeExtensions": "4.0.1-beta-23409"
-			}
-		},
-		"uap10.0": {
-			"dependencies": {
-				"Microsoft.CSharp": "4.0.1-beta-23516",
-				"System.Runtime": "4.0.21-beta-23516",
-				"System.Globalization": "4.0.11-beta-23516",
-				"System.Collections": "4.0.0-beta-23019",
-				"System.IO": "4.0.11-beta-23516",
-				"System.Diagnostics.Debug": "4.0.0-beta-23019",
-				"System.Runtime.Extensions": "4.0.0-beta-23019",
-				"System.Diagnostics.TraceSource": "4.0.0-beta-23516",
-				"System.Reflection.Emit.Lightweight": "4.0.1-beta-23516",
-				"System.Reflection.TypeExtensions": "4.0.1-beta-23409"
-			},
-			"compilationOptions": {
-				"define": [ "DNXCORE50" ]
-			}
-		}
-	}
+  "frameworks": {
+    "net20": {
+      "frameworkAssemblies": {
+        "System": ""
+      }
+    },
+    "net35": {
+      "frameworkAssemblies": {
+        "System": ""
+      }
+    },
+    "net35-client": {
+      "frameworkAssemblies": {
+        "System": ""
+      }
+    },
+    "net40": {
+      "frameworkAssemblies": {
+        "System": ""
+      }
+    },
+    "net40-client": {
+      "frameworkAssemblies": {
+        "System": ""
+      }
+    },
+    "net45": {
+      "frameworkAssemblies": {
+        "System": ""
+      }
+    },
+    "net46": {
+      "frameworkAssemblies": {
+        "System": ""
+      }
+    },
+    "netstandard1.3": {
+      "dependencies": {
+        "Microsoft.CSharp": "4.0.1-*",
+        "System.Runtime": "4.1.0-*",
+        "System.Globalization": "4.0.11-*",
+        "System.Collections": "4.0.11-*",
+        "System.IO": "4.1.0-*",
+        "System.Diagnostics.Debug": "4.0.11-*",
+        "System.Runtime.Extensions": "4.1.0-*",
+        "System.Runtime.InteropServices": "4.1.0-*",
+        "System.Diagnostics.TraceSource": "4.0.0-*",
+        "System.Reflection.Emit.Lightweight": "4.0.1-*",
+        "System.Reflection.TypeExtensions": "4.1.0-*"
+      }
+    }
+  }
 }

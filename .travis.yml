@@ -2,31 +2,52 @@
 # Travis CI configuration file
 #
 
+dist: trusty
 language: csharp
+sudo: required
 
+addons:
+  apt:
+    packages:
+    - libunwind8
 
 mono:
   - 4.2.1
+
 env:
   global:
     - secure: "JO9BJHINLiXBe77OhScvVh25NTCSgyQdWmfHSYmemYJRXKd48JlGVX+Hg+uBD9e9JNrgihR4M+7MRD+p1DeFJa5fnlRs4sP6Urtw15/wdEoyMzfJ6IwcQgH9L00dPrjH2vXdemFQHl3v9ViUQbqNwUmANxjOHv3T2xnN7pt+IiglTRGFAPsHXSAGxlhz3XGJC9f3nrTVAr8Btwf7nAxjHutr97kvw2i83sTWvEWl26CVRb+rSu3xjoK5ze+4UXXlMNni6qkXzKnvWgYDmmrLNaU6L6GWcpkPl7bOAaPZ1833tQp0G7ZNAxCguSbCM3xfU0ujXn9szXaKD2zt2MGl/otkR3x7vSy/I2F1870zAEw9WEmVY0lsKwVv5YXASMqxc0APo1d2xAMEZYGDz7TnO/JJSGFLj/MNB7zRqrYG/rkD75V2jd3O/rXwzHQL1J9n/G9by9lq3EWYxPHZ4bF9xOCEgtD5ow27xWmcwFnF4mZNErOezwjIvmZdQXymBxM094yc/kHS30gsvS/HwzzK7Ccb04Uvqdogl9nOI2Okm85fhnkEHAK4YE+XVKxgLOLPcuSTs9qtqwe5Tte+ACkqdCeivtacWcRNInbchfbldc53VjPXZ/tRrZAm+snCkukOHF07m38JpaGuiXaBiEBvGMPbIB6vCObh3rwUnYE255Q="
 
 install:
  - nuget install secure-file -ExcludeVersion
- - mono secure-file/tools/secure-file.exe -decrypt NGettext.snk.enc -secret "${SNK_SECRET}"
- - curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | sh && source ~/.dnx/dnvm/dnvm.sh
- - dnvm upgrade
+ - mono secure-file/tools/secure-file.exe -decrypt NGettext.snk.enc -secret "$SNK_SECRET" 
+ - curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0-preview1/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version 1.0.0-preview1-002702 --install-dir ~/dotnet
+ - sudo ln -s ~/dotnet/dotnet /usr/local/bin
 
 solution: NGettext.sln
 
 script:
-  - dnvm list
-  - dnu restore --quiet
+  - dotnet restore
   - cd src/NGettext
-  - dnu build --framework dnx451
+  - dotnet build --framework "net20"
+  - dotnet build --framework "net40"
+  - dotnet build --framework "net40-client"
+  - dotnet build --framework "net45"
+  - dotnet build --framework ".NETPortable,Version=v4.0,Profile=Profile136"
+  - dotnet build --framework ".NETPortable,Version=v4.0,Profile=Profile328"
+  - dotnet build --framework ".NETPortable,Version=v4.5,Profile=Profile259"
+  - dotnet build --framework "netstandard1.0"
+  - dotnet build --framework "netstandard1.3"
+  - cd ../..
+  - cd src/NGettext.PluralCompile
+  - dotnet build --framework "net20"
+  - dotnet build --framework "net40"
+  - dotnet build --framework "net40-client"
+  - dotnet build --framework "net45"
+  - dotnet build --framework "netstandard1.3"
   - cd ../..
   - cd test/NGettext.Tests
-  - dnx test -parallel none
+  - dotnet restore && dotnet build && dotnet test
   - cd ../..
   - cd test/NGettext.PluralCompile.Tests
-  - dnx test -parallel none
+  - dotnet restore && dotnet build && dotnet test

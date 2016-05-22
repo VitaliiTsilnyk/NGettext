@@ -94,7 +94,9 @@ namespace NGettext
 			catch (FileNotFoundException exception)
 			{
 				// Suppress FileNotFound exceptions
+#if !NETSTANDARD1_0
 				Trace.WriteLine(String.Format("Translation file loading fail: {0}", exception.Message), "NGettext");
+#endif
 			}
 		}
 
@@ -119,6 +121,7 @@ namespace NGettext
 		{
 		}
 
+#if !NETSTANDARD1_0
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Catalog"/> class using the current UI culture info
 		/// and loads data for specified domain and locale directory using a new <see cref="MoLoader"/> instance.
@@ -141,6 +144,7 @@ namespace NGettext
 			: this(new MoLoader(domain, localeDir), cultureInfo)
 		{
 		}
+#endif
 
 		#endregion
 
@@ -156,7 +160,7 @@ namespace NGettext
 			loader.Load(this);
 		}
 
-		#region ICatalog implementation
+#region ICatalog implementation
 
 		/// <summary>
 		/// Returns <paramref name="text"/> translated into the selected language.
@@ -262,7 +266,7 @@ namespace NGettext
 			return String.Format(this.CultureInfo, this.GetPluralStringDefault(context + CONTEXT_GLUE + text, text, pluralText, n), args);
 		}
 
-		#endregion
+#endregion
 
 		/// <summary>
 		/// Returns translated string for given <paramref name="messageId"/> or <paramref name="defaultMessage"/> on fail.
@@ -276,7 +280,9 @@ namespace NGettext
 
 			if (translations == null || translations.Length == 0)
 			{
+#if !NETSTANDARD1_0
 				Trace.WriteLine(String.Format("Translation not found for message id \"{0}\".", messageId), "NGettext");
+#endif
 				return defaultMessage;
 			}
 
@@ -307,7 +313,9 @@ namespace NGettext
 
 			if (translations == null || translations.Length <= pluralIndex)
 			{
+#if !NETSTANDARD1_0
 				Trace.WriteLine(String.Format("Translation not found (plural) for message id \"{0}\".", messageId), "NGettext");
+#endif
 				return (n == 1) ? defaultMessage : defaultPluralMessage;
 			}
 

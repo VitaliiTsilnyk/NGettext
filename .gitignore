@@ -12,6 +12,7 @@
 *.vs10x
 *_ReSharper.*
 .vs
+.vscode
 
 
 ###### Binary files
@@ -22,23 +23,12 @@
 *.nupkg
 
 
-###### DNX
-project.lock.json
-artifacts
-
-
-###### Custom NAnt configuration
-/build.conf
-
-
 ###### Automatic generated documentation and report files
 doc/generated/*
 doc/reports/*
 
 
 ###### Other files
-dep/src/*
-src/packages/*
 NGettext.snk
 
 

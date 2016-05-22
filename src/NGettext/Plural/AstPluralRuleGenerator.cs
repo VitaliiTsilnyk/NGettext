@@ -11,7 +11,7 @@ namespace NGettext.Plural
 	public class AstPluralRuleGenerator : DefaultPluralRuleGenerator, IPluralRuleTextParser
 	{
 		private static readonly Regex NPluralsRegex = new Regex(@"(nplurals=(?<nplurals>\d+))",
-#if DNXCORE50
+#if NETSTANDARD1_3 || NETSTANDARD1_0
 			RegexOptions.IgnoreCase
 #else
 			RegexOptions.IgnoreCase | RegexOptions.Compiled
@@ -19,7 +19,7 @@ namespace NGettext.Plural
 		);
 
 		private static readonly Regex PluralRegex = new Regex(@"(plural=(?<plural>[^;\n]+))",
-#if DNXCORE50
+#if NETSTANDARD1_3 || NETSTANDARD1_0
 			RegexOptions.IgnoreCase
 #else
 			RegexOptions.IgnoreCase | RegexOptions.Compiled

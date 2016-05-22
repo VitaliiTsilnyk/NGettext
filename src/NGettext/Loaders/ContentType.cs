@@ -7,7 +7,7 @@ namespace NGettext.Loaders
 	internal class ContentType
 	{
 		private static readonly Regex Regex = new Regex(@"^(?<type>\w+)\/(?<subType>\w+)(?:\s*;\s*(?<paramName>\w+)\s*=\s*(?<paramValue>(?:[0-9\w_-]+)|(?:"".+ "")))*",
-#if DNXCORE50
+#if NETSTANDARD1_3 || NETSTANDARD1_0
 			RegexOptions.IgnoreCase
 #else
 			RegexOptions.IgnoreCase | RegexOptions.Compiled
