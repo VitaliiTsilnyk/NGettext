@@ -15,9 +15,12 @@ namespace NGettext.Loaders
 		private const string MO_FILE_EXT = ".mo";
 
 		private readonly Stream _MoStream;
+
+#if !NETSTANDARD1_0
 		private readonly string _FilePath;
 		private readonly string _Domain;
 		private readonly string _LocaleDir;
+#endif
 
 		/// <summary>
 		/// Gets a current plural generator instance.

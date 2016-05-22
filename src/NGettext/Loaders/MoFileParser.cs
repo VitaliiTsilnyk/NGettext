@@ -108,7 +108,7 @@ namespace NGettext.Loaders
 
 				if (parsedFile.FormatRevision.Major > MAX_SUPPORTED_VERSION)
 				{
-					throw new Exception(String.Format("Unsupported MO file major revision: {0}.", parsedFile.FormatRevision.Major));
+					throw new CatalogLoadingException(String.Format("Unsupported MO file major revision: {0}.", parsedFile.FormatRevision.Major));
 				}
 
 				var stringCount = reader.ReadInt32();
@@ -179,9 +179,7 @@ namespace NGettext.Loaders
 							}
 							catch (Exception exception)
 							{
-#if !NETSTANDARD1_0
-								Trace.WriteLine(String.Format("Unable to change parser encoding using the Content-Type header: \"{0}\".", exception.Message), "NGettext");
-#endif
+								throw new CatalogLoadingException(String.Format("Unable to change parser encoding using the Content-Type header: \"{0}\".", exception.Message), exception);
 							}
 						}
 					}
