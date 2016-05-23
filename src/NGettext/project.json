@@ -1,5 +1,5 @@
 ﻿{
-  "version": "0.6.0",
+  "version": "0.6.1",
   "title": "NGettext",
   "description": "A cross-platform .NET implementation of the GNU/Gettext library.",
   "authors": [ "Vitaly Zilnik" ],
