@@ -91,13 +91,15 @@ namespace NGettext
 			{
 				this.Load(loader);
 			}
+#if NETSTANDARD1_0
+			catch (FileNotFoundException) { }
+#else
 			catch (FileNotFoundException exception)
 			{
 				// Suppress FileNotFound exceptions
-#if !NETSTANDARD1_0
 				Trace.WriteLine(String.Format("Translation file loading fail: {0}", exception.Message), "NGettext");
-#endif
 			}
+#endif
 		}
 
 		/// <summary>

@@ -15,9 +15,12 @@ namespace NGettext.Loaders
 		private const string MO_FILE_EXT = ".mo";
 
 		private readonly Stream _MoStream;
+
+#if !NETSTANDARD1_0
 		private readonly string _FilePath;
 		private readonly string _Domain;
 		private readonly string _LocaleDir;
+#endif
 
 		/// <summary>
 		/// Gets a current plural generator instance.
@@ -156,7 +159,7 @@ namespace NGettext.Loaders
 		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
 		/// from the specified path.
 		/// </summary>
-		/// <param name="filePath"></param
+		/// <param name="filePath"></param>
 		/// <param name="parser"></param>
 		public MoLoader(string filePath, MoFileParser parser)
 			: this(filePath, new DefaultPluralRuleGenerator(), parser)

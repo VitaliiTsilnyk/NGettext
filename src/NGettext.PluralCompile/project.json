@@ -1,11 +1,14 @@
 ﻿{
-  "version": "0.6.0",
+  "version": "0.6.1",
   "title": "NGettext.PluralCompile",
   "description": "Provides support of plural rule compilation to the IL bytecode.",
   "authors": [ "Vitaly Zilnik" ],
 
   "buildOptions": {
-    "languageVersion": "csharp6"
+    "languageVersion": "csharp6",
+    "warningsAsErrors": true,
+    "xmlDoc": true,
+    "nowarn": [ "CS1591" ]
   },
 
   "configurations": {
@@ -34,7 +37,9 @@
     },
 
     "files": {
-      "LICENSE": "../../LICENSE"
+      "mappings": {
+        "LICENSE": "../../LICENSE"
+      }
     }
   },
 
