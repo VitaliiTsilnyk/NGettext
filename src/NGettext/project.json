@@ -37,7 +37,9 @@
     },
 
     "files": {
-      "LICENSE": "../../LICENSE"
+      "mappings": {
+        "LICENSE": "../../LICENSE"
+      }
     }
   },
 
