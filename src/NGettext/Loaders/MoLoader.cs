@@ -159,7 +159,7 @@ namespace NGettext.Loaders
 		/// Initializes a new instance of the <see cref="MoLoader"/> class which will try to load a MO file
 		/// from the specified path.
 		/// </summary>
-		/// <param name="filePath"></param
+		/// <param name="filePath"></param>
 		/// <param name="parser"></param>
 		public MoLoader(string filePath, MoFileParser parser)
 			: this(filePath, new DefaultPluralRuleGenerator(), parser)

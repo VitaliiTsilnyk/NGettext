@@ -63,11 +63,12 @@ namespace NGettext.Plural
 			this.SetPluralRuleText(pluralRuleText);
 		}
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="AstPluralRuleGenerator"/> class using given AstTokenParser and sets a plural rule text.
-		/// </summary>
-		/// <param name="pluralRuleText"></param>
-		public AstPluralRuleGenerator(string pluralRuleText, AstTokenParser parser)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AstPluralRuleGenerator"/> class using given AstTokenParser and sets a plural rule text.
+        /// </summary>
+        /// <param name="pluralRuleText"></param>
+        /// <param name="parser"></param>
+        public AstPluralRuleGenerator(string pluralRuleText, AstTokenParser parser)
 			: this(parser)
 		{
 			this.SetPluralRuleText(pluralRuleText);

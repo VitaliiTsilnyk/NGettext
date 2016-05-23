@@ -6,7 +6,9 @@
 
   "buildOptions": {
     "languageVersion": "csharp6",
-    "warningsAsErrors": true
+    "warningsAsErrors": true,
+    "xmlDoc": true,
+    "nowarn": [ "CS1591" ]
   },
 
   "configurations": {
