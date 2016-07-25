@@ -25,8 +25,8 @@
   "testRunner": "xunit",
 
   "dependencies": {
-    "xunit": "2.1.0",
-    "dotnet-test-xunit": "1.0.0-*",
+    "xunit": "2.2.0-*",
+    "dotnet-test-xunit": "2.2.0-*",
 
     "NGettext": { "target": "project" },
     "NGettext.PluralCompile": { "target": "project" }
@@ -34,16 +34,12 @@
 
   "frameworks": {
     "netcoreapp1.0": {
-      "imports": [
-        "dnxcore50",
-        "portable-net45+win8"
-      ],
       "dependencies": {
         "Microsoft.NETCore.App": {
           "type": "platform",
-          "version": "1.0.0-rc2-3002702"
+          "version": "1.0.0"
         },
-        "System.Text.Encoding.CodePages": "4.0.1-*"
+        "System.Text.Encoding.CodePages": "4.0.1"
       }
     }
   }
