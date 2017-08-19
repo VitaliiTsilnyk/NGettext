@@ -10,7 +10,7 @@ namespace NGettext.Tests
 
 		public CatalogFileLoadingTest()
 		{
-			this.LocalesDir = Path.Combine(Directory.GetCurrentDirectory(), Path.Combine("TestResources", "locales"));
+			this.LocalesDir = Path.Combine(Directory.GetCurrentDirectory(), Path.Combine("..", "..", "..", "TestResources", "locales"));
 		}
 
 		[Fact]

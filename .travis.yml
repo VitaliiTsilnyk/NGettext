@@ -4,50 +4,62 @@
 
 dist: trusty
 language: csharp
-sudo: required
+
+matrix:
+  include:
+    - os: linux
+      dist: trusty # Ubuntu 14.04
+      dotnet: 2.0.0
+      mono: latest
+      sudo: required
+      env: MONO_BASE_PATH=/usr/lib/mono/
+    - os: osx
+      osx_image: xcode9 # macOS 10.12
+      dotnet: 2.0.0
+      mono: latest
+      env: MONO_BASE_PATH=/Library/Frameworks/Mono.framework/Versions/Current/lib/mono/
 
 addons:
   apt:
     packages:
-    - libunwind8
-
-mono:
-  - 4.2.1
+      - dotnet-sharedframework-microsoft.netcore.app-1.0.5
 
 env:
   global:
+    - DOTNET_CLI_TELEMETRY_OPTOUT: 1
+    - DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
     - secure: "JO9BJHINLiXBe77OhScvVh25NTCSgyQdWmfHSYmemYJRXKd48JlGVX+Hg+uBD9e9JNrgihR4M+7MRD+p1DeFJa5fnlRs4sP6Urtw15/wdEoyMzfJ6IwcQgH9L00dPrjH2vXdemFQHl3v9ViUQbqNwUmANxjOHv3T2xnN7pt+IiglTRGFAPsHXSAGxlhz3XGJC9f3nrTVAr8Btwf7nAxjHutr97kvw2i83sTWvEWl26CVRb+rSu3xjoK5ze+4UXXlMNni6qkXzKnvWgYDmmrLNaU6L6GWcpkPl7bOAaPZ1833tQp0G7ZNAxCguSbCM3xfU0ujXn9szXaKD2zt2MGl/otkR3x7vSy/I2F1870zAEw9WEmVY0lsKwVv5YXASMqxc0APo1d2xAMEZYGDz7TnO/JJSGFLj/MNB7zRqrYG/rkD75V2jd3O/rXwzHQL1J9n/G9by9lq3EWYxPHZ4bF9xOCEgtD5ow27xWmcwFnF4mZNErOezwjIvmZdQXymBxM094yc/kHS30gsvS/HwzzK7Ccb04Uvqdogl9nOI2Okm85fhnkEHAK4YE+XVKxgLOLPcuSTs9qtqwe5Tte+ACkqdCeivtacWcRNInbchfbldc53VjPXZ/tRrZAm+snCkukOHF07m38JpaGuiXaBiEBvGMPbIB6vCObh3rwUnYE255Q="
 
 install:
  - nuget install secure-file -ExcludeVersion
- - mono secure-file/tools/secure-file.exe -decrypt NGettext.snk.enc -secret "$SNK_SECRET" 
- - curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0-preview2/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version 1.0.0-preview2-003121 --install-dir ~/dotnet
- - sudo ln -s ~/dotnet/dotnet /usr/local/bin
+ - mono secure-file/tools/secure-file.exe -decrypt NGettext.snk.enc -secret "$SNK_SECRET"
+ - dotnet restore
 
 solution: NGettext.sln
 
 script:
   - dotnet restore
   - cd src/NGettext
-  - dotnet build --framework "net20"
-  - dotnet build --framework "net40"
-  - dotnet build --framework "net40-client"
-  - dotnet build --framework "net45"
-  - dotnet build --framework ".NETPortable,Version=v4.0,Profile=Profile136"
-  - dotnet build --framework ".NETPortable,Version=v4.0,Profile=Profile328"
-  - dotnet build --framework ".NETPortable,Version=v4.5,Profile=Profile259"
+  - FrameworkPathOverride=$MONO_BASE_PATH/2.0-api/ dotnet build --framework "net20"
+  - FrameworkPathOverride=$MONO_BASE_PATH/4.0-api/ dotnet build --framework "net40"
+  - FrameworkPathOverride=$MONO_BASE_PATH/4.5-api/ dotnet build --framework "net45"
+  - TargetFrameworkRootPath=$MONO_BASE_PATH/xbuild-frameworks dotnet build --framework "portable-net40+sl5+win8+wp8"
+  - TargetFrameworkRootPath=$MONO_BASE_PATH/xbuild-frameworks dotnet build --framework "portable-net40+sl5+win8+wpa81+wp8"
   - dotnet build --framework "netstandard1.0"
   - dotnet build --framework "netstandard1.3"
+  - dotnet build --framework "netstandard2.0"
   - cd ../..
   - cd src/NGettext.PluralCompile
-  - dotnet build --framework "net20"
-  - dotnet build --framework "net40"
-  - dotnet build --framework "net40-client"
-  - dotnet build --framework "net45"
+  - FrameworkPathOverride=$MONO_BASE_PATH/2.0-api/ dotnet build --framework "net20"
+  - FrameworkPathOverride=$MONO_BASE_PATH/4.0-api/ dotnet build --framework "net40"
+  - FrameworkPathOverride=$MONO_BASE_PATH/4.5-api/ dotnet build --framework "net45"
   - dotnet build --framework "netstandard1.3"
+  - dotnet build --framework "netstandard2.0"
   - cd ../..
   - cd test/NGettext.Tests
-  - dotnet restore && dotnet build && dotnet test
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then dotnet test -f netcoreapp1.0; fi
+  - dotnet test -f netcoreapp2.0
   - cd ../..
   - cd test/NGettext.PluralCompile.Tests
-  - dotnet restore && dotnet build && dotnet test
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then dotnet test -f netcoreapp1.0; fi
+  - dotnet test -f netcoreapp2.0

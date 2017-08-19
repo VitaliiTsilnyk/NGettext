@@ -12,8 +12,8 @@ namespace NGettext.Tests.Loaders
 		
 		public MoFileParserTest()
 		{
-			this.LocalesDir = Path.Combine(Directory.GetCurrentDirectory(), Path.Combine("TestResources", "locales"));
-#if NETCOREAPP1_0
+			this.LocalesDir = Path.Combine(Directory.GetCurrentDirectory(), Path.Combine("..", "..", "..", "TestResources", "locales"));
+#if NETCOREAPP1_0 || NETCOREAPP2_0
 			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 #endif
 		}

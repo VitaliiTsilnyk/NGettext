@@ -1,4 +1,4 @@
-os: Visual Studio 2015
+os: Visual Studio 2017
 environment:
   snk_secret:
     secure: 0l0TrDvCNXH4z922G/Qa5hFG4+4payl1zRAfjMfEXRw=
@@ -13,7 +13,7 @@ build:
 
 test_script:
   - cd test\NGettext.Tests
-  - dotnet restore && dotnet build && dotnet test
+  - dotnet restore && dotnet test -f netcoreapp1.0 && dotnet test -f netcoreapp2.0
   - cd ..\..
   - cd test\NGettext.PluralCompile.Tests
-  - dotnet restore && dotnet build && dotnet test
+  - dotnet restore && dotnet test -f netcoreapp1.0 && dotnet test -f netcoreapp2.0
