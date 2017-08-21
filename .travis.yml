@@ -31,8 +31,6 @@ env:
     - secure: "JO9BJHINLiXBe77OhScvVh25NTCSgyQdWmfHSYmemYJRXKd48JlGVX+Hg+uBD9e9JNrgihR4M+7MRD+p1DeFJa5fnlRs4sP6Urtw15/wdEoyMzfJ6IwcQgH9L00dPrjH2vXdemFQHl3v9ViUQbqNwUmANxjOHv3T2xnN7pt+IiglTRGFAPsHXSAGxlhz3XGJC9f3nrTVAr8Btwf7nAxjHutr97kvw2i83sTWvEWl26CVRb+rSu3xjoK5ze+4UXXlMNni6qkXzKnvWgYDmmrLNaU6L6GWcpkPl7bOAaPZ1833tQp0G7ZNAxCguSbCM3xfU0ujXn9szXaKD2zt2MGl/otkR3x7vSy/I2F1870zAEw9WEmVY0lsKwVv5YXASMqxc0APo1d2xAMEZYGDz7TnO/JJSGFLj/MNB7zRqrYG/rkD75V2jd3O/rXwzHQL1J9n/G9by9lq3EWYxPHZ4bF9xOCEgtD5ow27xWmcwFnF4mZNErOezwjIvmZdQXymBxM094yc/kHS30gsvS/HwzzK7Ccb04Uvqdogl9nOI2Okm85fhnkEHAK4YE+XVKxgLOLPcuSTs9qtqwe5Tte+ACkqdCeivtacWcRNInbchfbldc53VjPXZ/tRrZAm+snCkukOHF07m38JpaGuiXaBiEBvGMPbIB6vCObh3rwUnYE255Q="
 
 install:
- - nuget install secure-file -ExcludeVersion
- - mono secure-file/tools/secure-file.exe -decrypt NGettext.snk.enc -secret "$SNK_SECRET"
  - dotnet restore
 
 solution: NGettext.sln

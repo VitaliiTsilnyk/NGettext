@@ -5,15 +5,13 @@ environment:
 
 install:
   - dotnet restore
-  - nuget install secure-file -ExcludeVersion
-  - secure-file\tools\secure-file -decrypt NGettext.snk.enc -secret %snk_secret%
 
 build:
   project: NGettext.sln
 
 test_script:
   - cd test\NGettext.Tests
-  - dotnet restore && dotnet test -f netcoreapp1.0 && dotnet test -f netcoreapp2.0
+  - dotnet test -f netcoreapp1.0 && dotnet test -f netcoreapp2.0
   - cd ..\..
   - cd test\NGettext.PluralCompile.Tests
-  - dotnet restore && dotnet test -f netcoreapp1.0 && dotnet test -f netcoreapp2.0
+  - dotnet test -f netcoreapp1.0 && dotnet test -f netcoreapp2.0
