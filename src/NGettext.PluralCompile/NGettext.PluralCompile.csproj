@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>Provides support of plural rule compilation to the IL bytecode.</Description>
     <AssemblyTitle>NGettext.PluralCompile</AssemblyTitle>
-    <VersionPrefix>0.6.2</VersionPrefix>
+    <VersionPrefix>0.6.3</VersionPrefix>
     <Authors>Vitaly Zilnik</Authors>
     <TargetFrameworks>net20;net35;net40;net45;net46;netstandard1.3;netstandard2.0</TargetFrameworks>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
