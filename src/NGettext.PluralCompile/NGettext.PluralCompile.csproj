@@ -33,6 +33,11 @@
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(APPVEYOR)' == '' AND '$(FrameworkPathOverride)' == '' ">
+    <FrameworkPathOverride Condition=" '$(TargetFramework)' == 'net20' ">$(WINDIR)\Microsoft.NET\Framework\v2.0.50727</FrameworkPathOverride>
+    <FrameworkPathOverride Condition=" '$(TargetFramework)' == 'net35' ">$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETFramework\v3.5\Profile\Client</FrameworkPathOverride>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Update="..\..\LICENSE">
       <PackagePath></PackagePath>
