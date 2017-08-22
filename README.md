@@ -58,9 +58,9 @@ from the package manager console:
 ```
 PM> Install-Package NGettext
 ```
-or through DNX Utility:
+or through .NET CLI utility:
 ```
-$ dnu install NGettext
+$ dotnet add package NGettext
 ```
 
 Now you can use NGettext in your code:
