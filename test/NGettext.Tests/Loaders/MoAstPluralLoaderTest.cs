@@ -12,7 +12,7 @@ namespace NGettext.Tests.Loaders
 
 		public MoAstPluralLoaderTest()
 		{
-			this.LocalesDir = Path.Combine(Directory.GetCurrentDirectory(), Path.Combine("..", "..", "..", "TestResources", "locales"));
+			this.LocalesDir = Path.Combine(Directory.GetCurrentDirectory(), Path.Combine("TestResources", "locales"));
 		}
 
 		public static IEnumerable<object[]> GetTestAstPluralRuleGeneratorData()
