@@ -230,7 +230,3 @@ And a keywords list:
 ```
 
 
-
----- 
-
-Copyright (C) 2012-2016 Neris Ereptoris <http://neris.ws/>.
