@@ -66,7 +66,7 @@ namespace NGettext.Loaders
 		/// <returns>Parsed file data.</returns>
 		public MoFile Parse(Stream stream)
 		{
-#if !NETSTANDARD1_0
+#if DEBUG && !NETSTANDARD1_0
 			Trace.WriteLine("Trying to parse a MO file stream...", "NGettext");
 #endif
 
@@ -86,7 +86,7 @@ namespace NGettext.Loaders
 					// So we need to detect and read BigEendian files by ourselves
 					if (_ReverseBytes(magicNumber) == MO_FILE_MAGIC)
 					{
-#if !NETSTANDARD1_0
+#if DEBUG && !NETSTANDARD1_0
 						Trace.WriteLine("BigEndian file detected. Switching readers...", "NGettext");
 #endif
 						bigEndian = true;
@@ -102,7 +102,7 @@ namespace NGettext.Loaders
 				var revision = reader.ReadInt32();
 				var parsedFile = new MoFile(new Version(revision >> 16, revision & 0xffff), this.DefaultEncoding, bigEndian);
 
-#if !NETSTANDARD1_0
+#if DEBUG && !NETSTANDARD1_0
 				Trace.WriteLine(String.Format("MO File Revision: {0}.{1}.", parsedFile.FormatRevision.Major, parsedFile.FormatRevision.Minor), "NGettext");
 #endif
 
@@ -117,14 +117,14 @@ namespace NGettext.Loaders
 
 				// We don't support hash tables and system dependent segments.
 
-#if !NETSTANDARD1_0
+#if DEBUG && !NETSTANDARD1_0
 				Trace.WriteLine(String.Format("MO File contains {0} strings.", stringCount), "NGettext");
 #endif
 
 				var originalTable = new StringOffsetTable[stringCount];
 				var translationTable = new StringOffsetTable[stringCount];
 
-#if !NETSTANDARD1_0
+#if DEBUG && !NETSTANDARD1_0
 				Trace.WriteLine(String.Format("Trying to parse strings using encoding \"{0}\"...", parsedFile.Encoding), "NGettext");
 #endif
 
@@ -172,7 +172,7 @@ namespace NGettext.Loaders
 								if (!String.IsNullOrEmpty(contentType.CharSet))
 								{
 									parsedFile.Encoding = Encoding.GetEncoding(contentType.CharSet);
-#if !NETSTANDARD1_0
+#if DEBUG && !NETSTANDARD1_0
 									Trace.WriteLine(String.Format("File encoding switched to \"{0}\" (\"{1}\" requested).", parsedFile.Encoding, contentType.CharSet), "NGettext");
 #endif
 								}
@@ -187,7 +187,7 @@ namespace NGettext.Loaders
 					parsedFile.Translations.Add(originalStrings[0], translatedStrings);
 				}
 
-#if !NETSTANDARD1_0
+#if DEBUG && !NETSTANDARD1_0
 				Trace.WriteLine("String parsing completed.", "NGettext");
 #endif
 				return parsedFile;

@@ -58,9 +58,9 @@ from the package manager console:
 ```
 PM> Install-Package NGettext
 ```
-or through DNX Utility:
+or through .NET CLI utility:
 ```
-$ dnu install NGettext
+$ dotnet add package NGettext
 ```
 
 Now you can use NGettext in your code:
@@ -230,7 +230,3 @@ And a keywords list:
 ```
 
 
-
----- 
-
-Copyright (C) 2012-2016 Neris Ereptoris <http://neris.ws/>.

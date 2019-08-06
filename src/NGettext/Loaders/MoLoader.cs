@@ -259,7 +259,10 @@ namespace NGettext.Loaders
 		/// <param name="catalog"></param>
 		protected virtual void Load(string filePath, Catalog catalog)
 		{
+#if DEBUG
 			Trace.WriteLine(String.Format("Loading translations from file \"{0}\"...", filePath), "NGettext");
+#endif
+			
 			using (var stream = File.OpenRead(filePath))
 			{
 				this.Load(stream, catalog);

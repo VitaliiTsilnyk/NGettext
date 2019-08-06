@@ -94,11 +94,15 @@ namespace NGettext
 #if NETSTANDARD1_0
 			catch (FileNotFoundException) { }
 #else
+#if DEBUG
 			catch (FileNotFoundException exception)
 			{
 				// Suppress FileNotFound exceptions
 				Trace.WriteLine(String.Format("Translation file loading fail: {0}", exception.Message), "NGettext");
 			}
+#else
+			catch (FileNotFoundException) {}
+#endif
 #endif
 		}
 
@@ -282,7 +286,7 @@ namespace NGettext
 
 			if (translations == null || translations.Length == 0)
 			{
-#if !NETSTANDARD1_0
+#if DEBUG && !NETSTANDARD1_0
 				Trace.WriteLine(String.Format("Translation not found for message id \"{0}\".", messageId), "NGettext");
 #endif
 				return defaultMessage;
@@ -315,7 +319,7 @@ namespace NGettext
 
 			if (translations == null || translations.Length <= pluralIndex)
 			{
-#if !NETSTANDARD1_0
+#if DEBUG && !NETSTANDARD1_0
 				Trace.WriteLine(String.Format("Translation not found (plural) for message id \"{0}\".", messageId), "NGettext");
 #endif
 				return (n == 1) ? defaultMessage : defaultPluralMessage;
