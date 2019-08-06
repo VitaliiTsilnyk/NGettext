@@ -30,6 +30,7 @@ doc/reports/*
 
 ###### Other files
 NGettext.snk
+global.json
 
 
 ###### OS generated files
