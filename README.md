@@ -96,6 +96,7 @@ If you using this library under CoreCLR and you want to use encodings different 
 ```csharp
 	// All translation methods support String.Format optional arguments
 	catalog.GetString("Hello, {0}!", "World");
+	catalog.GetString("Hello, {0}!", "World",out useTranslation);// useTranslation returns is curernt output use translation or default key
 	
 	// Catalog's current locale will be used to format messages correctly
 	catalog.GetString("Here's a number: {0}!", 1.23);
