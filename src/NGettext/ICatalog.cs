@@ -19,7 +19,7 @@ namespace NGettext
         /// Similar to <c>gettext</c> function.
         /// </summary>
         /// <param name="text">Text to translate.</param>
-        /// <param name="useTranslation"></param>
+         /// <param name="useTranslation">Determine use tranlation in dictionart or use default text</param>
         /// <returns>Translated text.</returns>
         string GetString(string text, out bool useTranslation);
 
@@ -36,7 +36,7 @@ namespace NGettext
         /// Similar to <c>gettext</c> function.
         /// </summary>
         /// <param name="text">Text to translate.</param>
-        /// <param name="useTranslation"></param>
+         /// <param name="useTranslation">Determine use tranlation in dictionart or use default text</param>
         /// <param name="args">Optional arguments for <see cref="System.String.Format(string, object[])"/> method.</param>
         /// <returns>Translated text.</returns>
         string GetString(string text, out bool useTranslation, params object[] args);
@@ -57,7 +57,7 @@ namespace NGettext
         /// <param name="text">Singular form of message to translate.</param>
         /// <param name="pluralText">Plural form of message to translate.</param>
         /// <param name="n">Value that determines the plural form.</param>
-        /// <param name="useTranslation"></param>
+         /// <param name="useTranslation">Determine use tranlation in dictionart or use default text</param>
         /// <returns>Translated text.</returns>
         string GetPluralString(string text, string pluralText, long n, out bool useTranslation);
 
@@ -78,7 +78,7 @@ namespace NGettext
         /// <param name="text">Singular form of message to translate.</param>
         /// <param name="pluralText">Plural form of message to translate.</param>
         /// <param name="n">Value that determines the plural form.</param>
-        /// <param name="useTranslation"></param>
+         /// <param name="useTranslation">Determine use tranlation in dictionart or use default text</param>
         /// <param name="args">Optional arguments for <see cref="System.String.Format(string, object[])"/> method.</param>
         /// <returns>Translated text.</returns>
         string GetPluralString(string text, string pluralText, long n, out bool useTranslation, params object[] args);
@@ -97,7 +97,7 @@ namespace NGettext
         /// </summary>
         /// <param name="context">Context.</param>
         /// <param name="text">Text to translate.</param>
-        /// <param name="useTranslation"></param>
+         /// <param name="useTranslation">Determine use tranlation in dictionart or use default text</param>
         /// <returns>Translated text.</returns>
         string GetParticularString(string context, string text, out bool useTranslation);
 
@@ -116,7 +116,7 @@ namespace NGettext
         /// </summary>
         /// <param name="context">Context.</param>
         /// <param name="text">Text to translate.</param>
-        /// <param name="useTranslation"></param>
+         /// <param name="useTranslation">Determine use tranlation in dictionart or use default text</param>
         /// <param name="args">Optional arguments for <see cref="System.String.Format(string, object[])"/> method.</param>
         /// <returns>Translated text.</returns>
         string GetParticularString(string context, string text, out bool useTranslation, params object[] args);
@@ -139,7 +139,7 @@ namespace NGettext
         /// <param name="text">Singular form of message to translate.</param>
         /// <param name="pluralText">Plural form of message to translate.</param>
         /// <param name="n">Value that determines the plural form.</param>
-        /// <param name="useTranslation"></param>
+         /// <param name="useTranslation">Determine use tranlation in dictionart or use default text</param>
         /// <returns>Translated text.</returns>
         string GetParticularPluralString(string context, string text, string pluralText, long n, out bool useTranslation);
 
@@ -162,7 +162,7 @@ namespace NGettext
         /// <param name="text">Singular form of message to translate.</param>
         /// <param name="pluralText">Plural form of message to translate.</param>
         /// <param name="n">Value that determines the plural form.</param>
-        /// <param name="useTranslation"></param>
+         /// <param name="useTranslation">Determine use tranlation in dictionart or use default text</param>
         /// <param name="args">Optional arguments for <see cref="System.String.Format(string, object[])"/> method.</param>
         /// <returns>Translated text.</returns>
         string GetParticularPluralString(string context, string text, string pluralText, long n, out bool useTranslation, params object[] args);
