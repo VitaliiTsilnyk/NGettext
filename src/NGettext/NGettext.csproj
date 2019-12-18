@@ -14,7 +14,7 @@
     <PackageId>NGettext</PackageId>
     <PackageTags>ngettext;gettext;internationalization;localization;i18n;l10n;translate</PackageTags>
     <PackageProjectUrl>https://github.com/neris/NGettext</PackageProjectUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/neris/NGettext/master/LICENSE</PackageLicenseUrl>
+    <PackageLicense>https://raw.githubusercontent.com/neris/NGettext/master/LICENSE</PackageLicense>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>git://github.com/neris/NGettext</RepositoryUrl>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
