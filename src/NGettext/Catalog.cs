@@ -335,10 +335,21 @@ namespace NGettext
 		/// <returns>Returns all translations for given <paramref name="messageId"/> or null if not found.</returns>
 		public virtual string[] GetTranslations(string messageId)
 		{
-			if (String.IsNullOrEmpty(messageId)) return null;
-			if (!this.Translations.ContainsKey(messageId)) return null;
+			if (!this.IsTranslationExist(messageId)) return null;
 
 			return this.Translations[messageId];
+		}
+
+		/// <summary>
+		/// Checks whether given message ID is present in the loaded translation list.
+		/// </summary>
+		/// <param name="messageId"></param>
+		/// <returns></returns>
+		public virtual bool IsTranslationExist(string messageId)
+		{
+			if (String.IsNullOrEmpty(messageId)) return false;
+			
+			return this.Translations.ContainsKey(messageId);
 		}
 	}
 }

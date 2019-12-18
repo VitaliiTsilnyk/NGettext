@@ -1,4 +1,4 @@
-NGettext [![Build Status](https://travis-ci.org/neris/NGettext.svg?branch=master)](https://travis-ci.org/neris/NGettext) [![Build Status](https://ci.appveyor.com/api/projects/status/oc151pvllqqy0po9?svg=true)](https://ci.appveyor.com/project/neris/ngettext) [![NuGet](https://img.shields.io/nuget/v/NGettext.svg?label=nuget:%20NGettext)](https://www.nuget.org/packages/NGettext/) [![NuGet](https://img.shields.io/nuget/v/NGettext.svg?label=nuget:%20NGettext.PluralCompile)](https://www.nuget.org/packages/NGettext.PluralCompile/)
+NGettext [![Build Status](https://travis-ci.org/VitaliiTsilnyk/NGettext.svg?branch=master)](https://travis-ci.org/VitaliiTsilnyk/NGettext) [![Build Status](https://ci.appveyor.com/api/projects/status/oc151pvllqqy0po9?svg=true)](https://ci.appveyor.com/project/neris/ngettext) [![NuGet](https://img.shields.io/nuget/v/NGettext.svg?label=nuget:%20NGettext)](https://www.nuget.org/packages/NGettext/) [![NuGet](https://img.shields.io/nuget/v/NGettext.svg?label=nuget:%20NGettext.PluralCompile)](https://www.nuget.org/packages/NGettext.PluralCompile/)
 ========
 
 A cross-platform .NET implementation of the GNU/Gettext library.
@@ -45,8 +45,8 @@ Build status
 |OS |Target frameworks (build)|Target frameworks (test)|Status|
 |:--|:--|:--|:--|
 |Windows|net20 net35 net40 net45 net46<br/>netstandard1.0 netstandard1.3 netstandard2.0<br/>.NETPortable,Version=v4.0,Profile=Profile136<br/>.NETPortable,Version=v4.0,Profile=Profile328|netcoreapp1.0<br/>netcoreapp2.0|[![Build Status](https://ci.appveyor.com/api/projects/status/oc151pvllqqy0po9?svg=true)](https://ci.appveyor.com/project/neris/ngettext)|
-|Linux|net20 net40 net45<br/>netstandard1.0 netstandard1.3 netstandard2.0<br/>.NETPortable,Version=v4.0,Profile=Profile136<br/>.NETPortable,Version=v4.0,Profile=Profile328|netcoreapp1.0<br/>netcoreapp2.0|[![Build Status](https://travis-ci.org/neris/NGettext.svg?branch=master)](https://travis-ci.org/neris/NGettext)|
-|Mac OS X|net20 net40 net45<br/>netstandard1.0 netstandard1.3 netstandard2.0<br/>.NETPortable,Version=v4.0,Profile=Profile136<br/>.NETPortable,Version=v4.0,Profile=Profile328|netcoreapp2.0|[![Build Status](https://travis-ci.org/neris/NGettext.svg?branch=master)](https://travis-ci.org/neris/NGettext)|
+|Linux|net20 net40 net45<br/>netstandard1.0 netstandard1.3 netstandard2.0<br/>.NETPortable,Version=v4.0,Profile=Profile136<br/>.NETPortable,Version=v4.0,Profile=Profile328|netcoreapp1.0<br/>netcoreapp2.0|[![Build Status](https://travis-ci.org/VitaliiTsilnyk/NGettext.svg?branch=master)](https://travis-ci.org/VitaliiTsilnyk/NGettext)|
+|Mac OS X|net20 net40 net45<br/>netstandard1.0 netstandard1.3 netstandard2.0<br/>.NETPortable,Version=v4.0,Profile=Profile136<br/>.NETPortable,Version=v4.0,Profile=Profile328|netcoreapp2.0|[![Build Status](https://travis-ci.org/VitaliiTsilnyk/NGettext.svg?branch=master)](https://travis-ci.org/VitaliiTsilnyk/NGettext)|
 
 
 

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>Provides support of plural rule compilation to the IL bytecode.</Description>
     <AssemblyTitle>NGettext.PluralCompile</AssemblyTitle>
-    <VersionPrefix>0.6.3</VersionPrefix>
+    <VersionPrefix>0.6.5</VersionPrefix>
     <Authors>Vitaly Zilnik</Authors>
     <TargetFrameworks>net20;net35;net40;net45;net46;netstandard1.3;netstandard2.0</TargetFrameworks>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
@@ -14,7 +14,7 @@
     <PackageId>NGettext.PluralCompile</PackageId>
     <PackageTags>ngettext;gettext;internationalization;localization;i18n;l10n;translate</PackageTags>
     <PackageProjectUrl>https://github.com/neris/NGettext</PackageProjectUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/neris/NGettext/master/LICENSE</PackageLicenseUrl>
+    <PackageLicense>https://raw.githubusercontent.com/neris/NGettext/master/LICENSE</PackageLicense>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>git://github.com/neris/NGettext</RepositoryUrl>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
