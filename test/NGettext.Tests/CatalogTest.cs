@@ -220,6 +220,16 @@ namespace NGettext.Tests
 			Assert.Equal(new[] { "value3plural1", "value3plural2" }, t.GetTranslations("key3"));
 			Assert.Equal(null, t.GetTranslations("key4"));
 		}
+		
+		[Fact]
+		public void TesIsTranslationExist()
+		{
+			var t = new Catalog(new CultureInfo("en-US"));
+			t.Translations.Add("key1", new[] { "value1" });
+
+			Assert.Equal(true, t.IsTranslationExist("key1"));
+			Assert.Equal(false, t.IsTranslationExist("key2"));
+		}
 
 		#endregion
 	}
