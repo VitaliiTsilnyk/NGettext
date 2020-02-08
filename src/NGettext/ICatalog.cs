@@ -86,5 +86,12 @@ namespace NGettext
 		/// <param name="args">Optional arguments for <see cref="System.String.Format(string, object[])"/> method.</param>
 		/// <returns>Translated text.</returns>
 		string GetParticularPluralString(string context, string text, string pluralText, long n, params object[] args);
+		
+		/// <summery>
+		/// Determine is translation exist in dictionary or not.
+		/// </summary>
+		/// <param name="messageId">Text to translate.</param>
+		/// <returns>Is translation for text exist.</returns>
+		bool IsTranslationExist(string messageId);
 	}
 }
