@@ -13,11 +13,11 @@
     <AssemblyName>NGettext.PluralCompile</AssemblyName>
     <PackageId>NGettext.PluralCompile</PackageId>
     <PackageTags>ngettext;gettext;internationalization;localization;i18n;l10n;translate</PackageTags>
-    <PackageProjectUrl>https://github.com/neris/NGettext</PackageProjectUrl>
-    <PackageLicense>https://raw.githubusercontent.com/neris/NGettext/master/LICENSE</PackageLicense>
+    <PackageProjectUrl>https://github.com/VitaliiTsilnyk/NGettext</PackageProjectUrl>
+    <PackageLicense>https://raw.githubusercontent.com/VitaliiTsilnyk/NGettext/master/LICENSE</PackageLicense>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>git://github.com/neris/NGettext</RepositoryUrl>
+    <RepositoryUrl>git://github.com/VitaliiTsilnyk/NGettext</RepositoryUrl>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
     <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
