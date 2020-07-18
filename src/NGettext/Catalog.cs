@@ -14,6 +14,7 @@ namespace NGettext
 	public class Catalog : ICatalog
 	{
 		private IPluralRule _PluralRule;
+		private IFormatProvider _FormatProvider;
 
 		/// <summary>
 		/// Context glue (&lt;EOT&gt; symbol)
@@ -24,6 +25,21 @@ namespace NGettext
 		/// Current catalog locale.
 		/// </summary>
 		public CultureInfo CultureInfo { get; protected set; }
+
+		/// <summary>
+		/// Current format provider.
+		/// Current catalog culture format provider will be used by default.
+		/// </summary>
+		public IFormatProvider FormatProvider
+		{
+			get { return this._FormatProvider; }
+			set
+			{
+				if (value == null)
+					throw new ArgumentNullException("value");
+				this._FormatProvider = value;
+			}
+		}
 
 		/// <summary>
 		/// Loaded raw translation strings.
@@ -64,6 +80,7 @@ namespace NGettext
 		public Catalog(CultureInfo cultureInfo)
 		{
 			this.CultureInfo = cultureInfo;
+			this.FormatProvider = cultureInfo;
 			this.Translations = new Dictionary<string, string[]>();
 			this.PluralRule = (new DefaultPluralRuleGenerator()).CreateRule(cultureInfo);
 		}
@@ -188,7 +205,7 @@ namespace NGettext
 		/// <returns>Translated text.</returns>
 		public virtual string GetString(string text, params object[] args)
 		{
-			return String.Format(this.CultureInfo, this.GetStringDefault(text, text), args);
+			return String.Format(this.FormatProvider, this.GetStringDefault(text, text), args);
 		}
 
 		/// <summary>
@@ -215,7 +232,7 @@ namespace NGettext
 		/// <returns>Translated text.</returns>
 		public virtual string GetPluralString(string text, string pluralText, long n, params object[] args)
 		{
-			return String.Format(this.CultureInfo, this.GetPluralStringDefault(text, text, pluralText, n), args);
+			return String.Format(this.FormatProvider, this.GetPluralStringDefault(text, text, pluralText, n), args);
 		}
 
 		/// <summary>
@@ -240,7 +257,7 @@ namespace NGettext
 		/// <returns>Translated text.</returns>
 		public virtual string GetParticularString(string context, string text, params object[] args)
 		{
-			return String.Format(this.CultureInfo, this.GetStringDefault(context + CONTEXT_GLUE + text, text), args);
+			return String.Format(this.FormatProvider, this.GetStringDefault(context + CONTEXT_GLUE + text, text), args);
 		}
 
 		/// <summary>
@@ -269,7 +286,7 @@ namespace NGettext
 		/// <returns>Translated text.</returns>
 		public virtual string GetParticularPluralString(string context, string text, string pluralText, long n, params object[] args)
 		{
-			return String.Format(this.CultureInfo, this.GetPluralStringDefault(context + CONTEXT_GLUE + text, text, pluralText, n), args);
+			return String.Format(this.FormatProvider, this.GetPluralStringDefault(context + CONTEXT_GLUE + text, text, pluralText, n), args);
 		}
 
 #endregion

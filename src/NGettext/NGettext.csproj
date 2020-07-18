@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>A cross-platform .NET implementation of the GNU/Gettext library.</Description>
     <AssemblyTitle>NGettext</AssemblyTitle>
-    <VersionPrefix>0.6.5</VersionPrefix>
+    <VersionPrefix>0.6.6</VersionPrefix>
     <Authors>Vitaly Zilnik</Authors>
     <TargetFrameworks>net20;net35;net40;net45;net46;portable-net40+sl5+win8+wp8;portable-net40+sl5+win8+wpa81+wp8;netstandard1.0;netstandard1.3;netstandard2.0</TargetFrameworks>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
@@ -13,10 +13,11 @@
     <AssemblyName>NGettext</AssemblyName>
     <PackageId>NGettext</PackageId>
     <PackageTags>ngettext;gettext;internationalization;localization;i18n;l10n;translate</PackageTags>
-    <PackageProjectUrl>https://github.com/neris/NGettext</PackageProjectUrl>
-    <PackageLicense>https://raw.githubusercontent.com/neris/NGettext/master/LICENSE</PackageLicense>
+    <PackageProjectUrl>https://github.com/VitaliiTsilnyk/NGettext</PackageProjectUrl>
+    <PackageLicense>https://raw.githubusercontent.com/VitaliiTsilnyk/NGettext/master/LICENSE</PackageLicense>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>git://github.com/neris/NGettext</RepositoryUrl>
+    <RepositoryUrl>git://github.com/VitaliiTsilnyk/NGettext</RepositoryUrl>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
     <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
