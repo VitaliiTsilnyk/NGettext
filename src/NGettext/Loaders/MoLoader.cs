@@ -291,7 +291,10 @@ namespace NGettext.Loaders
 		{
 			foreach (var translation in parsedMoFile.Translations)
 			{
-				catalog.Translations.Add(translation.Key, translation.Value);
+				if (!catalog.Translations.ContainsKey(translation.Key))
+					catalog.Translations.Add(translation.Key, translation.Value);
+				else
+					Trace.WriteLine(String.Format("Duplicate Translation Key: \"{0}\".", translation.Key), "NGettext");
 			}
 
 			if (parsedMoFile.Headers.ContainsKey("Plural-Forms"))
