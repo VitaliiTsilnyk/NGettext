@@ -3,14 +3,16 @@ using NGettext;
 
 //
 // Usage:
-//		T._("Hello, World!"); // GetString
-//		T._n("You have {0} apple.", "You have {0} apples.", count, count); // GetPluralString
-//		T._p("Context", "Hello, World!"); // GetParticularString
-//		T._pn("Context", "You have {0} apple.", "You have {0} apples.", count, count); // GetParticularPluralString
+//		using static Example.NGettextShortSyntax;
+//		
+//		_("Hello, World!"); // GetString
+//		_n("You have {0} apple.", "You have {0} apples.", count, count); // GetPluralString
+//		_p("Context", "Hello, World!"); // GetParticularString
+//		_pn("Context", "You have {0} apple.", "You have {0} apples.", count, count); // GetParticularPluralString
 //
 namespace Example
 {
-	internal class T
+	internal static class NGettextShortSyntax
 	{
 		private static readonly ICatalog _Catalog = new Catalog("Example", "./locale");
 

@@ -190,6 +190,20 @@ a PluralRule for any culture.
 
 
 
+### Short syntax
+
+In the `samples/NGettextShortSyntax.cs` file you can see an example of a shorter C-style syntax for NGettext catalog usage:
+```csharp
+	using static Example.NGettextShortSyntax;
+	
+	_("Hello, World!"); // GetString
+	_n("You have {0} apple.", "You have {0} apples.", count, count); // GetPluralString
+	_p("Context", "Hello, World!"); // GetParticularString
+	_pn("Context", "You have {0} apple.", "You have {0} apples.", count, count); // GetParticularPluralString
+```
+
+
+
 Debugging
 ---------
 
@@ -199,19 +213,6 @@ Please note that Release version of the NGettext binary does not produse any tra
 
 ```csharp
 	Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
-```
-
-
-
-Shorter syntax
---------------
-
-In `doc/examples/T.cs` you can see an example of shorter syntax creation for NGettext:
-```csharp
-	T._("Hello, World!"); // GetString
-	T._n("You have {0} apple.", "You have {0} apples.", count, count); // GetPluralString
-	T._p("Context", "Hello, World!"); // GetParticularString
-	T._pn("Context", "You have {0} apple.", "You have {0} apples.", count, count); // GetParticularPluralString
 ```
 
 
