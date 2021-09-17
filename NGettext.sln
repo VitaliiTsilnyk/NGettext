@@ -17,9 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E9CE19D0-FF12-4ACE-86D2-5B649D56E11C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{4AAD088A-469B-4766-81D9-E0878F20638F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{4AAD088A-469B-4766-81D9-E0878F20638F}"
 	ProjectSection(SolutionItems) = preProject
-		doc\examples\T.cs = doc\examples\T.cs
+		samples\NGettextShortSyntax.cs = samples\NGettextShortSyntax.cs
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NGettext", "src\NGettext\NGettext.csproj", "{33C0696F-A974-45D1-8979-C30FA9C0FCF1}"
