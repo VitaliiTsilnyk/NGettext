@@ -352,6 +352,7 @@ namespace NGettext
 		/// <returns>Returns all translations for given <paramref name="messageId"/> or null if not found.</returns>
 		public virtual string[] GetTranslations(string messageId)
 		{
+			messageId = messageId.Replace("\r\n", "\n");
 			if (!this.IsTranslationExist(messageId)) return null;
 
 			return this.Translations[messageId];
@@ -364,6 +365,7 @@ namespace NGettext
 		/// <returns></returns>
 		public virtual bool IsTranslationExist(string messageId)
 		{
+			messageId = messageId.Replace("\r\n", "\n");
 			if (String.IsNullOrEmpty(messageId)) return false;
 			
 			return this.Translations.ContainsKey(messageId);
