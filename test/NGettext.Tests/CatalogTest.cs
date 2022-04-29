@@ -25,6 +25,15 @@ namespace NGettext.Tests
 		}
 
 		[Fact]
+		public void TestGetStringCRLFBasedLiterals()
+		{
+			var t = new Catalog();
+			t.Translations.Add("foo\nbar\nbaz", new[] { "value1" });
+
+			Assert.Equal("value1", t.GetString("foo\r\nbar\r\nbaz"));
+		}
+
+		[Fact]
 		public void TestGetStringFormat()
 		{
 			var t = new Catalog();
